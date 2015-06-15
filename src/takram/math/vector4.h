@@ -87,6 +87,12 @@ class Vector<T, 4> final {
   template <class U>
   Vector(const Vector4<U>& other);
 
+#if TAKRAM_HAS_OPENCV
+  template <class U>
+  Vector(const cv::Vec<U, dimensions>& other);
+  operator cv::Vec<T, dimensions>() const;
+#endif  // TAKRAM_HAS_OPENCV
+
 #if TAKRAM_HAS_OPENFRAMEWORKS
   Vector(const ofVec4f& other);
   operator ofVec4f() const;
@@ -290,6 +296,20 @@ inline Vector4<T>::Vector(const Vector4<U>& other)
       y(other.y),
       z(other.z),
       w(other.w) {}
+
+#if TAKRAM_HAS_OPENCV
+
+template <class T>
+template <class U>
+inline Vector4<T>::Vector(const cv::Vec<U, dimensions>& other)
+    : Vector(other.val, dimensions) {}
+
+template <class T>
+inline Vector4<T>::operator cv::Vec<T, dimensions>() const {
+  return cv::Vec<T, dimensions>(x, y, z, w);
+}
+
+#endif  // TAKRAM_HAS_OPENCV
 
 #if TAKRAM_HAS_OPENFRAMEWORKS
 

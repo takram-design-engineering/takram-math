@@ -28,6 +28,10 @@
 #ifndef TAKRAM_MATH_H_
 #define TAKRAM_MATH_H_
 
+#define TAKRAM_HAS_OPENCV 1
+#define TAKRAM_HAS_OPENFRAMEWORKS 1
+#define TAKRAM_HAS_CINDER 1
+
 #include "takram/math/axis.h"
 #include "takram/math/constants.h"
 #include "takram/math/functions.h"

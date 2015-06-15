@@ -34,6 +34,18 @@
 #include <ostream>
 #include <tuple>
 
+#if TAKRAM_HAS_OPENCV
+#include "opencv2/core/core.hpp"
+#endif  // TAKRAM_HAS_OPENCV
+
+#if TAKRAM_HAS_OPENFRAMEWORKS
+#include "ofVec2f.h"
+#endif  // TAKRAM_HAS_OPENFRAMEWORKS
+
+#if TAKRAM_HAS_CINDER
+#include "cinder/Vector.h"
+#endif  // TAKRAM_HAS_CINDER
+
 #include "takram/math/axis.h"
 #include "takram/math/enablers.h"
 #include "takram/math/promotion.h"
@@ -72,6 +84,23 @@ class Size<T, 2> final {
   // Implicit conversion
   template <class U>
   Size(const Size2<U>& other);
+
+#if TAKRAM_HAS_OPENCV
+  template <class U>
+  Size(const cv::Size_<U>& other);
+  operator cv::Size_<T>() const;
+#endif  // TAKRAM_HAS_OPENCV
+
+#if TAKRAM_HAS_OPENFRAMEWORKS
+  Size(const ofVec2f& other);
+  operator ofVec2f() const;
+#endif  // TAKRAM_HAS_OPENFRAMEWORKS
+
+#if TAKRAM_HAS_CINDER
+  template <class U>
+  Size(const ci::Vec2<U>& other);
+  operator ci::Vec2<T>() const;
+#endif  // TAKRAM_HAS_CINDER
 
   // Explicit conversion
   template <class U>
@@ -238,6 +267,45 @@ inline Size2<T>::Size(std::initializer_list<T> list) : vector(list) {}
 template <class T>
 template <class U>
 inline Size2<T>::Size(const Size2<U>& other) : vector(other.vector) {}
+
+#if TAKRAM_HAS_OPENCV
+
+template <class T>
+template <class U>
+inline Size2<T>::Size(const cv::Size_<U>& other)
+    : vector(other.width, other.height) {}
+
+template <class T>
+inline Size2<T>::operator cv::Size_<T>() const {
+  return cv::Size_<T>(width, height);
+}
+
+#endif  // TAKRAM_HAS_OPENCV
+
+#if TAKRAM_HAS_OPENFRAMEWORKS
+
+template <class T>
+inline Size2<T>::Size(const ofVec2f& other) : vector(other) {}
+
+template <class T>
+inline Size2<T>::operator ofVec2f() const {
+  return ofVec2f(vector);
+}
+
+#endif  // TAKRAM_HAS_OPENFRAMEWORKS
+
+#if TAKRAM_HAS_CINDER
+
+template <class T>
+template <class U>
+inline Size2<T>::Size(const ci::Vec2<U>& other) : vector(other) {}
+
+template <class T>
+inline Size2<T>::operator ci::Vec2<T>() const {
+  return ci::Vec2<T>(vector);
+}
+
+#endif  // TAKRAM_HAS_CINDER
 
 #pragma mark Explicit conversion
 

@@ -94,7 +94,10 @@ class Vector<T, 3> final {
 #if TAKRAM_HAS_OPENCV
   template <class U>
   Vector(const cv::Point3_<U>& other);
+  template <class U>
+  Vector(const cv::Vec<U, dimensions>& other);
   operator cv::Point3_<T>() const;
+  operator cv::Vec<T, dimensions>() const;
 #endif  // TAKRAM_HAS_OPENCV
 
 #if TAKRAM_HAS_OPENFRAMEWORKS
@@ -313,8 +316,18 @@ inline Vector3<T>::Vector(const cv::Point3_<U>& other)
       z(other.z) {}
 
 template <class T>
+template <class U>
+inline Vector3<T>::Vector(const cv::Vec<U, dimensions>& other)
+    : Vector(other.val, dimensions) {}
+
+template <class T>
 inline Vector3<T>::operator cv::Point3_<T>() const {
   return cv::Point3_<T>(x, y, z);
+}
+
+template <class T>
+inline Vector3<T>::operator cv::Vec<T, dimensions>() const {
+  return cv::Vec<T, dimensions>(x, y, z);
 }
 
 #endif  // TAKRAM_HAS_OPENCV

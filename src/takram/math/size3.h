@@ -34,6 +34,14 @@
 #include <ostream>
 #include <tuple>
 
+#if TAKRAM_HAS_OPENFRAMEWORKS
+#include "ofVec2f.h"
+#endif  // TAKRAM_HAS_OPENFRAMEWORKS
+
+#if TAKRAM_HAS_CINDER
+#include "cinder/Vector.h"
+#endif  // TAKRAM_HAS_CINDER
+
 #include "takram/math/axis.h"
 #include "takram/math/enablers.h"
 #include "takram/math/promotion.h"
@@ -72,6 +80,17 @@ class Size<T, 3> final {
   // Implicit conversion
   template <class U>
   Size(const Size3<U>& other);
+
+#if TAKRAM_HAS_OPENFRAMEWORKS
+  Size(const ofVec3f& other);
+  operator ofVec3f() const;
+#endif  // TAKRAM_HAS_OPENFRAMEWORKS
+
+#if TAKRAM_HAS_CINDER
+  template <class U>
+  Size(const ci::Vec3<U>& other);
+  operator ci::Vec3<T>() const;
+#endif  // TAKRAM_HAS_CINDER
 
   // Explicit conversion
   template <class U>
@@ -241,6 +260,31 @@ inline Size3<T>::Size(std::initializer_list<T> list) : vector(list) {}
 template <class T>
 template <class U>
 inline Size3<T>::Size(const Size3<U>& other) : vector(other.vector) {}
+
+#if TAKRAM_HAS_OPENFRAMEWORKS
+
+template <class T>
+inline Size3<T>::Size(const ofVec3f& other) : vector(other) {}
+
+template <class T>
+inline Size3<T>::operator ofVec3f() const {
+  return ofVec3f(vector);
+}
+
+#endif  // TAKRAM_HAS_OPENFRAMEWORKS
+
+#if TAKRAM_HAS_CINDER
+
+template <class T>
+template <class U>
+inline Size3<T>::Size(const ci::Vec3<U>& other) : vector(other) {}
+
+template <class T>
+inline Size3<T>::operator ci::Vec3<T>() const {
+  return ci::Vec3<T>(vector);
+}
+
+#endif  // TAKRAM_HAS_CINDER
 
 #pragma mark Explicit conversion
 
