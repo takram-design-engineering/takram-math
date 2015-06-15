@@ -37,7 +37,7 @@
 #include <tuple>
 
 #if TAKRAM_HAS_OPENCV
-#include "opencv2/core/core.hpp"
+#include "opencv2/core/core.hpp"
 #endif  // TAKRAM_HAS_OPENCV
 
 #if TAKRAM_HAS_OPENFRAMEWORKS
