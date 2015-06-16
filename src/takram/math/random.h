@@ -49,9 +49,7 @@ class Random final {
 
   // Copy semantics
   Random(const Random& other) = default;
-  Random(Random&& other) = default;
   Random& operator=(const Random& other) = default;
-  Random& operator=(Random&& other) = default;
 
   // Random generation
   void seed(Type value);
@@ -77,6 +75,14 @@ class Random final {
 };
 
 #pragma mark -
+
+Random random;
+
+// Uniform distribution ranges from 0 to the max int
+random.uniform<int>(std::numeric_limits<int>::max());
+
+// Gaussian (normal) distribution of mean 0 and standard deviation 1
+random.gaussian<double>();
 
 template <class Engine>
 inline Random<Engine>::Random() : engine_(std::random_device()()) {}

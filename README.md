@@ -5,7 +5,6 @@ A collection of C++ classes and functions to compute common mathematical operati
 
 ### Classes
 
-- [`takram::math::Promote`](src/takram/math/promotion.h)
 - [`takram::math::Random`](src/takram/math/random.h)
 - [`takram::math::Vector2`](src/takram/math/vector2.h)
 - [`takram::math::Vector3`](src/takram/math/vector3.h)
@@ -17,6 +16,37 @@ A collection of C++ classes and functions to compute common mathematical operati
 - [`takram::math::Triangle2`](src/takram/math/triangle2.h)
 - [`takram::math::Triangle3`](src/takram/math/triangle3.h)
 - [`takram::math::Rect`](src/takram/math/rect.h)
+
+## Examples
+
+### Random
+
+[Random](src/takram/math/promotion.h) is a wrapper of STL’s random number library designed for providing a simpler interface.
+
+```
+#include <limits>
+
+Random random;
+
+// Uniform distribution ranges from 0 to the max int
+random.uniform<int>(std::numeric_limits<int>::max());
+
+// Gaussian (normal) distribution of mean 0 and standard deviation 1
+random.gaussian<double>();
+```
+
+### Implicit Type Conversions
+
+[Vector](src/takram/math/vector.h), [Size](src/takram/math/size.h) and [Rect](src/takram/math/rect.h) are implicitly convertible to/from corresponding types of OpenCV, openFrameworks and Cinder.
+
+| | OpenCV | openFrameworks | Cinder   
+|---------|------------|----------------|----------
+| [Vector2](src/takram/math/vector2.h) | cv::Point | ofVec2f | ci::Vec2 
+| [Vector3](src/takram/math/vector3.h) | cv::Point3 | ofVec3f | ci::Vec3 
+| [Vector4](src/takram/math/vector4.h) | | ofVec4f | ci::Vec4 
+| [Size2](src/takram/math/size2.h) | cv::Size   | |          
+| [Size3](src/takram/math/size3.h) | | |          
+| [Rect](src/takram/math/rect.h) | cv::Rect | ofRectangle | ci::Rect 
 
 ## Setup Guide
 
