@@ -1,7 +1,7 @@
 Math
 ====
 
-A collection of C++ classes that defines classes and functions to compute common mathematical operations and transformations that interoperate with common creative-coding libraries (WIP).
+A collection of C++ classes and functions to compute common mathematical operations and transformations that interoperate with common creative-coding libraries (WIP).
 
 ### Classes
 
