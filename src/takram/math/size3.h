@@ -81,23 +81,23 @@ class Size<T, 3> final {
   template <class U>
   Size(const Size3<U>& other);
 
-#if TAKRAM_HAS_OPENFRAMEWORKS
-  Size(const ofVec3f& other);
-  operator ofVec3f() const;
-#endif  // TAKRAM_HAS_OPENFRAMEWORKS
-
-#if TAKRAM_HAS_CINDER
-  template <class U>
-  Size(const ci::Vec3<U>& other);
-  operator ci::Vec3<T>() const;
-#endif  // TAKRAM_HAS_CINDER
-
   // Explicit conversion
   template <class U>
   explicit Size(const Size2<U>& other);
   explicit Size(const Vector2<T>& other);
   explicit Size(const Vector3<T>& other);
   explicit Size(const Vector4<T>& other);
+
+#if TAKRAM_HAS_OPENFRAMEWORKS
+  explicit Size(const ofVec3f& other);
+  explicit operator ofVec3f() const;
+#endif  // TAKRAM_HAS_OPENFRAMEWORKS
+
+#if TAKRAM_HAS_CINDER
+  template <class U>
+  explicit Size(const ci::Vec3<U>& other);
+  explicit operator ci::Vec3<T>() const;
+#endif  // TAKRAM_HAS_CINDER
 
   // Copy semantics
   Size(const Size3<T>& other);
@@ -261,6 +261,21 @@ template <class T>
 template <class U>
 inline Size3<T>::Size(const Size3<U>& other) : vector(other.vector) {}
 
+#pragma mark Explicit conversion
+
+template <class T>
+template <class U>
+inline Size3<T>::Size(const Size2<U>& other) : vector(other.vector) {}
+
+template <class T>
+inline Size3<T>::Size(const Vector2<T>& other) : vector(other) {}
+
+template <class T>
+inline Size3<T>::Size(const Vector3<T>& other) : vector(other) {}
+
+template <class T>
+inline Size3<T>::Size(const Vector4<T>& other) : vector(other) {}
+
 #if TAKRAM_HAS_OPENFRAMEWORKS
 
 template <class T>
@@ -281,25 +296,10 @@ inline Size3<T>::Size(const ci::Vec3<U>& other) : vector(other) {}
 
 template <class T>
 inline Size3<T>::operator ci::Vec3<T>() const {
-  return ci::Vec3<T>(vector);
+  return ci::Vec3<T>(width, height, depth);
 }
 
 #endif  // TAKRAM_HAS_CINDER
-
-#pragma mark Explicit conversion
-
-template <class T>
-template <class U>
-inline Size3<T>::Size(const Size2<U>& other) : vector(other.vector) {}
-
-template <class T>
-inline Size3<T>::Size(const Vector2<T>& other) : vector(other) {}
-
-template <class T>
-inline Size3<T>::Size(const Vector3<T>& other) : vector(other) {}
-
-template <class T>
-inline Size3<T>::Size(const Vector4<T>& other) : vector(other) {}
 
 #pragma mark Copy semantics
 
@@ -556,21 +556,25 @@ inline const Size3<Promote<T, U>> operator*(U scalar, const Size3<T>& size) {
 template <class T>
 inline Size3<T>& Size3<T>::operator+=(const Vector3<T>& other) {
   vector += other;
+  return *this;
 }
 
 template <class T>
 inline Size3<T>& Size3<T>::operator-=(const Vector3<T>& other) {
   vector -= other;
+  return *this;
 }
 
 template <class T>
 inline Size3<T>& Size3<T>::operator*=(const Vector3<T>& other) {
   vector *= other;
+  return *this;
 }
 
 template <class T>
 inline Size3<T>& Size3<T>::operator/=(const Vector3<T>& other) {
   vector /= other;
+  return *this;
 }
 
 template <class T>
@@ -631,7 +635,7 @@ inline Promote<T> Size3<T>::volume() const {
 
 template <class T>
 inline Promote<T> Size3<T>::diagonal() const {
-  return vector.length();
+  return vector.magnitude();
 }
 
 #pragma mark Stream

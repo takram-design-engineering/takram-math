@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		930955321A4FB46600D09023 /* libtakram_math.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9309550E1A4FB1FC00D09023 /* libtakram_math.dylib */; };
+		936798391B2FB069004BE30A /* rect.h in Headers */ = {isa = PBXBuildFile; fileRef = 936798381B2FB069004BE30A /* rect.h */; };
+		9367983A1B2FB069004BE30A /* rect.h in Headers */ = {isa = PBXBuildFile; fileRef = 936798381B2FB069004BE30A /* rect.h */; };
 		93D7E3EE1B2C1C34006EA047 /* axis.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3D21B2C1C34006EA047 /* axis.h */; };
 		93D7E3EF1B2C1C34006EA047 /* axis.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3D21B2C1C34006EA047 /* axis.h */; };
 		93D7E3F01B2C1C34006EA047 /* constants.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3D31B2C1C34006EA047 /* constants.h */; };
@@ -76,6 +78,7 @@
 		930959301A5062D400D09023 /* project_debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = project_debug.xcconfig; sourceTree = "<group>"; };
 		930959311A5062D400D09023 /* project_release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = project_release.xcconfig; sourceTree = "<group>"; };
 		930959321A5062D400D09023 /* project.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = project.xcconfig; sourceTree = "<group>"; };
+		936798381B2FB069004BE30A /* rect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rect.h; sourceTree = "<group>"; };
 		93C6B51519B22F5500A1CF93 /* libtakram_math.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libtakram_math.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		93D7E3D21B2C1C34006EA047 /* axis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = axis.h; sourceTree = "<group>"; };
 		93D7E3D31B2C1C34006EA047 /* constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = constants.h; sourceTree = "<group>"; };
@@ -179,6 +182,7 @@
 				93D7E3E51B2C1C34006EA047 /* triangle.h */,
 				93D7E3E61B2C1C34006EA047 /* triangle2.h */,
 				93D7E3E71B2C1C34006EA047 /* triangle3.h */,
+				936798381B2FB069004BE30A /* rect.h */,
 			);
 			path = math;
 			sourceTree = "<group>";
@@ -232,6 +236,7 @@
 				93D7E3F81B2C1C34006EA047 /* line3.h in Headers */,
 				93D7E3F41B2C1C34006EA047 /* line.h in Headers */,
 				93D7E3F01B2C1C34006EA047 /* constants.h in Headers */,
+				936798391B2FB069004BE30A /* rect.h in Headers */,
 				93D7E3F21B2C1C34006EA047 /* functions.h in Headers */,
 				93D7E3EE1B2C1C34006EA047 /* axis.h in Headers */,
 				93D7E4141B2C1C34006EA047 /* triangle.h in Headers */,
@@ -259,6 +264,7 @@
 				93D7E3F91B2C1C34006EA047 /* line3.h in Headers */,
 				93D7E3F51B2C1C34006EA047 /* line.h in Headers */,
 				93D7E3F11B2C1C34006EA047 /* constants.h in Headers */,
+				9367983A1B2FB069004BE30A /* rect.h in Headers */,
 				93D7E3F31B2C1C34006EA047 /* functions.h in Headers */,
 				93D7E3EF1B2C1C34006EA047 /* axis.h in Headers */,
 				93D7E4151B2C1C34006EA047 /* triangle.h in Headers */,

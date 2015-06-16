@@ -38,6 +38,7 @@
 #include "takram/math/line.h"
 #include "takram/math/promotion.h"
 #include "takram/math/random.h"
+#include "takram/math/rect.h"
 #include "takram/math/size.h"
 #include "takram/math/triangle.h"
 #include "takram/math/vector.h"

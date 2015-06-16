@@ -91,23 +91,23 @@ class Size<T, 2> final {
   operator cv::Size_<T>() const;
 #endif  // TAKRAM_HAS_OPENCV
 
-#if TAKRAM_HAS_OPENFRAMEWORKS
-  Size(const ofVec2f& other);
-  operator ofVec2f() const;
-#endif  // TAKRAM_HAS_OPENFRAMEWORKS
-
-#if TAKRAM_HAS_CINDER
-  template <class U>
-  Size(const ci::Vec2<U>& other);
-  operator ci::Vec2<T>() const;
-#endif  // TAKRAM_HAS_CINDER
-
   // Explicit conversion
   template <class U>
   explicit Size(const Size3<U>& other);
   explicit Size(const Vector2<T>& other);
   explicit Size(const Vector3<T>& other);
   explicit Size(const Vector4<T>& other);
+
+#if TAKRAM_HAS_OPENFRAMEWORKS
+  explicit Size(const ofVec2f& other);
+  explicit operator ofVec2f() const;
+#endif  // TAKRAM_HAS_OPENFRAMEWORKS
+
+#if TAKRAM_HAS_CINDER
+  template <class U>
+  explicit Size(const ci::Vec2<U>& other);
+  explicit operator ci::Vec2<T>() const;
+#endif  // TAKRAM_HAS_CINDER
 
   // Copy semantics
   Size(const Size2<T>& other);
@@ -282,6 +282,21 @@ inline Size2<T>::operator cv::Size_<T>() const {
 
 #endif  // TAKRAM_HAS_OPENCV
 
+#pragma mark Explicit conversion
+
+template <class T>
+template <class U>
+inline Size2<T>::Size(const Size3<U>& other) : vector(other.vector) {}
+
+template <class T>
+inline Size2<T>::Size(const Vector2<T>& other) : vector(other) {}
+
+template <class T>
+inline Size2<T>::Size(const Vector3<T>& other) : vector(other) {}
+
+template <class T>
+inline Size2<T>::Size(const Vector4<T>& other) : vector(other) {}
+
 #if TAKRAM_HAS_OPENFRAMEWORKS
 
 template <class T>
@@ -306,21 +321,6 @@ inline Size2<T>::operator ci::Vec2<T>() const {
 }
 
 #endif  // TAKRAM_HAS_CINDER
-
-#pragma mark Explicit conversion
-
-template <class T>
-template <class U>
-inline Size2<T>::Size(const Size3<U>& other) : vector(other.vector) {}
-
-template <class T>
-inline Size2<T>::Size(const Vector2<T>& other) : vector(other) {}
-
-template <class T>
-inline Size2<T>::Size(const Vector3<T>& other) : vector(other) {}
-
-template <class T>
-inline Size2<T>::Size(const Vector4<T>& other) : vector(other) {}
 
 #pragma mark Copy semantics
 
