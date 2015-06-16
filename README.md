@@ -23,7 +23,7 @@ A collection of C++ classes and functions to compute common mathematical operati
 
 [Random](src/takram/math/promotion.h) is a wrapper of STL’s random number library designed for providing a simpler interface.
 
-```
+```cpp
 #include <limits>
 
 Random random;
