@@ -41,10 +41,13 @@ random.gaussian<double>();
 
 All types in this module promote the return type of arithmetic operators in the same way built-in arithmetic types do. Some member functions like `magnitude()` also promote the return type. The magnitude of a vector of integral type is promoted to double, but that of float remains float.
 
-```
+```cpp
+#include "takram/math/vector.h"
+
 takram::Vec2i veci;
 takram::Vec2d vecd;
 takram::Vec2f vecf;
+
 veci + veci;  // Vector2<double>
 veci + vecf;  // Vector2<double>
 veci + vecd;  // Vector2<double>
