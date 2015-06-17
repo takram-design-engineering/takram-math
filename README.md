@@ -46,7 +46,7 @@ takram::Vec2i veci;
 takram::Vec2d vecd;
 takram::Vec2f vecf;
 veci + veci;  // Vector2<double>
-veci + vecf;  // Vector2<float>
+veci + vecf;  // Vector2<double>
 veci + vecd;  // Vector2<double>
 vecf + vecf;  // Vector2<float>
 vecf + vecd;  // Vector2<double>
