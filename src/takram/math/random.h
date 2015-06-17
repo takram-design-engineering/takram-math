@@ -55,8 +55,10 @@ class Random final {
   void seed(Type value);
   void randomize();
   Type next();
-  template <class Distribution>
-  Type next(Distribution *distribution);
+
+  // Random engine
+  Engine& engine() { return engine_; }
+  const Engine& engine() const { return engine_; }
 
   // Distribution
   template <class T>
@@ -97,14 +99,6 @@ inline void Random<Engine>::randomize() {
 template <class Engine>
 inline typename Random<Engine>::Type Random<Engine>::next() {
   return engine_();
-}
-
-template <class Engine>
-template <class Distribution>
-inline typename Random<Engine>::Type Random<Engine>::next(
-    Distribution *distribution) {
-  assert(distribution);
-  return (*distribution)(engine_);
 }
 
 #pragma mark Distribution
