@@ -21,18 +21,35 @@ A collection of C++ classes and functions to compute common mathematical operati
 
 ### Random
 
-[Random](src/takram/math/promotion.h) is a wrapper of STL’s random number library designed for providing a simpler interface.
+[Random](src/takram/math/random.h) is a wrapper of STL’s random number library designed for providing a simpler interface.
 
 ```cpp
 #include <limits>
 
-Random random;
+#include "takram/math/random.h"
+
+takram::Random random;
 
 // Uniform distribution ranges from 0 to the max int
 random.uniform<int>(std::numeric_limits<int>::max());
 
 // Gaussian (normal) distribution of mean 0 and standard deviation 1
 random.gaussian<double>();
+```
+
+### Return Type Promotion
+
+All types in this module promote the return type of arithmetic operators in the same way built-in arithmetic types do. Some member functions like `magnitude()` also promote the return type. The magnitude of a vector of integral type is promoted to double, but that of float remains float.
+
+```
+takram::Vec2i veci;
+takram::Vec2d vecd;
+takram::Vec2f vecf;
+veci + veci;  // Vector2<double>
+veci + vecf;  // Vector2<float>
+veci + vecd;  // Vector2<double>
+vecf + vecf;  // Vector2<float>
+vecf + vecd;  // Vector2<double>
 ```
 
 ### Implicit Type Conversions
