@@ -44,6 +44,11 @@ using EnableIfFloating = typename std::enable_if<
     std::is_floating_point<T>::value, U>::type;
 
 }  // namespace math
+
+using math::EnableIfScalar;
+using math::EnableIfIntegral;
+using math::EnableIfFloating;
+
 }  // namespace takram
 
 #endif  // TAKRAM_MATH_ENABLERS_H_

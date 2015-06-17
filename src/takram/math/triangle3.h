@@ -259,6 +259,12 @@ inline std::ostream& operator<<(std::ostream& os, const Triangle3<T>& other) {
 }
 
 }  // namespace math
+
+using math::Triangle;
+using math::Triangle3i;
+using math::Triangle3f;
+using math::Triangle3d;
+
 }  // namespace takram
 
 #endif  // TAKRAM_MATH_TRIANGLE3_H_

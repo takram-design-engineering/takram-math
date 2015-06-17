@@ -271,6 +271,12 @@ inline std::ostream& operator<<(std::ostream& os, const Line2<T>& other) {
 }
 
 }  // namespace math
+
+using math::Line;
+using math::Line2i;
+using math::Line2f;
+using math::Line2d;
+
 }  // namespace takram
 
 #endif  // TAKRAM_MATH_LINE2_H_

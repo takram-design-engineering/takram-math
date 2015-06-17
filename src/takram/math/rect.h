@@ -195,6 +195,12 @@ using Recti = Rect<int>;
 using Rectf = Rect<float>;
 using Rectd = Rect<double>;
 
+template <class T>
+using Rectangle = Rect<T>;
+using Rectanglei = Rect<int>;
+using Rectanglef = Rect<float>;
+using Rectangled = Rect<double>;
+
 #pragma mark -
 
 template <class T>
@@ -581,6 +587,16 @@ inline std::ostream& operator<<(std::ostream& os, const Rect<T>& other) {
 }
 
 }  // namespace math
+
+using math::Rect;
+using math::Recti;
+using math::Rectf;
+using math::Rectd;
+using math::Rectangle;
+using math::Rectanglei;
+using math::Rectanglef;
+using math::Rectangled;
+
 }  // namespace takram
 
 #endif  // TAKRAM_MATH_RECT_H_

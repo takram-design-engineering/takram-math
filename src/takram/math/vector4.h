@@ -832,6 +832,16 @@ inline std::ostream& operator<<(std::ostream& os, const Vector4<T>& other) {
 }
 
 }  // namespace math
+
+using math::Vector;
+using math::Vector4i;
+using math::Vector4f;
+using math::Vector4d;
+using math::Vec4;
+using math::Vec4i;
+using math::Vec4f;
+using math::Vec4d;
+
 }  // namespace takram
 
 #endif  // TAKRAM_MATH_VECTOR4_H_

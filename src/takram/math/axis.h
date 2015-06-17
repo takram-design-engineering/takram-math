@@ -55,6 +55,9 @@ inline std::ostream& operator<<(std::ostream& os, Axis axis) {
 }
 
 }  // namespace math
+
+using math::Axis;
+
 }  // namespace takram
 
 #endif  // TAKRAM_MATH_AXIS_H_

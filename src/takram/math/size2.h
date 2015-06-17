@@ -657,6 +657,12 @@ inline std::ostream& operator<<(std::ostream& os, const Size2<T>& other) {
 }
 
 }  // namespace math
+
+using math::Size;
+using math::Size2i;
+using math::Size2f;
+using math::Size2d;
+
 }  // namespace takram
 
 #endif  // TAKRAM_MATH_SIZE2_H_

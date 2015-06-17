@@ -76,14 +76,6 @@ class Random final {
 
 #pragma mark -
 
-Random random;
-
-// Uniform distribution ranges from 0 to the max int
-random.uniform<int>(std::numeric_limits<int>::max());
-
-// Gaussian (normal) distribution of mean 0 and standard deviation 1
-random.gaussian<double>();
-
 template <class Engine>
 inline Random<Engine>::Random() : engine_(std::random_device()()) {}
 
@@ -153,6 +145,9 @@ inline T Random<Engine>::gaussian(Promote<T> mean, Promote<T> stddev) {
 }
 
 }  // namespace math
+
+using math::Random;
+
 }  // namespace takram
 
 #endif  // TAKRAM_MATH_RANDOM_H_
