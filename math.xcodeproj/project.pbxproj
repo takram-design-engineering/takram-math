@@ -107,7 +107,7 @@
 		93D7E4341B2C23E8006EA047 /* enablers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = enablers.h; sourceTree = "<group>"; };
 		93D7E45B1B2C3D4A006EA047 /* math.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = math.cc; sourceTree = "<group>"; };
 		93D7E45E1B2C4119006EA047 /* random_test.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = random_test.cc; sourceTree = "<group>"; };
-		93F1B9F6180282B0002A5A5C /* math_test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = math_test; sourceTree = BUILT_PRODUCTS_DIR; };
+		93F1B9F6180282B0002A5A5C /* takram_math_test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = takram_math_test; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -216,7 +216,7 @@
 			children = (
 				9309550E1A4FB1FC00D09023 /* libtakram_math.dylib */,
 				93C6B51519B22F5500A1CF93 /* libtakram_math.a */,
-				93F1B9F6180282B0002A5A5C /* math_test */,
+				93F1B9F6180282B0002A5A5C /* takram_math_test */,
 			);
 			name = products;
 			sourceTree = "<group>";
@@ -331,7 +331,7 @@
 			);
 			name = math_test;
 			productName = sgss_opaque_test;
-			productReference = 93F1B9F6180282B0002A5A5C /* math_test */;
+			productReference = 93F1B9F6180282B0002A5A5C /* takram_math_test */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -415,7 +415,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				EXECUTABLE_PREFIX = lib;
 				INSTALL_PATH = "@rpath";
-				PRODUCT_NAME = takram_math;
+				PRODUCT_NAME = "takram_$(PROJECT_NAME)";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -428,7 +428,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				EXECUTABLE_PREFIX = lib;
 				INSTALL_PATH = "@rpath";
-				PRODUCT_NAME = takram_math;
+				PRODUCT_NAME = "takram_$(PROJECT_NAME)";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -440,7 +440,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				EXECUTABLE_PREFIX = lib;
-				PRODUCT_NAME = takram_math;
+				PRODUCT_NAME = "takram_$(PROJECT_NAME)";
 			};
 			name = Debug;
 		};
@@ -451,7 +451,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				EXECUTABLE_PREFIX = lib;
-				PRODUCT_NAME = takram_math;
+				PRODUCT_NAME = "takram_$(PROJECT_NAME)";
 			};
 			name = Release;
 		};
@@ -460,7 +460,7 @@
 			baseConfigurationReference = 930955061A4FB1E200D09023 /* product_test.xcconfig */;
 			buildSettings = {
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/lib";
-				PRODUCT_NAME = math_test;
+				PRODUCT_NAME = "takram_$(PROJECT_NAME)_test";
 			};
 			name = Debug;
 		};
@@ -469,7 +469,7 @@
 			baseConfigurationReference = 930955061A4FB1E200D09023 /* product_test.xcconfig */;
 			buildSettings = {
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/lib";
-				PRODUCT_NAME = math_test;
+				PRODUCT_NAME = "takram_$(PROJECT_NAME)_test";
 			};
 			name = Release;
 		};
@@ -477,7 +477,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 930959301A5062D400D09023 /* project_debug.xcconfig */;
 			buildSettings = {
-				ENABLE_TESTABILITY = YES;
 				MACOSX_DEPLOYMENT_TARGET = "";
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
