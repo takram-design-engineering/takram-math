@@ -254,6 +254,7 @@ inline std::ostream& operator<<(std::ostream& os, const Triangle2<T>& other) {
 }  // namespace math
 
 using math::Triangle;
+using math::Triangle2;
 using math::Triangle2i;
 using math::Triangle2f;
 using math::Triangle2d;

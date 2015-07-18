@@ -25,3 +25,12 @@
 //
 
 #include "takram/math.h"
+
+namespace takram {
+namespace math {
+
+const double version_number = 1.0;
+const unsigned char version_string[] = "1.0";
+
+}  // namespace math
+}  // namespace takram

@@ -24,6 +24,6 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
-OPENCV_PATH = "/usr/local"
-OPENFRAMEWORKS_PATH = "../openframeworks"
-CINDER_PATH = "../cinder"
+OPENCV_DIR = /usr/local
+OPENFRAMEWORKS_DIR = ../openframeworks
+CINDER_DIR = ../cinder

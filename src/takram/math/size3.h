@@ -648,6 +648,7 @@ inline std::ostream& operator<<(std::ostream& os, const Size3<T>& other) {
 }  // namespace math
 
 using math::Size;
+using math::Size3;
 using math::Size3i;
 using math::Size3f;
 using math::Size3d;

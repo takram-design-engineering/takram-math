@@ -834,9 +834,11 @@ inline std::ostream& operator<<(std::ostream& os, const Vector4<T>& other) {
 }  // namespace math
 
 using math::Vector;
+using math::Vector4;
 using math::Vector4i;
 using math::Vector4f;
 using math::Vector4d;
+using math::Vec;
 using math::Vec4;
 using math::Vec4i;
 using math::Vec4f;

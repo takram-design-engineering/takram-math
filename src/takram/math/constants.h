@@ -32,58 +32,49 @@ namespace takram {
 namespace math {
 
 template <class T = double>
-constexpr const T e = 2.718281828459045235360287471352662497e+00L;
-template constexpr const float e<float>;
-template constexpr const double e<double>;
-template constexpr const long double e<long double>;
+inline constexpr T e() {
+  return 2.718281828459045235360287471352662497e+00L;
+}
 
 template <class T = double>
-constexpr const T pi = 3.141592653589793238462643383279502884e+00L;
-template constexpr const float pi<float>;
-template constexpr const double pi<double>;
-template constexpr const long double pi<long double>;
+inline constexpr T pi() {
+  return 3.141592653589793238462643383279502884e+00L;
+}
 
 template <class T = double>
-constexpr const T half_pi = 1.570796326794896619231321691639751442e+00L;
-template constexpr const float half_pi<float>;
-template constexpr const double half_pi<double>;
-template constexpr const long double half_pi<long double>;
+inline constexpr T half_pi() {
+  return 1.570796326794896619231321691639751442e+00L;
+}
 
 template <class T = double>
-constexpr const T third_pi = 1.047197551196597746154214461093167628e+00L;
-template constexpr const float third_pi<float>;
-template constexpr const double third_pi<double>;
-template constexpr const long double third_pi<long double>;
+inline constexpr T third_pi() {
+  return 1.047197551196597746154214461093167628e+00L;
+}
 
 template <class T = double>
-constexpr const T quarter_pi = 0.785398163397448309615660845819875721+00L;
-template constexpr const float quarter_pi<float>;
-template constexpr const double quarter_pi<double>;
-template constexpr const long double quarter_pi<long double>;
+inline constexpr T quarter_pi() {
+  return 0.785398163397448309615660845819875721+00L;
+}
 
 template <class T = double>
-constexpr const T two_pi = 6.283185307179586476925286766559005768e+00L;
-template constexpr const float two_pi<float>;
-template constexpr const double two_pi<double>;
-template constexpr const long double two_pi<long double>;
+inline constexpr T two_pi() {
+  return 6.283185307179586476925286766559005768e+00L;
+}
 
 template <class T = double>
-constexpr const T tau = 6.283185307179586476925286766559005768e+00L;
-template constexpr const float tau<float>;
-template constexpr const double tau<double>;
-template constexpr const long double tau<long double>;
+inline constexpr T tau() {
+  return 6.283185307179586476925286766559005768e+00L;
+}
 
 template <class T = double>
-constexpr const T degree = 1.745329251994329576923690768488612713e-02L;
-template constexpr const float degree<float>;
-template constexpr const double degree<double>;
-template constexpr const long double degree<long double>;
+inline constexpr T degree() {
+  return 1.745329251994329576923690768488612713e-02L;
+}
 
 template <class T = double>
-constexpr const T radian = 5.729577951308232087679815481410517033e+01L;
-template constexpr const float radian<float>;
-template constexpr const double radian<double>;
-template constexpr const long double radian<long double>;
+inline constexpr T radian() {
+  return 5.729577951308232087679815481410517033e+01L;
+}
 
 }  // namespace math
 }  // namespace takram

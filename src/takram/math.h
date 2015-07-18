@@ -28,6 +28,15 @@
 #ifndef TAKRAM_MATH_H_
 #define TAKRAM_MATH_H_
 
+namespace takram {
+namespace math {
+
+extern const double version_number;
+extern const unsigned char version_string[];
+
+}  // namespace math
+}  // namespace takram
+
 #include "takram/math/axis.h"
 #include "takram/math/constants.h"
 #include "takram/math/functions.h"

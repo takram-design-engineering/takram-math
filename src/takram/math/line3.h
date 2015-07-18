@@ -254,6 +254,7 @@ inline std::ostream& operator<<(std::ostream& os, const Line3<T>& other) {
 }  // namespace math
 
 using math::Line;
+using math::Line3;
 using math::Line3i;
 using math::Line3f;
 using math::Line3d;
