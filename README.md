@@ -70,7 +70,7 @@ vecf + vecd;  // Vector2<double>
 
 ## Setup Guide
 
-Run "setup.sh" inside "scripts" directory to initialize submodules and build dependant libraries.
+Run "setup.sh" inside "script" directory to initialize submodules and build dependant libraries.
 
 ### Submodules
 
