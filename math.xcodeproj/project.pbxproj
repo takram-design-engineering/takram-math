@@ -8,77 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		930955321A4FB46600D09023 /* libtakram_math.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9309550E1A4FB1FC00D09023 /* libtakram_math.dylib */; };
-		936798391B2FB069004BE30A /* rect.h in Headers */ = {isa = PBXBuildFile; fileRef = 936798381B2FB069004BE30A /* rect.h */; };
-		9367983A1B2FB069004BE30A /* rect.h in Headers */ = {isa = PBXBuildFile; fileRef = 936798381B2FB069004BE30A /* rect.h */; };
-		93D7E3EE1B2C1C34006EA047 /* axis.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3D21B2C1C34006EA047 /* axis.h */; };
-		93D7E3EF1B2C1C34006EA047 /* axis.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3D21B2C1C34006EA047 /* axis.h */; };
-		93D7E3F01B2C1C34006EA047 /* constants.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3D31B2C1C34006EA047 /* constants.h */; };
-		93D7E3F11B2C1C34006EA047 /* constants.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3D31B2C1C34006EA047 /* constants.h */; };
-		93D7E3F21B2C1C34006EA047 /* functions.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3D41B2C1C34006EA047 /* functions.h */; };
-		93D7E3F31B2C1C34006EA047 /* functions.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3D41B2C1C34006EA047 /* functions.h */; };
-		93D7E3F41B2C1C34006EA047 /* line.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3D51B2C1C34006EA047 /* line.h */; };
-		93D7E3F51B2C1C34006EA047 /* line.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3D51B2C1C34006EA047 /* line.h */; };
-		93D7E3F61B2C1C34006EA047 /* line2.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3D61B2C1C34006EA047 /* line2.h */; };
-		93D7E3F71B2C1C34006EA047 /* line2.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3D61B2C1C34006EA047 /* line2.h */; };
-		93D7E3F81B2C1C34006EA047 /* line3.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3D71B2C1C34006EA047 /* line3.h */; };
-		93D7E3F91B2C1C34006EA047 /* line3.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3D71B2C1C34006EA047 /* line3.h */; };
-		93D7E4041B2C1C34006EA047 /* promotion.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3DD1B2C1C34006EA047 /* promotion.h */; };
-		93D7E4051B2C1C34006EA047 /* promotion.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3DD1B2C1C34006EA047 /* promotion.h */; };
-		93D7E4061B2C1C34006EA047 /* random.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3DE1B2C1C34006EA047 /* random.h */; };
-		93D7E4071B2C1C34006EA047 /* random.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3DE1B2C1C34006EA047 /* random.h */; };
-		93D7E40C1B2C1C34006EA047 /* size.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3E11B2C1C34006EA047 /* size.h */; };
-		93D7E40D1B2C1C34006EA047 /* size.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3E11B2C1C34006EA047 /* size.h */; };
-		93D7E40E1B2C1C34006EA047 /* size2.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3E21B2C1C34006EA047 /* size2.h */; };
-		93D7E40F1B2C1C34006EA047 /* size2.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3E21B2C1C34006EA047 /* size2.h */; };
-		93D7E4101B2C1C34006EA047 /* size3.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3E31B2C1C34006EA047 /* size3.h */; };
-		93D7E4111B2C1C34006EA047 /* size3.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3E31B2C1C34006EA047 /* size3.h */; };
-		93D7E4141B2C1C34006EA047 /* triangle.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3E51B2C1C34006EA047 /* triangle.h */; };
-		93D7E4151B2C1C34006EA047 /* triangle.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3E51B2C1C34006EA047 /* triangle.h */; };
-		93D7E4161B2C1C34006EA047 /* triangle2.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3E61B2C1C34006EA047 /* triangle2.h */; };
-		93D7E4171B2C1C34006EA047 /* triangle2.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3E61B2C1C34006EA047 /* triangle2.h */; };
-		93D7E4181B2C1C34006EA047 /* triangle3.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3E71B2C1C34006EA047 /* triangle3.h */; };
-		93D7E4191B2C1C34006EA047 /* triangle3.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3E71B2C1C34006EA047 /* triangle3.h */; };
-		93D7E41A1B2C1C34006EA047 /* vector.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3E81B2C1C34006EA047 /* vector.h */; };
-		93D7E41B1B2C1C34006EA047 /* vector.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3E81B2C1C34006EA047 /* vector.h */; };
-		93D7E41E1B2C1C34006EA047 /* vector2.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3EA1B2C1C34006EA047 /* vector2.h */; };
-		93D7E41F1B2C1C34006EA047 /* vector2.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3EA1B2C1C34006EA047 /* vector2.h */; };
-		93D7E4201B2C1C34006EA047 /* vector3.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3EB1B2C1C34006EA047 /* vector3.h */; };
-		93D7E4211B2C1C34006EA047 /* vector3.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3EB1B2C1C34006EA047 /* vector3.h */; };
-		93D7E4221B2C1C34006EA047 /* vector4.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3EC1B2C1C34006EA047 /* vector4.h */; };
-		93D7E4231B2C1C34006EA047 /* vector4.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3EC1B2C1C34006EA047 /* vector4.h */; };
-		93D7E4241B2C1C34006EA047 /* math.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3ED1B2C1C34006EA047 /* math.h */; };
-		93D7E4251B2C1C34006EA047 /* math.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3ED1B2C1C34006EA047 /* math.h */; };
 		93D7E42C1B2C20BE006EA047 /* triangle_test.cc in Sources */ = {isa = PBXBuildFile; fileRef = 93D7E4271B2C20BE006EA047 /* triangle_test.cc */; };
 		93D7E42F1B2C20BE006EA047 /* line_test.cc in Sources */ = {isa = PBXBuildFile; fileRef = 93D7E42A1B2C20BE006EA047 /* line_test.cc */; };
 		93D7E4301B2C20BE006EA047 /* vector_test.cc in Sources */ = {isa = PBXBuildFile; fileRef = 93D7E42B1B2C20BE006EA047 /* vector_test.cc */; };
-		93D7E4351B2C23E8006EA047 /* enablers.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E4341B2C23E8006EA047 /* enablers.h */; };
-		93D7E4361B2C23E8006EA047 /* enablers.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E4341B2C23E8006EA047 /* enablers.h */; };
 		93D7E4391B2C331E006EA047 /* size_test.cc in Sources */ = {isa = PBXBuildFile; fileRef = 93D7E4291B2C20BE006EA047 /* size_test.cc */; };
 		93D7E45C1B2C3D4A006EA047 /* math.cc in Sources */ = {isa = PBXBuildFile; fileRef = 93D7E45B1B2C3D4A006EA047 /* math.cc */; };
 		93D7E45D1B2C3D4A006EA047 /* math.cc in Sources */ = {isa = PBXBuildFile; fileRef = 93D7E45B1B2C3D4A006EA047 /* math.cc */; };
 		93D7E45F1B2C4119006EA047 /* random_test.cc in Sources */ = {isa = PBXBuildFile; fileRef = 93D7E45E1B2C4119006EA047 /* random_test.cc */; };
 		93F858181B564DB200C32E8D /* math.cc in Sources */ = {isa = PBXBuildFile; fileRef = 93D7E45B1B2C3D4A006EA047 /* math.cc */; };
-		93F8581B1B564DB200C32E8D /* math.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3ED1B2C1C34006EA047 /* math.h */; };
-		93F8581C1B564DB200C32E8D /* size.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3E11B2C1C34006EA047 /* size.h */; };
-		93F8581D1B564DB200C32E8D /* promotion.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3DD1B2C1C34006EA047 /* promotion.h */; };
-		93F8581E1B564DB200C32E8D /* triangle3.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3E71B2C1C34006EA047 /* triangle3.h */; };
-		93F8581F1B564DB200C32E8D /* vector2.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3EA1B2C1C34006EA047 /* vector2.h */; };
-		93F858201B564DB200C32E8D /* vector.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3E81B2C1C34006EA047 /* vector.h */; };
-		93F858211B564DB200C32E8D /* enablers.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E4341B2C23E8006EA047 /* enablers.h */; };
-		93F858221B564DB200C32E8D /* line3.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3D71B2C1C34006EA047 /* line3.h */; };
-		93F858231B564DB200C32E8D /* line.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3D51B2C1C34006EA047 /* line.h */; };
-		93F858241B564DB200C32E8D /* constants.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3D31B2C1C34006EA047 /* constants.h */; };
-		93F858251B564DB200C32E8D /* rect.h in Headers */ = {isa = PBXBuildFile; fileRef = 936798381B2FB069004BE30A /* rect.h */; };
-		93F858261B564DB200C32E8D /* functions.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3D41B2C1C34006EA047 /* functions.h */; };
-		93F858271B564DB200C32E8D /* axis.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3D21B2C1C34006EA047 /* axis.h */; };
-		93F858281B564DB200C32E8D /* triangle.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3E51B2C1C34006EA047 /* triangle.h */; };
-		93F858291B564DB200C32E8D /* vector3.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3EB1B2C1C34006EA047 /* vector3.h */; };
-		93F8582A1B564DB200C32E8D /* random.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3DE1B2C1C34006EA047 /* random.h */; };
-		93F8582B1B564DB200C32E8D /* size2.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3E21B2C1C34006EA047 /* size2.h */; };
-		93F8582C1B564DB200C32E8D /* triangle2.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3E61B2C1C34006EA047 /* triangle2.h */; };
-		93F8582D1B564DB200C32E8D /* size3.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3E31B2C1C34006EA047 /* size3.h */; };
-		93F8582E1B564DB200C32E8D /* line2.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3D61B2C1C34006EA047 /* line2.h */; };
-		93F8582F1B564DB200C32E8D /* vector4.h in Headers */ = {isa = PBXBuildFile; fileRef = 93D7E3EC1B2C1C34006EA047 /* vector4.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -246,100 +183,13 @@
 			children = (
 				9309550E1A4FB1FC00D09023 /* libtakram_math.dylib */,
 				93C6B51519B22F5500A1CF93 /* libtakram_math.a */,
-				93F1B9F6180282B0002A5A5C /* takram_math_test */,
 				93F858331B564DB200C32E8D /* libtakram_math.a */,
+				93F1B9F6180282B0002A5A5C /* takram_math_test */,
 			);
 			name = products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
-
-/* Begin PBXHeadersBuildPhase section */
-		9309550C1A4FB1FC00D09023 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				93D7E4241B2C1C34006EA047 /* math.h in Headers */,
-				93D7E40C1B2C1C34006EA047 /* size.h in Headers */,
-				93D7E4041B2C1C34006EA047 /* promotion.h in Headers */,
-				93D7E4181B2C1C34006EA047 /* triangle3.h in Headers */,
-				93D7E41E1B2C1C34006EA047 /* vector2.h in Headers */,
-				93D7E41A1B2C1C34006EA047 /* vector.h in Headers */,
-				93D7E4351B2C23E8006EA047 /* enablers.h in Headers */,
-				93D7E3F81B2C1C34006EA047 /* line3.h in Headers */,
-				93D7E3F41B2C1C34006EA047 /* line.h in Headers */,
-				93D7E3F01B2C1C34006EA047 /* constants.h in Headers */,
-				936798391B2FB069004BE30A /* rect.h in Headers */,
-				93D7E3F21B2C1C34006EA047 /* functions.h in Headers */,
-				93D7E3EE1B2C1C34006EA047 /* axis.h in Headers */,
-				93D7E4141B2C1C34006EA047 /* triangle.h in Headers */,
-				93D7E4201B2C1C34006EA047 /* vector3.h in Headers */,
-				93D7E4061B2C1C34006EA047 /* random.h in Headers */,
-				93D7E40E1B2C1C34006EA047 /* size2.h in Headers */,
-				93D7E4161B2C1C34006EA047 /* triangle2.h in Headers */,
-				93D7E4101B2C1C34006EA047 /* size3.h in Headers */,
-				93D7E3F61B2C1C34006EA047 /* line2.h in Headers */,
-				93D7E4221B2C1C34006EA047 /* vector4.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		93C6B51319B22F5500A1CF93 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				93D7E4251B2C1C34006EA047 /* math.h in Headers */,
-				93D7E40D1B2C1C34006EA047 /* size.h in Headers */,
-				93D7E4051B2C1C34006EA047 /* promotion.h in Headers */,
-				93D7E4191B2C1C34006EA047 /* triangle3.h in Headers */,
-				93D7E41F1B2C1C34006EA047 /* vector2.h in Headers */,
-				93D7E41B1B2C1C34006EA047 /* vector.h in Headers */,
-				93D7E4361B2C23E8006EA047 /* enablers.h in Headers */,
-				93D7E3F91B2C1C34006EA047 /* line3.h in Headers */,
-				93D7E3F51B2C1C34006EA047 /* line.h in Headers */,
-				93D7E3F11B2C1C34006EA047 /* constants.h in Headers */,
-				9367983A1B2FB069004BE30A /* rect.h in Headers */,
-				93D7E3F31B2C1C34006EA047 /* functions.h in Headers */,
-				93D7E3EF1B2C1C34006EA047 /* axis.h in Headers */,
-				93D7E4151B2C1C34006EA047 /* triangle.h in Headers */,
-				93D7E4211B2C1C34006EA047 /* vector3.h in Headers */,
-				93D7E4071B2C1C34006EA047 /* random.h in Headers */,
-				93D7E40F1B2C1C34006EA047 /* size2.h in Headers */,
-				93D7E4171B2C1C34006EA047 /* triangle2.h in Headers */,
-				93D7E4111B2C1C34006EA047 /* size3.h in Headers */,
-				93D7E3F71B2C1C34006EA047 /* line2.h in Headers */,
-				93D7E4231B2C1C34006EA047 /* vector4.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		93F8581A1B564DB200C32E8D /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				93F8581B1B564DB200C32E8D /* math.h in Headers */,
-				93F8581C1B564DB200C32E8D /* size.h in Headers */,
-				93F8581D1B564DB200C32E8D /* promotion.h in Headers */,
-				93F8581E1B564DB200C32E8D /* triangle3.h in Headers */,
-				93F8581F1B564DB200C32E8D /* vector2.h in Headers */,
-				93F858201B564DB200C32E8D /* vector.h in Headers */,
-				93F858211B564DB200C32E8D /* enablers.h in Headers */,
-				93F858221B564DB200C32E8D /* line3.h in Headers */,
-				93F858231B564DB200C32E8D /* line.h in Headers */,
-				93F858241B564DB200C32E8D /* constants.h in Headers */,
-				93F858251B564DB200C32E8D /* rect.h in Headers */,
-				93F858261B564DB200C32E8D /* functions.h in Headers */,
-				93F858271B564DB200C32E8D /* axis.h in Headers */,
-				93F858281B564DB200C32E8D /* triangle.h in Headers */,
-				93F858291B564DB200C32E8D /* vector3.h in Headers */,
-				93F8582A1B564DB200C32E8D /* random.h in Headers */,
-				93F8582B1B564DB200C32E8D /* size2.h in Headers */,
-				93F8582C1B564DB200C32E8D /* triangle2.h in Headers */,
-				93F8582D1B564DB200C32E8D /* size3.h in Headers */,
-				93F8582E1B564DB200C32E8D /* line2.h in Headers */,
-				93F8582F1B564DB200C32E8D /* vector4.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		9309550D1A4FB1FC00D09023 /* math_shared */ = {
@@ -348,7 +198,6 @@
 			buildPhases = (
 				9309550A1A4FB1FC00D09023 /* Sources */,
 				9309550B1A4FB1FC00D09023 /* Frameworks */,
-				9309550C1A4FB1FC00D09023 /* Headers */,
 			);
 			buildRules = (
 			);
@@ -365,7 +214,6 @@
 			buildPhases = (
 				93C6B51119B22F5500A1CF93 /* Sources */,
 				93C6B51219B22F5500A1CF93 /* Frameworks */,
-				93C6B51319B22F5500A1CF93 /* Headers */,
 			);
 			buildRules = (
 			);
@@ -399,7 +247,6 @@
 			buildPhases = (
 				93F858171B564DB200C32E8D /* Sources */,
 				93F858191B564DB200C32E8D /* Frameworks */,
-				93F8581A1B564DB200C32E8D /* Headers */,
 			);
 			buildRules = (
 			);
