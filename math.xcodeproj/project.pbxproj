@@ -198,6 +198,7 @@
 			buildPhases = (
 				9309550A1A4FB1FC00D09023 /* Sources */,
 				9309550B1A4FB1FC00D09023 /* Frameworks */,
+				9397F5E21B64846700DFEDC9 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -214,6 +215,7 @@
 			buildPhases = (
 				93C6B51119B22F5500A1CF93 /* Sources */,
 				93C6B51219B22F5500A1CF93 /* Frameworks */,
+				9397F5E31B64847F00DFEDC9 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -247,6 +249,7 @@
 			buildPhases = (
 				93F858171B564DB200C32E8D /* Sources */,
 				93F858191B564DB200C32E8D /* Frameworks */,
+				93B473CD1B6486E000613FB6 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -290,6 +293,48 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		9397F5E21B64846700DFEDC9 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PROJECT_DIR}/script/header.sh\" \"src\"";
+		};
+		9397F5E31B64847F00DFEDC9 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PROJECT_DIR}/script/header.sh\" \"src\"";
+		};
+		93B473CD1B6486E000613FB6 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PROJECT_DIR}/script/header.sh\" \"src\"";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		9309550A1A4FB1FC00D09023 /* Sources */ = {
