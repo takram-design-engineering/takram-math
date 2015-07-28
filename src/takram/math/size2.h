@@ -116,6 +116,9 @@ class Size<T, 2> final {
   // Factory
   static Size2<T> min();
   static Size2<T> max();
+  static Size2<T> random();
+  static Size2<T> random(T max);
+  static Size2<T> random(T min, T max);
   template <class Random>
   static Size2<T> random(Random *random);
   template <class Random>
@@ -345,6 +348,21 @@ inline Size2<T> Size2<T>::min() {
 template <class T>
 inline Size2<T> Size2<T>::max() {
   return Size2<T>(Vector2<T>::max());
+}
+
+template <class T>
+inline Size2<T> Size2<T>::random() {
+  return random(&Random<>::shared());
+}
+
+template <class T>
+inline Size2<T> Size2<T>::random(T max) {
+  return random(max, &Random<>::shared());
+}
+
+template <class T>
+inline Size2<T> Size2<T>::random(T min, T max) {
+  return random(min, max, &Random<>::shared());
 }
 
 template <class T>

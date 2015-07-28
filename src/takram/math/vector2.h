@@ -127,6 +127,9 @@ class Vector<T, 2> final {
   // Factory
   static Vector2<T> min();
   static Vector2<T> max();
+  static Vector2<T> random();
+  static Vector2<T> random(T max);
+  static Vector2<T> random(T min, T max);
   template <class Random>
   static Vector2<T> random(Random *random);
   template <class Random>
@@ -379,6 +382,21 @@ template <class T>
 inline Vector2<T> Vector2<T>::max() {
   return Vector2<T>(std::numeric_limits<T>::max(),
                     std::numeric_limits<T>::max());
+}
+
+template <class T>
+inline Vector2<T> Vector2<T>::random() {
+  return random(&Random<>::shared());
+}
+
+template <class T>
+inline Vector2<T> Vector2<T>::random(T max) {
+  return random(max, &Random<>::shared());
+}
+
+template <class T>
+inline Vector2<T> Vector2<T>::random(T min, T max) {
+  return random(min, max, &Random<>::shared());
 }
 
 template <class T>
