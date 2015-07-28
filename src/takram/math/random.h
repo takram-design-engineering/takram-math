@@ -28,8 +28,10 @@
 #ifndef TAKRAM_MATH_RANDOM_H_
 #define TAKRAM_MATH_RANDOM_H_
 
+#include <atomic>
 #include <cassert>
 #include <limits>
+#include <memory>
 #include <mutex>
 #include <random>
 
@@ -37,6 +39,8 @@
 
 namespace takram {
 namespace math {
+
+#pragma mark -
 
 template <class Engine = std::mt19937>
 class Random final {
@@ -50,6 +54,9 @@ class Random final {
   // Copy semantics
   Random(const Random& other) = default;
   Random& operator=(const Random& other) = default;
+
+  // Shared instance
+  static Random& shared();
 
   // Random generation
   void seed(Type value);
@@ -74,7 +81,14 @@ class Random final {
 
  private:
   Engine engine_;
+  static std::atomic<Random *> shared_;
+  static std::mutex shared_mutex_;
 };
+
+template <class Engine>
+std::atomic<Random<Engine> *> Random<Engine>::shared_;
+template <class Engine>
+std::mutex Random<Engine>::shared_mutex_;
 
 #pragma mark -
 
@@ -83,6 +97,22 @@ inline Random<Engine>::Random() : engine_(std::random_device()()) {}
 
 template <class Engine>
 inline Random<Engine>::Random(Type seed) : engine_(seed) {}
+
+#pragma mark Shared instance
+
+template <class Engine>
+inline Random<Engine>& Random<Engine>::shared() {
+  auto shared = shared_.load(std::memory_order_consume);
+  if (!shared) {
+    std::lock_guard<std::mutex> lock(shared_mutex_);
+    shared = shared_.load(std::memory_order_consume);
+    if (!shared) {
+      shared = new Random<Engine>();
+      shared_.store(shared, std::memory_order_release);
+    }
+  }
+  return *shared;
+}
 
 #pragma mark Random generation
 
