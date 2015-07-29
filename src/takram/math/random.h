@@ -30,6 +30,7 @@
 
 #include <atomic>
 #include <cassert>
+#include <cstdlib>
 #include <limits>
 #include <memory>
 #include <mutex>
@@ -80,15 +81,24 @@ class Random final {
   T gaussian(Promote<T> mean, Promote<T> stddev);
 
  private:
+  static void delete_shared();
+
+ private:
   Engine engine_;
   static std::atomic<Random *> shared_;
   static std::mutex shared_mutex_;
+  static bool shared_deleted_;
+
+ private:
+  friend int atexit(void (*)(void));
 };
 
 template <class Engine>
 std::atomic<Random<Engine> *> Random<Engine>::shared_;
 template <class Engine>
 std::mutex Random<Engine>::shared_mutex_;
+template <class Engine>
+bool Random<Engine>::shared_deleted_;
 
 #pragma mark -
 
@@ -107,11 +117,22 @@ inline Random<Engine>& Random<Engine>::shared() {
     std::lock_guard<std::mutex> lock(shared_mutex_);
     shared = shared_.load(std::memory_order_consume);
     if (!shared) {
-      shared = new Random<Engine>();
+      assert(!shared_deleted_);
+      shared = new Random;
       shared_.store(shared, std::memory_order_release);
+      std::atexit(&delete_shared);
     }
   }
   return *shared;
+}
+
+template <class Engine>
+inline void Random<Engine>::delete_shared() {
+  std::lock_guard<std::mutex> lock(shared_mutex_);
+  auto shared = shared_.load(std::memory_order_consume);
+  delete shared;
+  shared_.store(nullptr, std::memory_order_release);
+  shared_deleted_ = true;
 }
 
 #pragma mark Random generation
