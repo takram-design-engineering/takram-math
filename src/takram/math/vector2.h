@@ -788,7 +788,7 @@ inline Vector2<Promote<T>> Vector2<T>::cartesian() const {
   return Vector2<V>(static_cast<V>(x) * std::cos(y),
                     static_cast<V>(x) * std::sin(y));
 }
-  
+
 template <class T>
 inline Vector2<Promote<T>> Vector2<T>::polar() const {
   return Vector2<Promote<T>>(magnitude(), heading());

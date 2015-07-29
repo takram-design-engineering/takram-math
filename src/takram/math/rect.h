@@ -252,7 +252,7 @@ template <class U>
 inline Rect<T>::Rect(const cv::Rect_<U>& other)
     : origin(other.x, other.y),
       size(other.width, other.height) {}
-  
+
 template <class T>
 inline Rect<T>::operator cv::Rect_<T>() const {
   return ofRectangle(x, y, width, height);
@@ -266,7 +266,7 @@ template <class T>
 inline Rect<T>::Rect(const ofRectangle& other)
     : origin(other.x, other.y),
       size(other.width, other.height) {}
-  
+
 template <class T>
 inline Rect<T>::operator ofRectangle() const {
   return ofRectangle(x, y, width, height);
@@ -281,7 +281,7 @@ template <class U>
 inline Rect<T>::Rect(const ci::RectT<U>& other)
     : origin(other.x1, other.y1),
       size(other.x2 - other.x1, other.y2 - other.y1) {}
-  
+
 template <class T>
 inline Rect<T>::operator ci::RectT<T>() const {
   return ci::RectT<T>(x, y, x + width, y + height);
@@ -578,7 +578,7 @@ template <class U>
 inline Rect<Promote<T, U>> Rect<T>::scaled(const Vector2<U>& scale) const {
   return Rect<Promote<T, U>>(*this).scale(scale);
 }
-  
+
 #pragma mark Stream
 
 template <class T>
