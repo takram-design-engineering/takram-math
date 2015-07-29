@@ -159,14 +159,14 @@ class Size<T, 3> final {
   Size3<T>& operator*=(const Size3<T>& other);
   Size3<T>& operator/=(const Size3<T>& other);
   template <class U>
-  const Size3<Promote<T, U>> operator+(const Size3<U>& other) const;
+  Size3<Promote<T, U>> operator+(const Size3<U>& other) const;
   template <class U>
-  const Size3<Promote<T, U>> operator-(const Size3<U>& other) const;
+  Size3<Promote<T, U>> operator-(const Size3<U>& other) const;
   template <class U>
-  const Size3<Promote<T, U>> operator*(const Size3<U>& other) const;
+  Size3<Promote<T, U>> operator*(const Size3<U>& other) const;
   template <class U>
-  const Size3<Promote<T, U>> operator/(const Size3<U>& other) const;
-  const Size3<Promote<T>> operator-() const;
+  Size3<Promote<T, U>> operator/(const Size3<U>& other) const;
+  Size3<Promote<T>> operator-() const;
 
   // Scalar arithmetic
   Size3<T>& operator+=(T scalar);
@@ -174,13 +174,13 @@ class Size<T, 3> final {
   Size3<T>& operator*=(T scalar);
   Size3<T>& operator/=(T scalar);
   template <class U, EnableIfScalar<U> * = nullptr>
-  const Size3<Promote<T, U>> operator+(U scalar) const;
+  Size3<Promote<T, U>> operator+(U scalar) const;
   template <class U, EnableIfScalar<U> * = nullptr>
-  const Size3<Promote<T, U>> operator-(U scalar) const;
+  Size3<Promote<T, U>> operator-(U scalar) const;
   template <class U, EnableIfScalar<U> * = nullptr>
-  const Size3<Promote<T, U>> operator*(U scalar) const;
+  Size3<Promote<T, U>> operator*(U scalar) const;
   template <class U, EnableIfScalar<U> * = nullptr>
-  const Size3<Promote<T, U>> operator/(U scalar) const;
+  Size3<Promote<T, U>> operator/(U scalar) const;
 
   // Vector arithmetic
   Size3<T>& operator+=(const Vector3<T>& vector);
@@ -188,13 +188,13 @@ class Size<T, 3> final {
   Size3<T>& operator*=(const Vector3<T>& vector);
   Size3<T>& operator/=(const Vector3<T>& vector);
   template <class U>
-  const Size3<Promote<T, U>> operator+(const Vector3<U>& vector) const;
+  Size3<Promote<T, U>> operator+(const Vector3<U>& vector) const;
   template <class U>
-  const Size3<Promote<T, U>> operator-(const Vector3<U>& vector) const;
+  Size3<Promote<T, U>> operator-(const Vector3<U>& vector) const;
   template <class U>
-  const Size3<Promote<T, U>> operator*(const Vector3<U>& vector) const;
+  Size3<Promote<T, U>> operator*(const Vector3<U>& vector) const;
   template <class U>
-  const Size3<Promote<T, U>> operator/(const Vector3<U>& vector) const;
+  Size3<Promote<T, U>> operator/(const Vector3<U>& vector) const;
 
   // Attributes
   bool empty() const { return !width && !height; }
@@ -483,34 +483,30 @@ inline Size3<T>& Size3<T>::operator/=(const Size3<T>& other) {
 
 template <class T>
 template <class U>
-inline const Size3<Promote<T, U>> Size3<T>::operator+(
-    const Size3<U>& other) const {
+inline Size3<Promote<T, U>> Size3<T>::operator+(const Size3<U>& other) const {
   return Size3<Promote<T, U>>(vector + other.vector);
 }
 
 template <class T>
 template <class U>
-inline const Size3<Promote<T, U>> Size3<T>::operator-(
-    const Size3<U>& other) const {
+inline Size3<Promote<T, U>> Size3<T>::operator-(const Size3<U>& other) const {
   return Size3<Promote<T, U>>(vector - other.vector);
 }
 
 template <class T>
 template <class U>
-inline const Size3<Promote<T, U>> Size3<T>::operator*(
-    const Size3<U>& other) const {
+inline Size3<Promote<T, U>> Size3<T>::operator*(const Size3<U>& other) const {
   return Size3<Promote<T, U>>(vector * other.vector);
 }
 
 template <class T>
 template <class U>
-inline const Size3<Promote<T, U>> Size3<T>::operator/(
-    const Size3<U>& other) const {
+inline Size3<Promote<T, U>> Size3<T>::operator/(const Size3<U>& other) const {
   return Size3<Promote<T, U>>(vector / other.vector);
 }
 
 template <class T>
-inline const Size3<Promote<T>> Size3<T>::operator-() const {
+inline Size3<Promote<T>> Size3<T>::operator-() const {
   return Size3<Promote<T>>(-vector);
 }
 
@@ -542,30 +538,30 @@ inline Size3<T>& Size3<T>::operator/=(T scalar) {
 
 template <class T>
 template <class U, EnableIfScalar<U> *>
-inline const Size3<Promote<T, U>> Size3<T>::operator+(U scalar) const {
+inline Size3<Promote<T, U>> Size3<T>::operator+(U scalar) const {
   return Size3<Promote<T, U>>(vector + scalar);
 }
 
 template <class T>
 template <class U, EnableIfScalar<U> *>
-inline const Size3<Promote<T, U>> Size3<T>::operator-(U scalar) const {
+inline Size3<Promote<T, U>> Size3<T>::operator-(U scalar) const {
   return Size3<Promote<T, U>>(vector - scalar);
 }
 
 template <class T>
 template <class U, EnableIfScalar<U> *>
-inline const Size3<Promote<T, U>> Size3<T>::operator*(U scalar) const {
+inline Size3<Promote<T, U>> Size3<T>::operator*(U scalar) const {
   return Size3<Promote<T, U>>(vector * scalar);
 }
 
 template <class T>
 template <class U, EnableIfScalar<U> *>
-inline const Size3<Promote<T, U>> Size3<T>::operator/(U scalar) const {
+inline Size3<Promote<T, U>> Size3<T>::operator/(U scalar) const {
   return Size3<Promote<T, U>>(vector / scalar);
 }
 
 template <class T, class U, EnableIfScalar<U> * = nullptr>
-inline const Size3<Promote<T, U>> operator*(U scalar, const Size3<T>& size) {
+inline Size3<Promote<T, U>> operator*(U scalar, const Size3<T>& size) {
   return size * scalar;
 }
 
@@ -597,35 +593,31 @@ inline Size3<T>& Size3<T>::operator/=(const Vector3<T>& other) {
 
 template <class T>
 template <class U>
-inline const Size3<Promote<T, U>> Size3<T>::operator+(
-    const Vector3<U>& other) const {
+inline Size3<Promote<T, U>> Size3<T>::operator+(const Vector3<U>& other) const {
   return Size3<Promote<T, U>>(vector + other);
 }
 
 template <class T>
 template <class U>
-inline const Size3<Promote<T, U>> Size3<T>::operator-(
-    const Vector3<U>& other) const {
+inline Size3<Promote<T, U>> Size3<T>::operator-(const Vector3<U>& other) const {
   return Size3<Promote<T, U>>(vector - other);
 }
 
 template <class T>
 template <class U>
-inline const Size3<Promote<T, U>> Size3<T>::operator*(
-    const Vector3<U>& other) const {
+inline Size3<Promote<T, U>> Size3<T>::operator*(const Vector3<U>& other) const {
   return Size3<Promote<T, U>>(vector * other);
 }
 
 template <class T>
 template <class U>
-inline const Size3<Promote<T, U>> Size3<T>::operator/(
-    const Vector3<U>& other) const {
+inline Size3<Promote<T, U>> Size3<T>::operator/(const Vector3<U>& other) const {
   return Size3<Promote<T, U>>(vector / other);
 }
 
 template <class T, class U>
-inline const Size3<Promote<T, U>> operator*(
-    const Vector3<U>& vector, const Size3<T>& size) {
+inline Size3<Promote<T, U>> operator*(const Vector3<U>& vector,
+                                      const Size3<T>& size) {
   return size * vector;
 }
 

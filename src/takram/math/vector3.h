@@ -180,14 +180,14 @@ class Vector<T, 3> final {
   Vector3<T>& operator*=(const Vector3<T>& other);
   Vector3<T>& operator/=(const Vector3<T>& other);
   template <class U>
-  const Vector3<Promote<T, U>> operator+(const Vector3<U>& other) const;
+  Vector3<Promote<T, U>> operator+(const Vector3<U>& other) const;
   template <class U>
-  const Vector3<Promote<T, U>> operator-(const Vector3<U>& other) const;
+  Vector3<Promote<T, U>> operator-(const Vector3<U>& other) const;
   template <class U>
-  const Vector3<Promote<T, U>> operator*(const Vector3<U>& other) const;
+  Vector3<Promote<T, U>> operator*(const Vector3<U>& other) const;
   template <class U>
-  const Vector3<Promote<T, U>> operator/(const Vector3<U>& other) const;
-  const Vector3<Promote<T>> operator-() const;
+  Vector3<Promote<T, U>> operator/(const Vector3<U>& other) const;
+  Vector3<Promote<T>> operator-() const;
 
   // Scalar arithmetic
   Vector3<T>& operator+=(T scalar);
@@ -195,13 +195,13 @@ class Vector<T, 3> final {
   Vector3<T>& operator*=(T scalar);
   Vector3<T>& operator/=(T scalar);
   template <class U, EnableIfScalar<U> * = nullptr>
-  const Vector3<Promote<T, U>> operator+(U scalar) const;
+  Vector3<Promote<T, U>> operator+(U scalar) const;
   template <class U, EnableIfScalar<U> * = nullptr>
-  const Vector3<Promote<T, U>> operator-(U scalar) const;
+  Vector3<Promote<T, U>> operator-(U scalar) const;
   template <class U, EnableIfScalar<U> * = nullptr>
-  const Vector3<Promote<T, U>> operator*(U scalar) const;
+  Vector3<Promote<T, U>> operator*(U scalar) const;
   template <class U, EnableIfScalar<U> * = nullptr>
-  const Vector3<Promote<T, U>> operator/(U scalar) const;
+  Vector3<Promote<T, U>> operator/(U scalar) const;
 
   // Attributes
   bool empty() const { return !x && !y && !z; }
@@ -601,7 +601,7 @@ inline Vector3<T>& Vector3<T>::operator/=(const Vector3<T>& other) {
 
 template <class T>
 template <class U>
-inline const Vector3<Promote<T, U>> Vector3<T>::operator+(
+inline Vector3<Promote<T, U>> Vector3<T>::operator+(
     const Vector3<U>& other) const {
   using V = Promote<T, U>;
   return Vector3<V>(static_cast<V>(x) + other.x,
@@ -611,7 +611,7 @@ inline const Vector3<Promote<T, U>> Vector3<T>::operator+(
 
 template <class T>
 template <class U>
-inline const Vector3<Promote<T, U>> Vector3<T>::operator-(
+inline Vector3<Promote<T, U>> Vector3<T>::operator-(
     const Vector3<U>& other) const {
   using V = Promote<T, U>;
   return Vector3<V>(static_cast<V>(x) - other.x,
@@ -621,7 +621,7 @@ inline const Vector3<Promote<T, U>> Vector3<T>::operator-(
 
 template <class T>
 template <class U>
-inline const Vector3<Promote<T, U>> Vector3<T>::operator*(
+inline Vector3<Promote<T, U>> Vector3<T>::operator*(
     const Vector3<U>& other) const {
   using V = Promote<T, U>;
   return Vector3<V>(static_cast<V>(x) * other.x,
@@ -631,7 +631,7 @@ inline const Vector3<Promote<T, U>> Vector3<T>::operator*(
 
 template <class T>
 template <class U>
-inline const Vector3<Promote<T, U>> Vector3<T>::operator/(
+inline Vector3<Promote<T, U>> Vector3<T>::operator/(
     const Vector3<U>& other) const {
   using V = Promote<T, U>;
   assert(other.x && other.y && other.z);
@@ -641,7 +641,7 @@ inline const Vector3<Promote<T, U>> Vector3<T>::operator/(
 }
 
 template <class T>
-inline const Vector3<Promote<T>> Vector3<T>::operator-() const {
+inline Vector3<Promote<T>> Vector3<T>::operator-() const {
   using V = Promote<T>;
   return Vector3<V>(-static_cast<V>(x),
                     -static_cast<V>(y),
@@ -685,7 +685,7 @@ inline Vector3<T>& Vector3<T>::operator/=(T scalar) {
 
 template <class T>
 template <class U, EnableIfScalar<U> *>
-inline const Vector3<Promote<T, U>> Vector3<T>::operator+(U scalar) const {
+inline Vector3<Promote<T, U>> Vector3<T>::operator+(U scalar) const {
   using V = Promote<T, U>;
   return Vector3<V>(static_cast<V>(x) + scalar,
                     static_cast<V>(y) + scalar,
@@ -694,7 +694,7 @@ inline const Vector3<Promote<T, U>> Vector3<T>::operator+(U scalar) const {
 
 template <class T>
 template <class U, EnableIfScalar<U> *>
-inline const Vector3<Promote<T, U>> Vector3<T>::operator-(U scalar) const {
+inline Vector3<Promote<T, U>> Vector3<T>::operator-(U scalar) const {
   using V = Promote<T, U>;
   return Vector3<V>(static_cast<V>(x) - scalar,
                     static_cast<V>(y) - scalar,
@@ -703,7 +703,7 @@ inline const Vector3<Promote<T, U>> Vector3<T>::operator-(U scalar) const {
 
 template <class T>
 template <class U, EnableIfScalar<U> *>
-inline const Vector3<Promote<T, U>> Vector3<T>::operator*(U scalar) const {
+inline Vector3<Promote<T, U>> Vector3<T>::operator*(U scalar) const {
   using V = Promote<T, U>;
   return Vector3<V>(static_cast<V>(x) * scalar,
                     static_cast<V>(y) * scalar,
@@ -712,7 +712,7 @@ inline const Vector3<Promote<T, U>> Vector3<T>::operator*(U scalar) const {
 
 template <class T>
 template <class U, EnableIfScalar<U> *>
-inline const Vector3<Promote<T, U>> Vector3<T>::operator/(U scalar) const {
+inline Vector3<Promote<T, U>> Vector3<T>::operator/(U scalar) const {
   using V = Promote<T, U>;
   assert(scalar);
   return Vector3<V>(static_cast<V>(x) / scalar,
@@ -721,8 +721,7 @@ inline const Vector3<Promote<T, U>> Vector3<T>::operator/(U scalar) const {
 }
 
 template <class T, class U, EnableIfScalar<U> * = nullptr>
-inline const Vector3<Promote<T, U>> operator*(
-    U scalar, const Vector3<T>& vector) {
+inline Vector3<Promote<T, U>> operator*(U scalar, const Vector3<T>& vector) {
   return vector * scalar;
 }
 
