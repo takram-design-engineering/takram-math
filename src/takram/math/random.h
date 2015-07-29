@@ -129,9 +129,7 @@ inline Random<Engine>& Random<Engine>::shared() {
 template <class Engine>
 inline void Random<Engine>::delete_shared() {
   std::lock_guard<std::mutex> lock(shared_mutex_);
-  auto shared = shared_.load(std::memory_order_consume);
-  delete shared;
-  shared_.store(nullptr, std::memory_order_release);
+  delete shared_.exchange(nullptr);
   shared_deleted_ = true;
 }
 
