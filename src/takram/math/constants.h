@@ -32,46 +32,67 @@ namespace takram {
 namespace math {
 
 template <class T = double>
+constexpr T e();
+template <class T = double>
+constexpr T pi();
+template <class T = double>
+constexpr T half_pi();
+template <class T = double>
+constexpr T third_pi();
+template <class T = double>
+constexpr T quarter_pi();
+template <class T = double>
+constexpr T two_pi();
+template <class T = double>
+constexpr T tau();
+template <class T = double>
+constexpr T degree();
+template <class T = double>
+constexpr T radian();
+
+#pragma mark
+
+template <class T>
 inline constexpr T e() {
   return 2.718281828459045235360287471352662497e+00L;
 }
 
-template <class T = double>
+template <class T>
 inline constexpr T pi() {
   return 3.141592653589793238462643383279502884e+00L;
 }
 
-template <class T = double>
+template <class T>
 inline constexpr T half_pi() {
   return 1.570796326794896619231321691639751442e+00L;
 }
 
-template <class T = double>
+template <class T>
 inline constexpr T third_pi() {
   return 1.047197551196597746154214461093167628e+00L;
 }
 
-template <class T = double>
+template <class T>
 inline constexpr T quarter_pi() {
   return 0.785398163397448309615660845819875721+00L;
 }
 
-template <class T = double>
+template <class T>
 inline constexpr T two_pi() {
   return 6.283185307179586476925286766559005768e+00L;
 }
 
-template <class T = double>
+template <class T>
 inline constexpr T tau() {
   return 6.283185307179586476925286766559005768e+00L;
 }
 
-template <class T = double>
+template <class T>
 inline constexpr T degree() {
   return 1.745329251994329576923690768488612713e-02L;
 }
 
-template <class T = double>
+template <class T>
 inline constexpr T radian() {
   return 5.729577951308232087679815481410517033e+01L;
 }
