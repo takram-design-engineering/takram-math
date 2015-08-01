@@ -28,8 +28,51 @@
 #ifndef TAKRAM_MATH_VECTOR_H_
 #define TAKRAM_MATH_VECTOR_H_
 
+#if TAKRAM_HAS_BOOST
+#include <boost/polygon/isotropy.hpp>
+#include <boost/polygon/point_concept.hpp>
+#endif  // TAKRAM_HAS_BOOST
+
 #include "takram/math/vector2.h"
 #include "takram/math/vector3.h"
 #include "takram/math/vector4.h"
+
+#if TAKRAM_HAS_BOOST
+
+template <class T, int D>
+struct boost::polygon::geometry_concept<takram::Vector<T, D>> {
+  using type = boost::polygon::point_concept;
+};
+
+template <class T, int D>
+struct boost::polygon::point_traits<takram::Vector<T, D>> {
+  using coordinate_type = typename takram::Vector<T, D>::Type;
+
+  static coordinate_type get(const takram::Vector<T, D>& point,
+                             boost::polygon::orientation_2d orientation) {
+    return orientation == boost::polygon::HORIZONTAL ? point.x : point.y;
+  }
+};
+
+template <class T, int D>
+struct boost::polygon::point_mutable_traits<takram::Vector<T, D>> {
+  using coordinate_type = typename takram::Vector<T, D>::Type;
+
+  static void set(takram::Vector<T, D>& point,
+                  boost::polygon::orientation_2d orientation,
+                  coordinate_type value) {
+    if (orientation == boost::polygon::HORIZONTAL) {
+      point.x = value;
+    } else {
+      point.y = value;
+    }
+  }
+
+  static takram::Vector<T, D> construct(coordinate_type x, coordinate_type y) {
+    return takram::Vector<T, D>(x, y);
+  }
+};
+
+#endif  // TAKRAM_HAS_BOOST
 
 #endif  // TAKRAM_MATH_VECTOR_H_
