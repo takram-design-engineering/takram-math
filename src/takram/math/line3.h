@@ -99,6 +99,9 @@ class Line<T, 3> final {
   template <class U>
   bool operator!=(const Line3<U>& other) const;
 
+  // Attributes
+  bool empty() const { return a.empty() && b.empty(); }
+
   // Length
   Promote<T> length() const;
   Promote<T> lengthSquared() const;
