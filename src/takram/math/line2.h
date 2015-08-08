@@ -34,6 +34,7 @@
 #include <ostream>
 
 #include "takram/math/promotion.h"
+#include "takram/math/side.h"
 #include "takram/math/vector.h"
 
 namespace takram {
@@ -106,9 +107,15 @@ class Line<T, 2> final {
   Promote<T> length() const;
   Promote<T> lengthSquared() const;
 
+  // Intersection
+  template <class U>
+  std::pair<bool, Vector2<Promote<T>>> intersect(const Line2<U>& other) const;
+
   // Projection
   template <class U>
-  Vector2<T> project(const Vector2<U>& point) const;
+  Vector2<Promote<T>> project(const Vector2<U>& point) const;
+  template <class U>
+  Side side(const Vector2<U>& point) const;
 
   // Iterator
   Iterator begin() { return &a; }
@@ -247,11 +254,31 @@ inline Promote<T> Line2<T>::lengthSquared() const {
   return a.distanceSquared(b);
 }
 
+#pragma mark Intersection
+
+template <class T>
+template <class U>
+inline std::pair<bool, Vector2<Promote<T>>> Line2<T>::intersect(
+    const Line2<U>& other) const {
+  const auto denominator = (other.b.y - other.a.y) * (b.x - a.x) -
+                           (other.b.x - other.a.x) * (b.y - a.y);
+  if (denominator) {
+    const auto s = ((other.b.x - other.a.x) * (a.y - other.a.y) -
+                    (other.b.y - other.a.y) * (a.x - other.a.x)) / denominator;
+    const auto t = ((b.x - a.x) * (a.y - other.a.y) -
+                    (b.y - a.y) * (a.x - other.a.x)) / denominator;
+    if (0.0 <= s && s <= 1.0 && 0.0 <= t && t <= 1.0) {
+      return std::make_pair(true, a + (b - a) * s);
+    }
+  }
+  return std::make_pair(false, Vector2<Promote<T>>());
+}
+
 #pragma mark Projection
 
 template <class T>
 template <class U>
-inline Vector2<T> Line2<T>::project(const Vector2<U>& point) const {
+inline Vector2<Promote<T>> Line2<T>::project(const Vector2<U>& point) const {
   const auto ab = b - a;
   const auto magnitude = ab.magnitudeSquared();
   if (!magnitude) {
@@ -264,6 +291,13 @@ inline Vector2<T> Line2<T>::project(const Vector2<U>& point) const {
     return b;
   }
   return a + ab * scale;
+}
+
+template <class T>
+template <class U>
+inline Side Line2<T>::side(const Vector2<U>& point) const {
+  const auto d = (b.x - a.x) * (point.y - a.y) - (b.y - a.y) * (point.x - a.x);
+  return !d ? (d < 0.0 ? Side::LEFT : Side::RIGHT) : Side::COINCIDENT;
 }
 
 #pragma mark Stream
