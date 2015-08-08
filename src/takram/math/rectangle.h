@@ -1,5 +1,5 @@
 //
-//  takram/math.h
+//  takram/math/rectangle.h
 //
 //  MIT License
 //
@@ -25,28 +25,9 @@
 //
 
 #pragma once
-#ifndef TAKRAM_MATH_H_
-#define TAKRAM_MATH_H_
+#ifndef TAKRAM_MATH_RECTANGLE_H_
+#define TAKRAM_MATH_RECTANGLE_H_
 
-namespace takram {
-namespace math {
+#include "takram/math/rectangle2.h"
 
-extern const double version_number;
-extern const unsigned char version_string[];
-
-}  // namespace math
-}  // namespace takram
-
-#include "takram/math/axis.h"
-#include "takram/math/circle.h"
-#include "takram/math/constants.h"
-#include "takram/math/functions.h"
-#include "takram/math/line.h"
-#include "takram/math/promotion.h"
-#include "takram/math/random.h"
-#include "takram/math/rectangle.h"
-#include "takram/math/size.h"
-#include "takram/math/triangle.h"
-#include "takram/math/vector.h"
-
-#endif  // TAKRAM_MATH_H_
+#endif  // TAKRAM_MATH_RECTANGLE_H_

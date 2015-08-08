@@ -50,18 +50,18 @@ template <class T>
 class Triangle<T, 3> final {
  public:
   using Type = T;
-  using Iterator = Vector3<T> *;
-  using ConstIterator = const Vector3<T> *;
+  using Iterator = Vec3<T> *;
+  using ConstIterator = const Vec3<T> *;
   using ReverseIterator = std::reverse_iterator<Iterator>;
   using ConstReverseIterator = std::reverse_iterator<ConstIterator>;
-  static constexpr const auto dimensions = Vector3<T>::dimensions;
+  static constexpr const auto dimensions = Vec3<T>::dimensions;
 
  public:
   Triangle();
   Triangle(T x1, T y1, T z1, T x2, T y2, T z2, T x3, T y3, T z3);
-  Triangle(const Vector3<T>& a, const Vector3<T>& b, const Vector3<T>& c);
+  Triangle(const Vec3<T>& a, const Vec3<T>& b, const Vec3<T>& c);
   Triangle(std::initializer_list<T> list);
-  Triangle(std::initializer_list<Vector3<T>> list);
+  Triangle(std::initializer_list<Vec3<T>> list);
 
   // Implicit conversion
   template <class U>
@@ -72,25 +72,25 @@ class Triangle<T, 3> final {
   explicit Triangle(const Triangle2<U>& other);
 
   // Copy semantics
-  Triangle(const Triangle3<T>& other) = default;
-  Triangle3<T>& operator=(const Triangle3<T>& other) = default;
+  Triangle(const Triangle& other) = default;
+  Triangle& operator=(const Triangle& other) = default;
 
   // Mutators
   void set(T x1, T y1, T z1, T x2, T y2, T z2, T x3, T y3, T z3);
-  void set(const Vector3<T>& a, const Vector3<T>& b, const Vector3<T>& c);
+  void set(const Vec3<T>& a, const Vec3<T>& b, const Vec3<T>& c);
   void set(std::initializer_list<T> list);
-  void set(std::initializer_list<Vector3<T>> list);
+  void set(std::initializer_list<Vec3<T>> list);
   void reset();
 
   // Element access
-  Vector3<T>& operator[](int index) { return at(index); }
-  const Vector3<T>& operator[](int index) const { return at(index); }
-  Vector3<T>& at(int index);
-  const Vector3<T>& at(int index) const;
-  Vector3<T>& front() { return a; }
-  const Vector3<T>& front() const { return a; }
-  Vector3<T>& back() { return c; }
-  const Vector3<T>& back() const { return c; }
+  Vec3<T>& operator[](int index) { return at(index); }
+  const Vec3<T>& operator[](int index) const { return at(index); }
+  Vec3<T>& at(int index);
+  const Vec3<T>& at(int index) const;
+  Vec3<T>& front() { return a; }
+  const Vec3<T>& front() const { return a; }
+  Vec3<T>& back() { return c; }
+  const Vec3<T>& back() const { return c; }
 
   // Comparison
   template <class U>
@@ -109,20 +109,20 @@ class Triangle<T, 3> final {
   ConstReverseIterator rend() const { return ConstReverseIterator(end()); }
 
   // Pointer
-  Vector3<T> * ptr() { return &a; }
-  const Vector3<T> * ptr() const { return &a; }
+  Vec3<T> * ptr() { return &a; }
+  const Vec3<T> * ptr() const { return &a; }
 
  public:
   union {
-    Vector3<T> a;
+    Vec3<T> a;
     struct { T x1; T y1; T z1; };
   };
   union {
-    Vector3<T> b;
+    Vec3<T> b;
     struct { T x2; T y2; T z2; };
   };
   union {
-    Vector3<T> c;
+    Vec3<T> c;
     struct { T x3; T y3; T z3; };
   };
 };
@@ -145,9 +145,9 @@ inline Triangle3<T>::Triangle(T x1, T y1, T z1,
       c(x3, y3, z3) {}
 
 template <class T>
-inline Triangle3<T>::Triangle(const Vector3<T>& a,
-                              const Vector3<T>& b,
-                              const Vector3<T>& c)
+inline Triangle3<T>::Triangle(const Vec3<T>& a,
+                              const Vec3<T>& b,
+                              const Vec3<T>& c)
     : a(a),
       b(b),
       c(c) {}
@@ -158,7 +158,7 @@ inline Triangle3<T>::Triangle(std::initializer_list<T> list) {
 }
 
 template <class T>
-inline Triangle3<T>::Triangle(std::initializer_list<Vector3<T>> list) {
+inline Triangle3<T>::Triangle(std::initializer_list<Vec3<T>> list) {
   set(list);
 }
 
@@ -174,9 +174,9 @@ inline void Triangle3<T>::set(T x1, T y1, T z1,
 }
 
 template <class T>
-inline void Triangle3<T>::set(const Vector3<T>& a,
-                              const Vector3<T>& b,
-                              const Vector3<T>& c) {
+inline void Triangle3<T>::set(const Vec3<T>& a,
+                              const Vec3<T>& b,
+                              const Vec3<T>& c) {
   this->a = a;
   this->b = b;
   this->c = c;
@@ -197,7 +197,7 @@ inline void Triangle3<T>::set(std::initializer_list<T> list) {
 }
 
 template <class T>
-inline void Triangle3<T>::set(std::initializer_list<Vector3<T>> list) {
+inline void Triangle3<T>::set(std::initializer_list<Vec3<T>> list) {
   auto itr = std::begin(list);
   if (itr == std::end(list)) return; a = decltype(a)(*itr);
   if (++itr == std::end(list)) return; b = decltype(b)(*itr);
@@ -206,13 +206,13 @@ inline void Triangle3<T>::set(std::initializer_list<Vector3<T>> list) {
 
 template <class T>
 inline void Triangle3<T>::reset() {
-  *this = Triangle3<T>();
+  *this = Triangle();
 }
 
 #pragma mark Element access
 
 template <class T>
-inline Vector3<T>& Triangle3<T>::at(int index) {
+inline Vec3<T>& Triangle3<T>::at(int index) {
   switch (index) {
     case 0: return a;
     case 1: return b;
@@ -225,7 +225,7 @@ inline Vector3<T>& Triangle3<T>::at(int index) {
 }
 
 template <class T>
-inline const Vector3<T>& Triangle3<T>::at(int index) const {
+inline const Vec3<T>& Triangle3<T>::at(int index) const {
   switch (index) {
     case 0: return a;
     case 1: return b;

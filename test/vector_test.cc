@@ -55,16 +55,16 @@ TYPED_TEST_CASE(VectorTest, Types);
 
 TYPED_TEST(VectorTest, DefaultConstructible) {
   {
-    Vector2<TypeParam> v;
+    Vec2<TypeParam> v;
     ASSERT_EQ(v.x, TypeParam());
     ASSERT_EQ(v.y, TypeParam());
   } {
-    Vector3<TypeParam> v;
+    Vec3<TypeParam> v;
     ASSERT_EQ(v.x, TypeParam());
     ASSERT_EQ(v.y, TypeParam());
     ASSERT_EQ(v.z, TypeParam());
   } {
-    Vector4<TypeParam> v;
+    Vec4<TypeParam> v;
     ASSERT_EQ(v.x, TypeParam());
     ASSERT_EQ(v.y, TypeParam());
     ASSERT_EQ(v.z, TypeParam());
@@ -75,16 +75,16 @@ TYPED_TEST(VectorTest, DefaultConstructible) {
 TYPED_TEST(VectorTest, ConstructibleWithValue) {
   const auto value = math::Random<>().uniform<TypeParam>();
   {
-    Vector2<TypeParam> v(value);
+    Vec2<TypeParam> v(value);
     ASSERT_EQ(v.x, value);
     ASSERT_EQ(v.y, value);
   } {
-    Vector3<TypeParam> v(value);
+    Vec3<TypeParam> v(value);
     ASSERT_EQ(v.x, value);
     ASSERT_EQ(v.y, value);
     ASSERT_EQ(v.z, value);
   } {
-    Vector4<TypeParam> v(value);
+    Vec4<TypeParam> v(value);
     ASSERT_EQ(v.x, value);
     ASSERT_EQ(v.y, value);
     ASSERT_EQ(v.z, value);
@@ -98,16 +98,16 @@ TYPED_TEST(VectorTest, ConstructibleWithValues) {
   const auto z = math::Random<>().uniform<TypeParam>();
   const auto w = math::Random<>().uniform<TypeParam>();
   {
-    Vector2<TypeParam> v(x, y);
+    Vec2<TypeParam> v(x, y);
     ASSERT_EQ(v.x, x);
     ASSERT_EQ(v.y, y);
   } {
-    Vector3<TypeParam> v(x, y, z);
+    Vec3<TypeParam> v(x, y, z);
     ASSERT_EQ(v.x, x);
     ASSERT_EQ(v.y, y);
     ASSERT_EQ(v.z, z);
   } {
-    Vector4<TypeParam> v(x, y, z, w);
+    Vec4<TypeParam> v(x, y, z, w);
     ASSERT_EQ(v.x, x);
     ASSERT_EQ(v.y, y);
     ASSERT_EQ(v.z, z);
@@ -121,16 +121,16 @@ TYPED_TEST(VectorTest, ConstructibleWithTuple) {
   const auto z = math::Random<>().uniform<TypeParam>();
   const auto w = math::Random<>().uniform<TypeParam>();
   {
-    Vector2<TypeParam> v(std::make_tuple(x, y));
+    Vec2<TypeParam> v(std::make_tuple(x, y));
     ASSERT_EQ(v.x, x);
     ASSERT_EQ(v.y, y);
   } {
-    Vector3<TypeParam> v(std::make_tuple(x, y, z));
+    Vec3<TypeParam> v(std::make_tuple(x, y, z));
     ASSERT_EQ(v.x, x);
     ASSERT_EQ(v.y, y);
     ASSERT_EQ(v.z, z);
   } {
-    Vector4<TypeParam> v(std::make_tuple(x, y, z, w));
+    Vec4<TypeParam> v(std::make_tuple(x, y, z, w));
     ASSERT_EQ(v.x, x);
     ASSERT_EQ(v.y, y);
     ASSERT_EQ(v.z, z);
@@ -144,78 +144,78 @@ TYPED_TEST(VectorTest, ConstructibleWithInitializerList) {
   const auto z = math::Random<>().uniform<TypeParam>();
   const auto w = math::Random<>().uniform<TypeParam>();
   {
-    Vector2<TypeParam> v{};
+    Vec2<TypeParam> v{};
     ASSERT_EQ(v.x, TypeParam());
     ASSERT_EQ(v.y, TypeParam());
   } {
-    Vector2<TypeParam> v{x};
+    Vec2<TypeParam> v{x};
     ASSERT_EQ(v.x, x);
     ASSERT_EQ(v.y, TypeParam());
   } {
-    Vector2<TypeParam> v{x, y};
+    Vec2<TypeParam> v{x, y};
     ASSERT_EQ(v.x, x);
     ASSERT_EQ(v.y, y);
   } {
-    Vector2<TypeParam> v{x, y, TypeParam()};
+    Vec2<TypeParam> v{x, y, TypeParam()};
     ASSERT_EQ(v.x, x);
     ASSERT_EQ(v.y, y);
   } {
-    Vector3<TypeParam> v{};
+    Vec3<TypeParam> v{};
     ASSERT_EQ(v.x, TypeParam());
     ASSERT_EQ(v.y, TypeParam());
     ASSERT_EQ(v.z, TypeParam());
   } {
-    Vector3<TypeParam> v{x};
+    Vec3<TypeParam> v{x};
     ASSERT_EQ(v.x, x);
     ASSERT_EQ(v.y, TypeParam());
     ASSERT_EQ(v.z, TypeParam());
   } {
-    Vector3<TypeParam> v{x, y};
+    Vec3<TypeParam> v{x, y};
     ASSERT_EQ(v.x, x);
     ASSERT_EQ(v.y, y);
     ASSERT_EQ(v.z, TypeParam());
   } {
-    Vector3<TypeParam> v{x, y, z};
+    Vec3<TypeParam> v{x, y, z};
     ASSERT_EQ(v.x, x);
     ASSERT_EQ(v.y, y);
     ASSERT_EQ(v.z, z);
   } {
-    Vector3<TypeParam> v{x, y, z, TypeParam()};
+    Vec3<TypeParam> v{x, y, z, TypeParam()};
     ASSERT_EQ(v.x, x);
     ASSERT_EQ(v.y, y);
     ASSERT_EQ(v.z, z);
   } {
-    Vector4<TypeParam> v{};
+    Vec4<TypeParam> v{};
     ASSERT_EQ(v.x, TypeParam());
     ASSERT_EQ(v.y, TypeParam());
     ASSERT_EQ(v.z, TypeParam());
     ASSERT_EQ(v.w, TypeParam());
   } {
-    Vector4<TypeParam> v{x};
+    Vec4<TypeParam> v{x};
     ASSERT_EQ(v.x, x);
     ASSERT_EQ(v.y, TypeParam());
     ASSERT_EQ(v.z, TypeParam());
     ASSERT_EQ(v.w, TypeParam());
   } {
-    Vector4<TypeParam> v{x, y};
+    Vec4<TypeParam> v{x, y};
     ASSERT_EQ(v.x, x);
     ASSERT_EQ(v.y, y);
     ASSERT_EQ(v.z, TypeParam());
     ASSERT_EQ(v.w, TypeParam());
   } {
-    Vector4<TypeParam> v{x, y, z};
+    Vec4<TypeParam> v{x, y, z};
     ASSERT_EQ(v.x, x);
     ASSERT_EQ(v.y, y);
     ASSERT_EQ(v.z, z);
     ASSERT_EQ(v.w, TypeParam());
   } {
-    Vector4<TypeParam> v{x, y, z, w};
+    Vec4<TypeParam> v{x, y, z, w};
     ASSERT_EQ(v.x, x);
     ASSERT_EQ(v.y, y);
     ASSERT_EQ(v.z, z);
     ASSERT_EQ(v.w, w);
   } {
-    Vector4<TypeParam> v{x, y, z, w, TypeParam()};
+    Vec4<TypeParam> v{x, y, z, w, TypeParam()};
     ASSERT_EQ(v.x, x);
     ASSERT_EQ(v.y, y);
     ASSERT_EQ(v.z, z);
@@ -229,16 +229,16 @@ TYPED_TEST(VectorTest, CopyConstructible) {
   const auto z = math::Random<>().uniform<TypeParam>();
   const auto w = math::Random<>().uniform<TypeParam>();
   {
-    Vector2<TypeParam> v1(x, y);
-    Vector2<TypeParam> v2(v1);
+    Vec2<TypeParam> v1(x, y);
+    Vec2<TypeParam> v2(v1);
     ASSERT_EQ(v1, v2);
   } {
-    Vector3<TypeParam> v1(x, y, z);
-    Vector3<TypeParam> v2(v1);
+    Vec3<TypeParam> v1(x, y, z);
+    Vec3<TypeParam> v2(v1);
     ASSERT_EQ(v1, v2);
   } {
-    Vector4<TypeParam> v1(x, y, z, w);
-    Vector4<TypeParam> v2(v1);
+    Vec4<TypeParam> v1(x, y, z, w);
+    Vec4<TypeParam> v2(v1);
     ASSERT_EQ(v1, v2);
   }
 }
@@ -249,18 +249,18 @@ TYPED_TEST(VectorTest, CopyAssignable) {
   const auto z = math::Random<>().uniform<TypeParam>();
   const auto w = math::Random<>().uniform<TypeParam>();
   {
-    Vector2<TypeParam> v1(x, y);
-    Vector2<TypeParam> v2;
+    Vec2<TypeParam> v1(x, y);
+    Vec2<TypeParam> v2;
     v2 = v1;
     ASSERT_EQ(v1, v2);
   } {
-    Vector3<TypeParam> v1(x, y, z);
-    Vector3<TypeParam> v2;
+    Vec3<TypeParam> v1(x, y, z);
+    Vec3<TypeParam> v2;
     v2 = v1;
     ASSERT_EQ(v1, v2);
   } {
-    Vector4<TypeParam> v1(x, y, z, w);
-    Vector4<TypeParam> v2;
+    Vec4<TypeParam> v1(x, y, z, w);
+    Vec4<TypeParam> v2;
     v2 = v1;
     ASSERT_EQ(v1, v2);
   }
@@ -272,18 +272,18 @@ TYPED_TEST(VectorTest, TupleAssignable) {
   const auto z = math::Random<>().uniform<TypeParam>();
   const auto w = math::Random<>().uniform<TypeParam>();
   {
-    Vector2<TypeParam> v;
+    Vec2<TypeParam> v;
     v = std::make_tuple(x, y);
     ASSERT_EQ(v.x, x);
     ASSERT_EQ(v.y, y);
   } {
-    Vector3<TypeParam> v;
+    Vec3<TypeParam> v;
     v = std::make_tuple(x, y, z);
     ASSERT_EQ(v.x, x);
     ASSERT_EQ(v.y, y);
     ASSERT_EQ(v.z, z);
   } {
-    Vector4<TypeParam> v;
+    Vec4<TypeParam> v;
     v = std::make_tuple(x, y, z, w);
     ASSERT_EQ(v.x, x);
     ASSERT_EQ(v.y, y);
@@ -298,92 +298,92 @@ TYPED_TEST(VectorTest, InitializerListAssignable) {
   const auto z = math::Random<>().uniform<TypeParam>();
   const auto w = math::Random<>().uniform<TypeParam>();
   {
-    Vector2<TypeParam> v;
+    Vec2<TypeParam> v;
     v = {};
     ASSERT_EQ(v.x, TypeParam());
     ASSERT_EQ(v.y, TypeParam());
   } {
-    Vector2<TypeParam> v;
+    Vec2<TypeParam> v;
     v = {x};
     ASSERT_EQ(v.x, x);
     ASSERT_EQ(v.y, TypeParam());
   } {
-    Vector2<TypeParam> v;
+    Vec2<TypeParam> v;
     v = {x, y};
     ASSERT_EQ(v.x, x);
     ASSERT_EQ(v.y, y);
   } {
-    Vector2<TypeParam> v;
+    Vec2<TypeParam> v;
     v = {x, y, TypeParam()};
     ASSERT_EQ(v.x, x);
     ASSERT_EQ(v.y, y);
   } {
-    Vector3<TypeParam> v;
+    Vec3<TypeParam> v;
     v = {};
     ASSERT_EQ(v.x, TypeParam());
     ASSERT_EQ(v.y, TypeParam());
     ASSERT_EQ(v.z, TypeParam());
   } {
-    Vector3<TypeParam> v;
+    Vec3<TypeParam> v;
     v = {x};
     ASSERT_EQ(v.x, x);
     ASSERT_EQ(v.y, TypeParam());
     ASSERT_EQ(v.z, TypeParam());
   } {
-    Vector3<TypeParam> v;
+    Vec3<TypeParam> v;
     v = {x, y};
     ASSERT_EQ(v.x, x);
     ASSERT_EQ(v.y, y);
     ASSERT_EQ(v.z, TypeParam());
   } {
-    Vector3<TypeParam> v;
+    Vec3<TypeParam> v;
     v = {x, y, z};
     ASSERT_EQ(v.x, x);
     ASSERT_EQ(v.y, y);
     ASSERT_EQ(v.z, z);
   } {
-    Vector3<TypeParam> v;
+    Vec3<TypeParam> v;
     v = {x, y, z, TypeParam()};
     ASSERT_EQ(v.x, x);
     ASSERT_EQ(v.y, y);
     ASSERT_EQ(v.z, z);
   } {
-    Vector4<TypeParam> v;
+    Vec4<TypeParam> v;
     v = {};
     ASSERT_EQ(v.x, TypeParam());
     ASSERT_EQ(v.y, TypeParam());
     ASSERT_EQ(v.z, TypeParam());
     ASSERT_EQ(v.w, TypeParam());
   } {
-    Vector4<TypeParam> v;
+    Vec4<TypeParam> v;
     v = {x};
     ASSERT_EQ(v.x, x);
     ASSERT_EQ(v.y, TypeParam());
     ASSERT_EQ(v.z, TypeParam());
     ASSERT_EQ(v.w, TypeParam());
   } {
-    Vector4<TypeParam> v;
+    Vec4<TypeParam> v;
     v = {x, y};
     ASSERT_EQ(v.x, x);
     ASSERT_EQ(v.y, y);
     ASSERT_EQ(v.z, TypeParam());
     ASSERT_EQ(v.w, TypeParam());
   } {
-    Vector4<TypeParam> v;
+    Vec4<TypeParam> v;
     v = {x, y, z};
     ASSERT_EQ(v.x, x);
     ASSERT_EQ(v.y, y);
     ASSERT_EQ(v.z, z);
     ASSERT_EQ(v.w, TypeParam());
   } {
-    Vector4<TypeParam> v;
+    Vec4<TypeParam> v;
     v = {x, y, z, w};
     ASSERT_EQ(v.x, x);
     ASSERT_EQ(v.y, y);
     ASSERT_EQ(v.z, z);
     ASSERT_EQ(v.w, w);
   } {
-    Vector4<TypeParam> v;
+    Vec4<TypeParam> v;
     v = {x, y, z, w, TypeParam()};
     ASSERT_EQ(v.x, x);
     ASSERT_EQ(v.y, y);
@@ -398,15 +398,15 @@ TYPED_TEST(VectorTest, ImplicitlyConvertibleFromOtherTypes) {
   const auto z = math::Random<>().uniform<TypeParam>();
   const auto w = math::Random<>().uniform<TypeParam>();
   {
-    Vector2<TypeParam> v(x, y);
-    Vector2<std::int8_t> v_int8(v);
-    Vector2<std::uint8_t> v_uint8(v);
-    Vector2<std::int16_t> v_int16(v);
-    Vector2<std::uint16_t> v_uint16(v);
-    Vector2<std::int32_t> v_int32(v);
-    Vector2<std::uint32_t> v_uint32(v);
-    Vector2<float> v_float(v);
-    Vector2<double> v_double(v);
+    Vec2<TypeParam> v(x, y);
+    Vec2<std::int8_t> v_int8(v);
+    Vec2<std::uint8_t> v_uint8(v);
+    Vec2<std::int16_t> v_int16(v);
+    Vec2<std::uint16_t> v_uint16(v);
+    Vec2<std::int32_t> v_int32(v);
+    Vec2<std::uint32_t> v_uint32(v);
+    Vec2<float> v_float(v);
+    Vec2<double> v_double(v);
     ASSERT_EQ(v_int8.x, static_cast<std::int8_t>(x));
     ASSERT_EQ(v_uint8.x, static_cast<std::uint8_t>(x));
     ASSERT_EQ(v_int16.x, static_cast<std::int16_t>(x));
@@ -424,15 +424,15 @@ TYPED_TEST(VectorTest, ImplicitlyConvertibleFromOtherTypes) {
     ASSERT_EQ(v_float.y, static_cast<float>(y));
     ASSERT_EQ(v_double.y, static_cast<double>(y));
   } {
-    Vector3<TypeParam> v(x, y, z);
-    Vector3<std::int8_t> v_int8(v);
-    Vector3<std::uint8_t> v_uint8(v);
-    Vector3<std::int16_t> v_int16(v);
-    Vector3<std::uint16_t> v_uint16(v);
-    Vector3<std::int32_t> v_int32(v);
-    Vector3<std::uint32_t> v_uint32(v);
-    Vector3<float> v_float(v);
-    Vector3<double> v_double(v);
+    Vec3<TypeParam> v(x, y, z);
+    Vec3<std::int8_t> v_int8(v);
+    Vec3<std::uint8_t> v_uint8(v);
+    Vec3<std::int16_t> v_int16(v);
+    Vec3<std::uint16_t> v_uint16(v);
+    Vec3<std::int32_t> v_int32(v);
+    Vec3<std::uint32_t> v_uint32(v);
+    Vec3<float> v_float(v);
+    Vec3<double> v_double(v);
     ASSERT_EQ(v_int8.x, static_cast<std::int8_t>(x));
     ASSERT_EQ(v_uint8.x, static_cast<std::uint8_t>(x));
     ASSERT_EQ(v_int16.x, static_cast<std::int16_t>(x));
@@ -458,15 +458,15 @@ TYPED_TEST(VectorTest, ImplicitlyConvertibleFromOtherTypes) {
     ASSERT_EQ(v_float.z, static_cast<float>(z));
     ASSERT_EQ(v_double.z, static_cast<double>(z));
   } {
-    Vector4<TypeParam> v(x, y, z, w);
-    Vector4<std::int8_t> v_int8(v);
-    Vector4<std::uint8_t> v_uint8(v);
-    Vector4<std::int16_t> v_int16(v);
-    Vector4<std::uint16_t> v_uint16(v);
-    Vector4<std::int32_t> v_int32(v);
-    Vector4<std::uint32_t> v_uint32(v);
-    Vector4<float> v_float(v);
-    Vector4<double> v_double(v);
+    Vec4<TypeParam> v(x, y, z, w);
+    Vec4<std::int8_t> v_int8(v);
+    Vec4<std::uint8_t> v_uint8(v);
+    Vec4<std::int16_t> v_int16(v);
+    Vec4<std::uint16_t> v_uint16(v);
+    Vec4<std::int32_t> v_int32(v);
+    Vec4<std::uint32_t> v_uint32(v);
+    Vec4<float> v_float(v);
+    Vec4<double> v_double(v);
     ASSERT_EQ(v_int8.x, static_cast<std::int8_t>(x));
     ASSERT_EQ(v_uint8.x, static_cast<std::uint8_t>(x));
     ASSERT_EQ(v_int16.x, static_cast<std::int16_t>(x));
@@ -504,132 +504,132 @@ TYPED_TEST(VectorTest, ImplicitlyConvertibleFromOtherTypes) {
 
 TYPED_TEST(VectorTest, SupportsArithmetic) {
   {
-    Vector2<TypeParam> v(math::Random<>().uniform<TypeParam>(),
-                         math::Random<>().uniform<TypeParam>());
-    Vector2<TypeParam> operand(math::Random<>().uniform<TypeParam>(),
-                               math::Random<>().uniform<TypeParam>());
+    Vec2<TypeParam> v(math::Random<>().uniform<TypeParam>(),
+                      math::Random<>().uniform<TypeParam>());
+    Vec2<TypeParam> operand(math::Random<>().uniform<TypeParam>(),
+                            math::Random<>().uniform<TypeParam>());
     auto unary = v + operand;
     ASSERT_EQ(unary.x, Promote<TypeParam>(v.x) + operand.x);
     ASSERT_EQ(unary.y, Promote<TypeParam>(v.y) + operand.y);
   } {
-    Vector2<TypeParam> v(math::Random<>().uniform<TypeParam>(),
-                         math::Random<>().uniform<TypeParam>());
-    Vector2<TypeParam> operand(math::Random<>().uniform<TypeParam>(),
-                               math::Random<>().uniform<TypeParam>());
+    Vec2<TypeParam> v(math::Random<>().uniform<TypeParam>(),
+                      math::Random<>().uniform<TypeParam>());
+    Vec2<TypeParam> operand(math::Random<>().uniform<TypeParam>(),
+                            math::Random<>().uniform<TypeParam>());
     auto unary = v - operand;
     ASSERT_EQ(unary.x, Promote<TypeParam>(v.x) - operand.x);
     ASSERT_EQ(unary.y, Promote<TypeParam>(v.y) - operand.y);
   } {
-    Vector2<TypeParam> v(math::Random<>().uniform<TypeParam>(),
-                         math::Random<>().uniform<TypeParam>());
-    Vector2<TypeParam> operand(math::Random<>().uniform<TypeParam>(),
-                               math::Random<>().uniform<TypeParam>());
+    Vec2<TypeParam> v(math::Random<>().uniform<TypeParam>(),
+                      math::Random<>().uniform<TypeParam>());
+    Vec2<TypeParam> operand(math::Random<>().uniform<TypeParam>(),
+                            math::Random<>().uniform<TypeParam>());
     auto unary = v * operand;
     ASSERT_EQ(unary.x, Promote<TypeParam>(v.x) * operand.x);
     ASSERT_EQ(unary.y, Promote<TypeParam>(v.y) * operand.y);
   } {
-    Vector2<TypeParam> v(math::Random<>().uniform<TypeParam>(),
-                         math::Random<>().uniform<TypeParam>());
-    Vector2<TypeParam> operand(math::Random<>().uniform<TypeParam>(),
-                               math::Random<>().uniform<TypeParam>());
+    Vec2<TypeParam> v(math::Random<>().uniform<TypeParam>(),
+                      math::Random<>().uniform<TypeParam>());
+    Vec2<TypeParam> operand(math::Random<>().uniform<TypeParam>(),
+                            math::Random<>().uniform<TypeParam>());
     auto unary = v / operand;
     ASSERT_EQ(unary.x, Promote<TypeParam>(v.x) / operand.x);
     ASSERT_EQ(unary.y, Promote<TypeParam>(v.y) / operand.y);
   } {
-    Vector3<TypeParam> v(math::Random<>().uniform<TypeParam>(),
-                         math::Random<>().uniform<TypeParam>(),
-                         math::Random<>().uniform<TypeParam>());
-    Vector3<TypeParam> operand(math::Random<>().uniform<TypeParam>(),
-                               math::Random<>().uniform<TypeParam>(),
-                               math::Random<>().uniform<TypeParam>());
+    Vec3<TypeParam> v(math::Random<>().uniform<TypeParam>(),
+                      math::Random<>().uniform<TypeParam>(),
+                      math::Random<>().uniform<TypeParam>());
+    Vec3<TypeParam> operand(math::Random<>().uniform<TypeParam>(),
+                            math::Random<>().uniform<TypeParam>(),
+                            math::Random<>().uniform<TypeParam>());
     auto unary = v + operand;
     ASSERT_EQ(unary.x, Promote<TypeParam>(v.x) + operand.x);
     ASSERT_EQ(unary.y, Promote<TypeParam>(v.y) + operand.y);
     ASSERT_EQ(unary.z, Promote<TypeParam>(v.z) + operand.z);
   } {
-    Vector3<TypeParam> v(math::Random<>().uniform<TypeParam>(),
-                         math::Random<>().uniform<TypeParam>(),
-                         math::Random<>().uniform<TypeParam>());
-    Vector3<TypeParam> operand(math::Random<>().uniform<TypeParam>(),
-                               math::Random<>().uniform<TypeParam>(),
-                               math::Random<>().uniform<TypeParam>());
+    Vec3<TypeParam> v(math::Random<>().uniform<TypeParam>(),
+                      math::Random<>().uniform<TypeParam>(),
+                      math::Random<>().uniform<TypeParam>());
+    Vec3<TypeParam> operand(math::Random<>().uniform<TypeParam>(),
+                            math::Random<>().uniform<TypeParam>(),
+                            math::Random<>().uniform<TypeParam>());
     auto unary = v - operand;
     ASSERT_EQ(unary.x, Promote<TypeParam>(v.x) - operand.x);
     ASSERT_EQ(unary.y, Promote<TypeParam>(v.y) - operand.y);
     ASSERT_EQ(unary.z, Promote<TypeParam>(v.z) - operand.z);
   } {
-    Vector3<TypeParam> v(math::Random<>().uniform<TypeParam>(),
-                         math::Random<>().uniform<TypeParam>(),
-                         math::Random<>().uniform<TypeParam>());
-    Vector3<TypeParam> operand(math::Random<>().uniform<TypeParam>(),
-                               math::Random<>().uniform<TypeParam>(),
-                               math::Random<>().uniform<TypeParam>());
+    Vec3<TypeParam> v(math::Random<>().uniform<TypeParam>(),
+                      math::Random<>().uniform<TypeParam>(),
+                      math::Random<>().uniform<TypeParam>());
+    Vec3<TypeParam> operand(math::Random<>().uniform<TypeParam>(),
+                            math::Random<>().uniform<TypeParam>(),
+                            math::Random<>().uniform<TypeParam>());
     auto unary = v * operand;
     ASSERT_EQ(unary.x, Promote<TypeParam>(v.x) * operand.x);
     ASSERT_EQ(unary.y, Promote<TypeParam>(v.y) * operand.y);
     ASSERT_EQ(unary.z, Promote<TypeParam>(v.z) * operand.z);
   } {
-    Vector3<TypeParam> v(math::Random<>().uniform<TypeParam>(),
-                         math::Random<>().uniform<TypeParam>(),
-                         math::Random<>().uniform<TypeParam>());
-    Vector3<TypeParam> operand(math::Random<>().uniform<TypeParam>(),
-                               math::Random<>().uniform<TypeParam>(),
-                               math::Random<>().uniform<TypeParam>());
+    Vec3<TypeParam> v(math::Random<>().uniform<TypeParam>(),
+                      math::Random<>().uniform<TypeParam>(),
+                      math::Random<>().uniform<TypeParam>());
+    Vec3<TypeParam> operand(math::Random<>().uniform<TypeParam>(),
+                            math::Random<>().uniform<TypeParam>(),
+                            math::Random<>().uniform<TypeParam>());
     auto unary = v / operand;
     ASSERT_EQ(unary.x, Promote<TypeParam>(v.x) / operand.x);
     ASSERT_EQ(unary.y, Promote<TypeParam>(v.y) / operand.y);
     ASSERT_EQ(unary.z, Promote<TypeParam>(v.z) / operand.z);
   } {
-    Vector4<TypeParam> v(math::Random<>().uniform<TypeParam>(),
-                         math::Random<>().uniform<TypeParam>(),
-                         math::Random<>().uniform<TypeParam>(),
-                         math::Random<>().uniform<TypeParam>());
-    Vector4<TypeParam> operand(math::Random<>().uniform<TypeParam>(),
-                               math::Random<>().uniform<TypeParam>(),
-                               math::Random<>().uniform<TypeParam>(),
-                               math::Random<>().uniform<TypeParam>());
+    Vec4<TypeParam> v(math::Random<>().uniform<TypeParam>(),
+                      math::Random<>().uniform<TypeParam>(),
+                      math::Random<>().uniform<TypeParam>(),
+                      math::Random<>().uniform<TypeParam>());
+    Vec4<TypeParam> operand(math::Random<>().uniform<TypeParam>(),
+                            math::Random<>().uniform<TypeParam>(),
+                            math::Random<>().uniform<TypeParam>(),
+                            math::Random<>().uniform<TypeParam>());
     auto unary = v + operand;
     ASSERT_EQ(unary.x, Promote<TypeParam>(v.x) + operand.x);
     ASSERT_EQ(unary.y, Promote<TypeParam>(v.y) + operand.y);
     ASSERT_EQ(unary.z, Promote<TypeParam>(v.z) + operand.z);
     ASSERT_EQ(unary.w, Promote<TypeParam>(v.w) + operand.w);
   } {
-    Vector4<TypeParam> v(math::Random<>().uniform<TypeParam>(),
-                         math::Random<>().uniform<TypeParam>(),
-                         math::Random<>().uniform<TypeParam>(),
-                         math::Random<>().uniform<TypeParam>());
-    Vector4<TypeParam> operand(math::Random<>().uniform<TypeParam>(),
-                               math::Random<>().uniform<TypeParam>(),
-                               math::Random<>().uniform<TypeParam>(),
-                               math::Random<>().uniform<TypeParam>());
+    Vec4<TypeParam> v(math::Random<>().uniform<TypeParam>(),
+                      math::Random<>().uniform<TypeParam>(),
+                      math::Random<>().uniform<TypeParam>(),
+                      math::Random<>().uniform<TypeParam>());
+    Vec4<TypeParam> operand(math::Random<>().uniform<TypeParam>(),
+                            math::Random<>().uniform<TypeParam>(),
+                            math::Random<>().uniform<TypeParam>(),
+                            math::Random<>().uniform<TypeParam>());
     auto unary = v - operand;
     ASSERT_EQ(unary.x, Promote<TypeParam>(v.x) - operand.x);
     ASSERT_EQ(unary.y, Promote<TypeParam>(v.y) - operand.y);
     ASSERT_EQ(unary.z, Promote<TypeParam>(v.z) - operand.z);
     ASSERT_EQ(unary.w, Promote<TypeParam>(v.w) - operand.w);
   } {
-    Vector4<TypeParam> v(math::Random<>().uniform<TypeParam>(),
-                         math::Random<>().uniform<TypeParam>(),
-                         math::Random<>().uniform<TypeParam>(),
-                         math::Random<>().uniform<TypeParam>());
-    Vector4<TypeParam> operand(math::Random<>().uniform<TypeParam>(),
-                               math::Random<>().uniform<TypeParam>(),
-                               math::Random<>().uniform<TypeParam>(),
-                               math::Random<>().uniform<TypeParam>());
+    Vec4<TypeParam> v(math::Random<>().uniform<TypeParam>(),
+                      math::Random<>().uniform<TypeParam>(),
+                      math::Random<>().uniform<TypeParam>(),
+                      math::Random<>().uniform<TypeParam>());
+    Vec4<TypeParam> operand(math::Random<>().uniform<TypeParam>(),
+                            math::Random<>().uniform<TypeParam>(),
+                            math::Random<>().uniform<TypeParam>(),
+                            math::Random<>().uniform<TypeParam>());
     auto unary = v * operand;
     ASSERT_EQ(unary.x, Promote<TypeParam>(v.x) * operand.x);
     ASSERT_EQ(unary.y, Promote<TypeParam>(v.y) * operand.y);
     ASSERT_EQ(unary.z, Promote<TypeParam>(v.z) * operand.z);
     ASSERT_EQ(unary.w, Promote<TypeParam>(v.w) * operand.w);
   } {
-    Vector4<TypeParam> v(math::Random<>().uniform<TypeParam>(),
-                         math::Random<>().uniform<TypeParam>(),
-                         math::Random<>().uniform<TypeParam>(),
-                         math::Random<>().uniform<TypeParam>());
-    Vector4<TypeParam> operand(math::Random<>().uniform<TypeParam>(),
-                               math::Random<>().uniform<TypeParam>(),
-                               math::Random<>().uniform<TypeParam>(),
-                               math::Random<>().uniform<TypeParam>());
+    Vec4<TypeParam> v(math::Random<>().uniform<TypeParam>(),
+                      math::Random<>().uniform<TypeParam>(),
+                      math::Random<>().uniform<TypeParam>(),
+                      math::Random<>().uniform<TypeParam>());
+    Vec4<TypeParam> operand(math::Random<>().uniform<TypeParam>(),
+                            math::Random<>().uniform<TypeParam>(),
+                            math::Random<>().uniform<TypeParam>(),
+                            math::Random<>().uniform<TypeParam>());
     auto unary = v / operand;
     ASSERT_EQ(unary.x, Promote<TypeParam>(v.x) / operand.x);
     ASSERT_EQ(unary.y, Promote<TypeParam>(v.y) / operand.y);
@@ -640,90 +640,90 @@ TYPED_TEST(VectorTest, SupportsArithmetic) {
 
 TYPED_TEST(VectorTest, SupportsScalarArithmetic) {
   {
-    Vector2<TypeParam> v(math::Random<>().uniform<TypeParam>(),
-                         math::Random<>().uniform<TypeParam>());
+    Vec2<TypeParam> v(math::Random<>().uniform<TypeParam>(),
+                      math::Random<>().uniform<TypeParam>());
     TypeParam operand = math::Random<>().uniform<TypeParam>();
     auto unary = v + operand;
     ASSERT_EQ(unary.x, Promote<TypeParam>(v.x) + operand);
     ASSERT_EQ(unary.y, Promote<TypeParam>(v.y) + operand);
   } {
-    Vector2<TypeParam> v(math::Random<>().uniform<TypeParam>(),
-                         math::Random<>().uniform<TypeParam>());
+    Vec2<TypeParam> v(math::Random<>().uniform<TypeParam>(),
+                      math::Random<>().uniform<TypeParam>());
     TypeParam operand = math::Random<>().uniform<TypeParam>();
     auto unary = v - operand;
     ASSERT_EQ(unary.x, Promote<TypeParam>(v.x) - operand);
     ASSERT_EQ(unary.y, Promote<TypeParam>(v.y) - operand);
   } {
-    Vector2<TypeParam> v(math::Random<>().uniform<TypeParam>(),
-                         math::Random<>().uniform<TypeParam>());
+    Vec2<TypeParam> v(math::Random<>().uniform<TypeParam>(),
+                      math::Random<>().uniform<TypeParam>());
     TypeParam operand = math::Random<>().uniform<TypeParam>();
     auto unary = v * operand;
     ASSERT_EQ(unary.x, Promote<TypeParam>(v.x) * operand);
     ASSERT_EQ(unary.y, Promote<TypeParam>(v.y) * operand);
   } {
-    Vector2<TypeParam> v(math::Random<>().uniform<TypeParam>(),
-                         math::Random<>().uniform<TypeParam>());
+    Vec2<TypeParam> v(math::Random<>().uniform<TypeParam>(),
+                      math::Random<>().uniform<TypeParam>());
     TypeParam operand = math::Random<>().uniform<TypeParam>();
     auto unary = v / operand;
     ASSERT_EQ(unary.x, Promote<TypeParam>(v.x) / operand);
     ASSERT_EQ(unary.y, Promote<TypeParam>(v.y) / operand);
   } {
-    Vector2<TypeParam> v(math::Random<>().uniform<TypeParam>(),
-                         math::Random<>().uniform<TypeParam>());
+    Vec2<TypeParam> v(math::Random<>().uniform<TypeParam>(),
+                      math::Random<>().uniform<TypeParam>());
     TypeParam operand = math::Random<>().uniform<TypeParam>();
     auto unary = operand * v;
     ASSERT_EQ(unary.x, Promote<TypeParam>(v.x) * operand);
     ASSERT_EQ(unary.y, Promote<TypeParam>(v.y) * operand);
   } {
-    Vector3<TypeParam> v(math::Random<>().uniform<TypeParam>(),
-                         math::Random<>().uniform<TypeParam>(),
-                         math::Random<>().uniform<TypeParam>());
+    Vec3<TypeParam> v(math::Random<>().uniform<TypeParam>(),
+                      math::Random<>().uniform<TypeParam>(),
+                      math::Random<>().uniform<TypeParam>());
     TypeParam operand = math::Random<>().uniform<TypeParam>();
     auto unary = v + operand;
     ASSERT_EQ(unary.x, Promote<TypeParam>(v.x) + operand);
     ASSERT_EQ(unary.y, Promote<TypeParam>(v.y) + operand);
     ASSERT_EQ(unary.z, Promote<TypeParam>(v.z) + operand);
   } {
-    Vector3<TypeParam> v(math::Random<>().uniform<TypeParam>(),
-                         math::Random<>().uniform<TypeParam>(),
-                         math::Random<>().uniform<TypeParam>());
+    Vec3<TypeParam> v(math::Random<>().uniform<TypeParam>(),
+                      math::Random<>().uniform<TypeParam>(),
+                      math::Random<>().uniform<TypeParam>());
     TypeParam operand = math::Random<>().uniform<TypeParam>();
     auto unary = v - operand;
     ASSERT_EQ(unary.x, Promote<TypeParam>(v.x) - operand);
     ASSERT_EQ(unary.y, Promote<TypeParam>(v.y) - operand);
     ASSERT_EQ(unary.z, Promote<TypeParam>(v.z) - operand);
   } {
-    Vector3<TypeParam> v(math::Random<>().uniform<TypeParam>(),
-                         math::Random<>().uniform<TypeParam>(),
-                         math::Random<>().uniform<TypeParam>());
+    Vec3<TypeParam> v(math::Random<>().uniform<TypeParam>(),
+                      math::Random<>().uniform<TypeParam>(),
+                      math::Random<>().uniform<TypeParam>());
     TypeParam operand = math::Random<>().uniform<TypeParam>();
     auto unary = v * operand;
     ASSERT_EQ(unary.x, Promote<TypeParam>(v.x) * operand);
     ASSERT_EQ(unary.y, Promote<TypeParam>(v.y) * operand);
     ASSERT_EQ(unary.z, Promote<TypeParam>(v.z) * operand);
   } {
-    Vector3<TypeParam> v(math::Random<>().uniform<TypeParam>(),
-                         math::Random<>().uniform<TypeParam>(),
-                         math::Random<>().uniform<TypeParam>());
+    Vec3<TypeParam> v(math::Random<>().uniform<TypeParam>(),
+                      math::Random<>().uniform<TypeParam>(),
+                      math::Random<>().uniform<TypeParam>());
     TypeParam operand = math::Random<>().uniform<TypeParam>();
     auto unary = v / operand;
     ASSERT_EQ(unary.x, Promote<TypeParam>(v.x) / operand);
     ASSERT_EQ(unary.y, Promote<TypeParam>(v.y) / operand);
     ASSERT_EQ(unary.z, Promote<TypeParam>(v.z) / operand);
   } {
-    Vector3<TypeParam> v(math::Random<>().uniform<TypeParam>(),
-                         math::Random<>().uniform<TypeParam>(),
-                         math::Random<>().uniform<TypeParam>());
+    Vec3<TypeParam> v(math::Random<>().uniform<TypeParam>(),
+                      math::Random<>().uniform<TypeParam>(),
+                      math::Random<>().uniform<TypeParam>());
     TypeParam operand = math::Random<>().uniform<TypeParam>();
     auto unary = operand * v;
     ASSERT_EQ(unary.x, Promote<TypeParam>(v.x) * operand);
     ASSERT_EQ(unary.y, Promote<TypeParam>(v.y) * operand);
     ASSERT_EQ(unary.z, Promote<TypeParam>(v.z) * operand);
   } {
-    Vector4<TypeParam> v(math::Random<>().uniform<TypeParam>(),
-                         math::Random<>().uniform<TypeParam>(),
-                         math::Random<>().uniform<TypeParam>(),
-                         math::Random<>().uniform<TypeParam>());
+    Vec4<TypeParam> v(math::Random<>().uniform<TypeParam>(),
+                      math::Random<>().uniform<TypeParam>(),
+                      math::Random<>().uniform<TypeParam>(),
+                      math::Random<>().uniform<TypeParam>());
     TypeParam operand = math::Random<>().uniform<TypeParam>();
     auto unary = v + operand;
     ASSERT_EQ(unary.x, Promote<TypeParam>(v.x) + operand);
@@ -731,10 +731,10 @@ TYPED_TEST(VectorTest, SupportsScalarArithmetic) {
     ASSERT_EQ(unary.z, Promote<TypeParam>(v.z) + operand);
     ASSERT_EQ(unary.w, Promote<TypeParam>(v.w) + operand);
   } {
-    Vector4<TypeParam> v(math::Random<>().uniform<TypeParam>(),
-                         math::Random<>().uniform<TypeParam>(),
-                         math::Random<>().uniform<TypeParam>(),
-                         math::Random<>().uniform<TypeParam>());
+    Vec4<TypeParam> v(math::Random<>().uniform<TypeParam>(),
+                      math::Random<>().uniform<TypeParam>(),
+                      math::Random<>().uniform<TypeParam>(),
+                      math::Random<>().uniform<TypeParam>());
     TypeParam operand = math::Random<>().uniform<TypeParam>();
     auto unary = v - operand;
     ASSERT_EQ(unary.x, Promote<TypeParam>(v.x) - operand);
@@ -742,10 +742,10 @@ TYPED_TEST(VectorTest, SupportsScalarArithmetic) {
     ASSERT_EQ(unary.z, Promote<TypeParam>(v.z) - operand);
     ASSERT_EQ(unary.w, Promote<TypeParam>(v.w) - operand);
   } {
-    Vector4<TypeParam> v(math::Random<>().uniform<TypeParam>(),
-                         math::Random<>().uniform<TypeParam>(),
-                         math::Random<>().uniform<TypeParam>(),
-                         math::Random<>().uniform<TypeParam>());
+    Vec4<TypeParam> v(math::Random<>().uniform<TypeParam>(),
+                      math::Random<>().uniform<TypeParam>(),
+                      math::Random<>().uniform<TypeParam>(),
+                      math::Random<>().uniform<TypeParam>());
     TypeParam operand = math::Random<>().uniform<TypeParam>();
     auto unary = v * operand;
     ASSERT_EQ(unary.x, Promote<TypeParam>(v.x) * operand);
@@ -753,10 +753,10 @@ TYPED_TEST(VectorTest, SupportsScalarArithmetic) {
     ASSERT_EQ(unary.z, Promote<TypeParam>(v.z) * operand);
     ASSERT_EQ(unary.w, Promote<TypeParam>(v.w) * operand);
   } {
-    Vector4<TypeParam> v(math::Random<>().uniform<TypeParam>(),
-                         math::Random<>().uniform<TypeParam>(),
-                         math::Random<>().uniform<TypeParam>(),
-                         math::Random<>().uniform<TypeParam>());
+    Vec4<TypeParam> v(math::Random<>().uniform<TypeParam>(),
+                      math::Random<>().uniform<TypeParam>(),
+                      math::Random<>().uniform<TypeParam>(),
+                      math::Random<>().uniform<TypeParam>());
     TypeParam operand = math::Random<>().uniform<TypeParam>();
     auto unary = v / operand;
     ASSERT_EQ(unary.x, Promote<TypeParam>(v.x) / operand);
@@ -764,10 +764,10 @@ TYPED_TEST(VectorTest, SupportsScalarArithmetic) {
     ASSERT_EQ(unary.z, Promote<TypeParam>(v.z) / operand);
     ASSERT_EQ(unary.w, Promote<TypeParam>(v.w) / operand);
   } {
-    Vector4<TypeParam> v(math::Random<>().uniform<TypeParam>(),
-                         math::Random<>().uniform<TypeParam>(),
-                         math::Random<>().uniform<TypeParam>(),
-                         math::Random<>().uniform<TypeParam>());
+    Vec4<TypeParam> v(math::Random<>().uniform<TypeParam>(),
+                      math::Random<>().uniform<TypeParam>(),
+                      math::Random<>().uniform<TypeParam>(),
+                      math::Random<>().uniform<TypeParam>());
     TypeParam operand = math::Random<>().uniform<TypeParam>();
     auto unary = operand * v;
     ASSERT_EQ(unary.x, Promote<TypeParam>(v.x) * operand);

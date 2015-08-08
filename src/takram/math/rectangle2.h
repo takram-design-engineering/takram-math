@@ -1,5 +1,5 @@
 //
-//  takram/math/rect.h
+//  takram/math/rectangle2.h
 //
 //  MIT License
 //
@@ -25,8 +25,8 @@
 //
 
 #pragma once
-#ifndef TAKRAM_MATH_RECT_H_
-#define TAKRAM_MATH_RECT_H_
+#ifndef TAKRAM_MATH_RECTANGLE2_H_
+#define TAKRAM_MATH_RECTANGLE2_H_
 
 #include <algorithm>
 #include <cassert>
@@ -45,6 +45,10 @@
 #include "cinder/Rect.h"
 #endif  // TAKRAM_HAS_CINDER
 
+#if TAKRAM_HAS_COREGRAPHICS
+#include <CoreGraphics/CoreGraphics.h>
+#endif  // TAKRAM_HAS_COREGRAPHICS
+
 #include "takram/math/enablers.h"
 #include "takram/math/promotion.h"
 #include "takram/math/size.h"
@@ -53,25 +57,30 @@
 namespace takram {
 namespace math {
 
+template <class T, int D>
+class Rect;
+
 template <class T>
-class Rect final {
+using Rect2 = Rect<T, 2>;
+
+template <class T>
+class Rect<T, 2> final {
  public:
   using Type = T;
 
  public:
-  // Constructors
   Rect();
-  explicit Rect(const Vector2<T>& origin);
+  explicit Rect(const Vec2<T>& origin);
   explicit Rect(const Size2<T>& size);
   Rect(T x, T y, T width, T height);
   Rect(T x, T y, const Size2<T>& size);
-  Rect(const Vector2<T>& origin, T width, T height);
-  Rect(const Vector2<T>& origin, const Size2<T>& size);
-  Rect(const Vector2<T>& p1, const Vector2<T>& p2);
+  Rect(const Vec2<T>& origin, T width, T height);
+  Rect(const Vec2<T>& origin, const Size2<T>& size);
+  Rect(const Vec2<T>& p1, const Vec2<T>& p2);
 
   // Implicit conversion
   template <class U>
-  Rect(const Rect<U>& other);
+  Rect(const Rect2<U>& other);
 
 #if TAKRAM_HAS_OPENCV
   template <class U>
@@ -90,33 +99,38 @@ class Rect final {
   operator ci::RectT<T>() const;
 #endif  // TAKRAM_HAS_CINDER
 
+#if TAKRAM_HAS_COREGRAPHICS
+  Rect(const CGRect& other);
+  operator CGRect() const;
+#endif  // TAKRAM_HAS_COREGRAPHICS
+
   // Copy semantics
-  Rect(const Rect& other);
-  Rect& operator=(const Rect& other);
+  Rect(const Rect& other) = default;
+  Rect& operator=(const Rect& other) = default;
 
   // Mutators
-  void set(const Vector2<T>& origin);
+  void set(const Vec2<T>& origin);
   void set(const Size2<T>& size);
   void set(T x, T y, T width, T height);
-  void set(const Vector2<T>& origin, const Size2<T>& size);
+  void set(const Vec2<T>& origin, const Size2<T>& size);
   void set(T x, T y, const Size2<T>& size);
-  void set(const Vector2<T>& origin, T width, T height);
-  void set(const Vector2<T>& p1, const Vector2<T>& p2);
+  void set(const Vec2<T>& origin, T width, T height);
+  void set(const Vec2<T>& p1, const Vec2<T>& p2);
   void reset();
 
   // Comparison
   template <class U>
-  bool operator==(const Rect<U>& other) const;
+  bool operator==(const Rect2<U>& other) const;
   template <class U>
-  bool operator!=(const Rect<U>& other) const;
+  bool operator!=(const Rect2<U>& other) const;
   template <class U>
-  bool operator<(const Rect<U>& other) const;
+  bool operator<(const Rect2<U>& other) const;
   template <class U>
-  bool operator>(const Rect<U>& other) const;
+  bool operator>(const Rect2<U>& other) const;
   template <class U>
-  bool operator<=(const Rect<U>& other) const;
+  bool operator<=(const Rect2<U>& other) const;
   template <class U>
-  bool operator>=(const Rect<U>& other) const;
+  bool operator>=(const Rect2<U>& other) const;
 
   // Attributes
   bool empty() const { return size.empty(); }
@@ -124,7 +138,7 @@ class Rect final {
   Promote<T> diagonal() const;
   Promote<T> area() const;
   Promote<T> circumference() const;
-  Vector2<Promote<T>> centroid() const;
+  Vec2<Promote<T>> centroid() const;
 
   // Edges
   T minX() const;
@@ -137,51 +151,49 @@ class Rect final {
   T bottom() const;
 
   // Corners
-  Vector2<T> topLeft() const;
-  Vector2<T> topRight() const;
-  Vector2<T> bottomLeft() const;
-  Vector2<T> bottomRight() const;
-  Vector2<T> tl() const { return topLeft(); }
-  Vector2<T> tr() const { return topRight(); }
-  Vector2<T> bl() const { return bottomLeft(); }
-  Vector2<T> br() const { return bottomRight(); }
+  Vec2<T> topLeft() const;
+  Vec2<T> topRight() const;
+  Vec2<T> bottomLeft() const;
+  Vec2<T> bottomRight() const;
+  Vec2<T> tl() const { return topLeft(); }
+  Vec2<T> tr() const { return topRight(); }
+  Vec2<T> bl() const { return bottomLeft(); }
+  Vec2<T> br() const { return bottomRight(); }
 
   // Canonicalization
   bool canonical() const { return width > 0 && height > 0; }
   Rect& canonicalize();
-  Rect<Promote<T>> canonicalized() const;
+  Rect2<Promote<T>> canonicalized() const;
 
   // Translation
   Rect& translate(T offset);
   Rect& translate(T dx, T dy);
-  Rect& translate(const Vector2<T>& offset);
+  Rect& translate(const Vec2<T>& offset);
   template <class U>
-  Rect<Promote<T, U>> translated(U offset) const;
+  Rect2<Promote<T, U>> translated(U offset) const;
   template <class U>
-  Rect<Promote<T, U>> translated(U dx, U dy) const;
+  Rect2<Promote<T, U>> translated(U dx, U dy) const;
   template <class U>
-  Rect<Promote<T, U>> translated(const Vector2<U>& offset) const;
+  Rect2<Promote<T, U>> translated(const Vec2<U>& offset) const;
 
   // Scaling
   Rect& scale(T scale);
   Rect& scale(T sx, T sy);
-  Rect& scale(const Vector2<T>& scale);
+  Rect& scale(const Vec2<T>& scale);
   template <class U>
-  Rect<Promote<T, U>> scaled(U scale) const;
+  Rect2<Promote<T, U>> scaled(U scale) const;
   template <class U>
-  Rect<Promote<T, U>> scaled(U sx, U sy) const;
+  Rect2<Promote<T, U>> scaled(U sx, U sy) const;
   template <class U>
-  Rect<Promote<T, U>> scaled(const Vector2<U>& scale) const;
+  Rect2<Promote<T, U>> scaled(const Vec2<U>& scale) const;
 
   // Containment
   template <class U>
-  bool contains(const Vector2<U>& point) const;
-  template <class U>
-  bool contains(const Rect<U>& rect) const;
+  bool contains(const Vec2<U>& point) const;
 
  public:
   union {
-    Vector2<T> origin;
+    Vec2<T> origin;
     struct { T x; T y; };
   };
   union {
@@ -191,49 +203,51 @@ class Rect final {
   };
 };
 
-using Recti = Rect<int>;
-using Rectf = Rect<float>;
-using Rectd = Rect<double>;
+using Rect2i = Rect2<int>;
+using Rect2f = Rect2<float>;
+using Rect2d = Rect2<double>;
 
+template <class T, int D>
+using Rectangle = Rect<T, D>;
 template <class T>
-using Rectangle = Rect<T>;
-using Rectanglei = Rect<int>;
-using Rectanglef = Rect<float>;
-using Rectangled = Rect<double>;
+using Rectangle2 = Rect2<T>;
+using Rectangle2i = Rect2i;
+using Rectangle2f = Rect2f;
+using Rectangle2d = Rect2d;
 
 #pragma mark -
 
 template <class T>
-inline Rect<T>::Rect() : origin(), size() {}
+inline Rect2<T>::Rect() : origin(), size() {}
 
 template <class T>
-inline Rect<T>::Rect(const Vector2<T>& origin) : origin(origin), size() {}
+inline Rect2<T>::Rect(const Vec2<T>& origin) : origin(origin), size() {}
 
 template <class T>
-inline Rect<T>::Rect(const Size2<T>& size) : origin(), size(size) {}
+inline Rect2<T>::Rect(const Size2<T>& size) : origin(), size(size) {}
 
 template <class T>
-inline Rect<T>::Rect(T x, T y, T width, T height)
+inline Rect2<T>::Rect(T x, T y, T width, T height)
     : origin(x, y),
       size(width, height) {}
 
 template <class T>
-inline Rect<T>::Rect(T x, T y, const Size2<T>& size)
+inline Rect2<T>::Rect(T x, T y, const Size2<T>& size)
     : origin(x, y),
       size(size) {}
 
 template <class T>
-inline Rect<T>::Rect(const Vector2<T>& origin, T width, T height)
+inline Rect2<T>::Rect(const Vec2<T>& origin, T width, T height)
     : origin(origin),
       size(width, height) {}
 
 template <class T>
-inline Rect<T>::Rect(const Vector2<T>& origin, const Size2<T>& size)
+inline Rect2<T>::Rect(const Vec2<T>& origin, const Size2<T>& size)
     : origin(origin),
       size(size) {}
 
 template <class T>
-inline Rect<T>::Rect(const Vector2<T>& p1, const Vector2<T>& p2)
+inline Rect2<T>::Rect(const Vec2<T>& p1, const Vec2<T>& p2)
     : origin(std::min(p1.x, p2.x), std::min(p1.y, p2.y)),
       size(std::max(p1.x, p2.x) - origin.x, std::max(p1.y, p2.y) - origin.y) {}
 
@@ -241,20 +255,34 @@ inline Rect<T>::Rect(const Vector2<T>& p1, const Vector2<T>& p2)
 
 template <class T>
 template <class U>
-inline Rect<T>::Rect(const Rect<U>& other)
+inline Rect2<T>::Rect(const Rect2<U>& other)
     : origin(other.origin),
       size(other.size) {}
+
+#if TAKRAM_HAS_COREGRAPHICS
+
+template <class T>
+inline Rect2<T>::Rect(const CGRect& other)
+    : origin(other.origin),
+      size(other.size) {}
+
+template <class T>
+inline Rect2<T>::operator CGRect() const {
+  return CGRectMake(x, y, width, height);
+}
+
+#endif  // TAKRAM_HAS_COREGRAPHICS
 
 #if TAKRAM_HAS_OPENCV
 
 template <class T>
 template <class U>
-inline Rect<T>::Rect(const cv::Rect_<U>& other)
+inline Rect2<T>::Rect(const cv::Rect_<U>& other)
     : origin(other.x, other.y),
       size(other.width, other.height) {}
 
 template <class T>
-inline Rect<T>::operator cv::Rect_<T>() const {
+inline Rect2<T>::operator cv::Rect_<T>() const {
   return ofRectangle(x, y, width, height);
 }
 
@@ -263,7 +291,7 @@ inline Rect<T>::operator cv::Rect_<T>() const {
 #if TAKRAM_HAS_OPENFRAMEWORKS
 
 template <class T>
-inline Rect<T>::Rect(const ofRectangle& other)
+inline Rect2<T>::Rect(const ofRectangle& other)
     : origin(other.x, other.y),
       size(other.width, other.height) {}
 
@@ -278,7 +306,7 @@ inline Rect<T>::operator ofRectangle() const {
 
 template <class T>
 template <class U>
-inline Rect<T>::Rect(const ci::RectT<U>& other)
+inline Rect2<T>::Rect(const ci::RectT<U>& other)
     : origin(other.x1, other.y1),
       size(other.x2 - other.x1, other.y2 - other.y1) {}
 
@@ -289,202 +317,186 @@ inline Rect<T>::operator ci::RectT<T>() const {
 
 #endif  // TAKRAM_HAS_CINDER
 
-#pragma mark Copy semantics
-
-template <class T>
-inline Rect<T>::Rect(const Rect<T>& other)
-    : origin(other.origin),
-      size(other.size) {}
-
-template <class T>
-inline Rect<T>& Rect<T>::operator=(const Rect<T>& other) {
-  if (&other != this) {
-    origin = other.origin;
-    size = other.size;
-  }
-  return *this;
-}
-
 #pragma mark Mutators
 
 template <class T>
-inline void Rect<T>::set(const Vector2<T>& origin) {
+inline void Rect2<T>::set(const Vec2<T>& origin) {
   this->origin = origin;
 }
 
 template <class T>
-inline void Rect<T>::set(const Size2<T>& size) {
+inline void Rect2<T>::set(const Size2<T>& size) {
   this->size = size;
 }
 
 template <class T>
-inline void Rect<T>::set(T x, T y, T width, T height) {
+inline void Rect2<T>::set(T x, T y, T width, T height) {
   origin.set(x, y);
   size.set(width, height);
 }
 
 template <class T>
-inline void Rect<T>::set(const Vector2<T>& origin, const Size2<T>& size) {
+inline void Rect2<T>::set(const Vec2<T>& origin, const Size2<T>& size) {
   this->origin = origin;
   this->size = size;
 }
 
 template <class T>
-inline void Rect<T>::set(T x, T y, const Size2<T>& size) {
+inline void Rect2<T>::set(T x, T y, const Size2<T>& size) {
   origin.set(x, y);
   this->size = size;
 }
 
 template <class T>
-inline void Rect<T>::set(const Vector2<T>& origin, T width, T height) {
+inline void Rect2<T>::set(const Vec2<T>& origin, T width, T height) {
   this->origin = origin;
   size.set(width, height);
 }
 
 template <class T>
-inline void Rect<T>::set(const Vector2<T>& p1, const Vector2<T>& p2) {
+inline void Rect2<T>::set(const Vec2<T>& p1, const Vec2<T>& p2) {
   origin.set(std::min(p1.x, p2.x), std::min(p1.y, p2.y));
   size.set(std::max(p1.x, p2.x) - origin.x, std::max(p1.y, p2.y) - origin.y);
 }
 
 template <class T>
-inline void Rect<T>::reset() {
-  *this = Rect<T>();
+inline void Rect2<T>::reset() {
+  *this = Rect();
 }
 
 #pragma mark Comparison
 
 template <class T>
 template <class U>
-inline bool Rect<T>::operator==(const Rect<U>& other) const {
+inline bool Rect2<T>::operator==(const Rect2<U>& other) const {
   return origin == other.origin && size == other.size;
 }
 
 template <class T>
 template <class U>
-inline bool Rect<T>::operator!=(const Rect<U>& other) const {
+inline bool Rect2<T>::operator!=(const Rect2<U>& other) const {
   return !operator==(other);
 }
 
 template <class T>
 template <class U>
-inline bool Rect<T>::operator<(const Rect<U>& other) const {
+inline bool Rect2<T>::operator<(const Rect2<U>& other) const {
   return origin < other.origin || (origin == other.origin && size < other.size);
 }
 
 template <class T>
 template <class U>
-inline bool Rect<T>::operator>(const Rect<U>& other) const {
+inline bool Rect2<T>::operator>(const Rect2<U>& other) const {
   return origin > other.origin || (origin == other.origin && size > other.size);
 }
 
 template <class T>
 template <class U>
-inline bool Rect<T>::operator<=(const Rect<U>& other) const {
+inline bool Rect2<T>::operator<=(const Rect2<U>& other) const {
   return operator<(other) || operator==(other);
 }
 
 template <class T>
 template <class U>
-inline bool Rect<T>::operator>=(const Rect<U>& other) const {
+inline bool Rect2<T>::operator>=(const Rect2<U>& other) const {
   return operator>(other) || operator==(other);
 }
 
 #pragma mark Attributes
 
 template <class T>
-inline Promote<T> Rect<T>::aspect() const {
+inline Promote<T> Rect2<T>::aspect() const {
   return size.aspect();
 }
 
 template <class T>
-inline Promote<T> Rect<T>::diagonal() const {
+inline Promote<T> Rect2<T>::diagonal() const {
   return size.diagonal();
 }
 
 template <class T>
-inline Promote<T> Rect<T>::area() const {
+inline Promote<T> Rect2<T>::area() const {
   return size.area();
 }
 
 template <class T>
-inline Promote<T> Rect<T>::circumference() const {
+inline Promote<T> Rect2<T>::circumference() const {
   return 2 * std::abs(Promote<T>(width)) + 2 * std::abs(Promote<T>(height));
 }
 
 template <class T>
-inline Vector2<Promote<T>> Rect<T>::centroid() const {
-  return origin + Vector2<Promote<T>>(static_cast<Size2<T>>(size) / 2);
+inline Vec2<Promote<T>> Rect2<T>::centroid() const {
+  return origin + Vec2<Promote<T>>(static_cast<Size2<T>>(size) / 2);
 }
 
 #pragma mark Edges
 
 template <class T>
-inline T Rect<T>::minX() const {
+inline T Rect2<T>::minX() const {
   return std::min<T>(x, x + width);
 }
 
 template <class T>
-inline T Rect<T>::maxX() const {
+inline T Rect2<T>::maxX() const {
   return std::max<T>(x, x + width);
 }
 
 template <class T>
-inline T Rect<T>::minY() const {
+inline T Rect2<T>::minY() const {
   return std::min<T>(y, y + height);
 }
 
 template <class T>
-inline T Rect<T>::maxY() const {
+inline T Rect2<T>::maxY() const {
   return std::max<T>(y, y + height);
 }
 
 template <class T>
-inline T Rect<T>::left() const {
+inline T Rect2<T>::left() const {
   return minX();
 }
 
 template <class T>
-inline T Rect<T>::right() const {
+inline T Rect2<T>::right() const {
   return maxX();
 }
 
 template <class T>
-inline T Rect<T>::top() const {
+inline T Rect2<T>::top() const {
   return minY();
 }
 
 template <class T>
-inline T Rect<T>::bottom() const {
+inline T Rect2<T>::bottom() const {
   return maxY();
 }
 
 #pragma mark Corners
 
 template <class T>
-inline Vector2<T> Rect<T>::topLeft() const {
-  return Vector2<T>(left(), top());
+inline Vec2<T> Rect2<T>::topLeft() const {
+  return Vec2<T>(left(), top());
 }
 
 template <class T>
-inline Vector2<T> Rect<T>::topRight() const {
-  return Vector2<T>(right(), top());
+inline Vec2<T> Rect2<T>::topRight() const {
+  return Vec2<T>(right(), top());
 }
 
 template <class T>
-inline Vector2<T> Rect<T>::bottomLeft() const {
-  return Vector2<T>(left(), bottom());
+inline Vec2<T> Rect2<T>::bottomLeft() const {
+  return Vec2<T>(left(), bottom());
 }
 
 template <class T>
-inline Vector2<T> Rect<T>::bottomRight() const {
-  return Vector2<T>(right(), bottom());
+inline Vec2<T> Rect2<T>::bottomRight() const {
+  return Vec2<T>(right(), bottom());
 }
 
 #pragma mark Canonical form
 
 template <class T>
-inline Rect<T>& Rect<T>::canonicalize() {
+inline Rect2<T>& Rect2<T>::canonicalize() {
   if (width < 0) {
     x += width;
     width = -width;
@@ -497,106 +509,118 @@ inline Rect<T>& Rect<T>::canonicalize() {
 }
 
 template <class T>
-inline Rect<Promote<T>> Rect<T>::canonicalized() const {
-  return Rect<Promote<T>>(*this).canonicalize();
+inline Rect2<Promote<T>> Rect2<T>::canonicalized() const {
+  return Rect2<Promote<T>>(*this).canonicalize();
 }
 
 #pragma mark Translation
 
 template <class T>
-inline Rect<T>& Rect<T>::translate(T offset) {
+inline Rect2<T>& Rect2<T>::translate(T offset) {
   origin += offset;
   return *this;
 }
 
 template <class T>
-inline Rect<T>& Rect<T>::translate(T dx, T dy) {
+inline Rect2<T>& Rect2<T>::translate(T dx, T dy) {
   x += dx;
   y += dy;
   return *this;
 }
 
 template <class T>
-inline Rect<T>& Rect<T>::translate(const Vector2<T>& offset) {
+inline Rect2<T>& Rect2<T>::translate(const Vec2<T>& offset) {
   origin += offset;
   return *this;
 }
 
 template <class T>
 template <class U>
-inline Rect<Promote<T, U>> Rect<T>::translated(U offset) const {
-  return Rect<Promote<T, U>>(*this).translate(offset);
+inline Rect2<Promote<T, U>> Rect2<T>::translated(U offset) const {
+  return Rect2<Promote<T, U>>(*this).translate(offset);
 }
 
 template <class T>
 template <class U>
-inline Rect<Promote<T, U>> Rect<T>::translated(U dx, U dy) const {
-  return Rect<Promote<T, U>>(*this).translate(dx, dy);
+inline Rect2<Promote<T, U>> Rect2<T>::translated(U dx, U dy) const {
+  return Rect2<Promote<T, U>>(*this).translate(dx, dy);
 }
 
 template <class T>
 template <class U>
-inline Rect<Promote<T, U>> Rect<T>::translated(const Vector2<U>& offset) const {
-  return Rect<Promote<T, U>>(*this).translate(offset);
+inline Rect2<Promote<T, U>> Rect2<T>::translated(const Vec2<U>& offset) const {
+  return Rect2<Promote<T, U>>(*this).translate(offset);
 }
 
 #pragma mark Scaling
 
 template <class T>
-inline Rect<T>& Rect<T>::scale(T scale) {
+inline Rect2<T>& Rect2<T>::scale(T scale) {
   size *= scale;
   return *this;
 }
 
 template <class T>
-inline Rect<T>& Rect<T>::scale(T sx, T sy) {
+inline Rect2<T>& Rect2<T>::scale(T sx, T sy) {
   width *= sx;
   height *= sy;
   return *this;
 }
 
 template <class T>
-inline Rect<T>& Rect<T>::scale(const Vector2<T>& scale) {
+inline Rect2<T>& Rect2<T>::scale(const Vec2<T>& scale) {
   size *= scale;
   return *this;
 }
 
 template <class T>
 template <class U>
-inline Rect<Promote<T, U>> Rect<T>::scaled(U scale) const {
-  return Rect<Promote<T, U>>(*this).scale(scale);
+inline Rect2<Promote<T, U>> Rect2<T>::scaled(U scale) const {
+  return Rect2<Promote<T, U>>(*this).scale(scale);
 }
 
 template <class T>
 template <class U>
-inline Rect<Promote<T, U>> Rect<T>::scaled(U sx, U sy) const {
-  return Rect<Promote<T, U>>(*this).scale(sx, sy);
+inline Rect2<Promote<T, U>> Rect2<T>::scaled(U sx, U sy) const {
+  return Rect2<Promote<T, U>>(*this).scale(sx, sy);
 }
 
 template <class T>
 template <class U>
-inline Rect<Promote<T, U>> Rect<T>::scaled(const Vector2<U>& scale) const {
-  return Rect<Promote<T, U>>(*this).scale(scale);
+inline Rect2<Promote<T, U>> Rect2<T>::scaled(const Vec2<U>& scale) const {
+  return Rect2<Promote<T, U>>(*this).scale(scale);
+}
+
+#pragma mark Containment
+
+template <class T>
+template <class U>
+inline bool Rect2<T>::contains(const Vec2<U>& point) const {
+  return !(point.x < minX() || maxX() < point.x ||
+           point.y < minY() || maxY() < point.y);
 }
 
 #pragma mark Stream
 
 template <class T>
-inline std::ostream& operator<<(std::ostream& os, const Rect<T>& other) {
+inline std::ostream& operator<<(std::ostream& os, const Rect2<T>& other) {
   return os << "( " << other.origin << ", " << other.size << " )";
 }
 
 }  // namespace math
 
 using math::Rect;
-using math::Recti;
-using math::Rectf;
-using math::Rectd;
+using math::Rect2;
+using math::Rect2i;
+using math::Rect2f;
+using math::Rect2d;
+
 using math::Rectangle;
-using math::Rectanglei;
-using math::Rectanglef;
-using math::Rectangled;
+using math::Rectangle2;
+using math::Rectangle2i;
+using math::Rectangle2f;
+using math::Rectangle2d;
 
 }  // namespace takram
 
-#endif  // TAKRAM_MATH_RECT_H_
+#endif  // TAKRAM_MATH_RECTANGLE2_H_

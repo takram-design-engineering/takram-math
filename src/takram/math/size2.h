@@ -43,8 +43,12 @@
 #endif  // TAKRAM_HAS_OPENFRAMEWORKS
 
 #if TAKRAM_HAS_CINDER
-#include "cinder/Vector.h"
+#include "cinder/Vec.h"
 #endif  // TAKRAM_HAS_CINDER
+
+#if TAKRAM_HAS_COREGRAPHICS
+#include <CoreGraphics/CoreGraphics.h>
+#endif  // TAKRAM_HAS_COREGRAPHICS
 
 #include "takram/math/axis.h"
 #include "takram/math/enablers.h"
@@ -66,11 +70,11 @@ template <class T>
 class Size<T, 2> final {
  public:
   using Type = T;
-  using Iterator = typename Vector2<T>::Iterator;
-  using ConstIterator = typename Vector2<T>::ConstIterator;
-  using ReverseIterator = typename Vector2<T>::ReverseIterator;
-  using ConstReverseIterator = typename Vector2<T>::ConstReverseIterator;
-  static constexpr const auto dimensions = Vector2<T>::dimensions;
+  using Iterator = typename Vec2<T>::Iterator;
+  using ConstIterator = typename Vec2<T>::ConstIterator;
+  using ReverseIterator = typename Vec2<T>::ReverseIterator;
+  using ConstReverseIterator = typename Vec2<T>::ConstReverseIterator;
+  static constexpr const auto dimensions = Vec2<T>::dimensions;
 
  public:
   Size();
@@ -91,12 +95,17 @@ class Size<T, 2> final {
   operator cv::Size_<T>() const;
 #endif  // TAKRAM_HAS_OPENCV
 
+#if TAKRAM_HAS_COREGRAPHICS
+  explicit Size(const CGSize& other);
+  explicit operator CGSize() const;
+#endif  // TAKRAM_HAS_COREGRAPHICS
+
   // Explicit conversion
   template <class U>
   explicit Size(const Size3<U>& other);
-  explicit Size(const Vector2<T>& other);
-  explicit Size(const Vector3<T>& other);
-  explicit Size(const Vector4<T>& other);
+  explicit Size(const Vec2<T>& other);
+  explicit Size(const Vec3<T>& other);
+  explicit Size(const Vec4<T>& other);
 
 #if TAKRAM_HAS_OPENFRAMEWORKS
   explicit Size(const ofVec2f& other);
@@ -110,21 +119,21 @@ class Size<T, 2> final {
 #endif  // TAKRAM_HAS_CINDER
 
   // Copy semantics
-  Size(const Size2<T>& other);
-  Size2<T>& operator=(const Size2<T>& other);
+  Size(const Size& other) = default;
+  Size& operator=(const Size& other) = default;
 
   // Factory
-  static Size2<T> min();
-  static Size2<T> max();
-  static Size2<T> random();
-  static Size2<T> random(T max);
-  static Size2<T> random(T min, T max);
+  static Size min();
+  static Size max();
+  static Size random();
+  static Size random(T max);
+  static Size random(T min, T max);
   template <class Random>
-  static Size2<T> random(Random *random);
+  static Size random(Random *random);
   template <class Random>
-  static Size2<T> random(T max, Random *random);
+  static Size random(T max, Random *random);
   template <class Random>
-  static Size2<T> random(T min, T max, Random *random);
+  static Size random(T min, T max, Random *random);
 
   // Mutators
   void set(T value);
@@ -164,10 +173,10 @@ class Size<T, 2> final {
   bool operator>=(const Size2<U>& other) const;
 
   // Arithmetic
-  Size2<T>& operator+=(const Size2<T>& other);
-  Size2<T>& operator-=(const Size2<T>& other);
-  Size2<T>& operator*=(const Size2<T>& other);
-  Size2<T>& operator/=(const Size2<T>& other);
+  Size& operator+=(const Size& other);
+  Size& operator-=(const Size& other);
+  Size& operator*=(const Size& other);
+  Size& operator/=(const Size& other);
   template <class U>
   Size2<Promote<T, U>> operator+(const Size2<U>& other) const;
   template <class U>
@@ -179,10 +188,10 @@ class Size<T, 2> final {
   Size2<Promote<T>> operator-() const;
 
   // Scalar arithmetic
-  Size2<T>& operator+=(T scalar);
-  Size2<T>& operator-=(T scalar);
-  Size2<T>& operator*=(T scalar);
-  Size2<T>& operator/=(T scalar);
+  Size& operator+=(T scalar);
+  Size& operator-=(T scalar);
+  Size& operator*=(T scalar);
+  Size& operator/=(T scalar);
   template <class U, EnableIfScalar<U> * = nullptr>
   Size2<Promote<T, U>> operator+(U scalar) const;
   template <class U, EnableIfScalar<U> * = nullptr>
@@ -192,19 +201,19 @@ class Size<T, 2> final {
   template <class U, EnableIfScalar<U> * = nullptr>
   Size2<Promote<T, U>> operator/(U scalar) const;
 
-  // Vector arithmetic
-  Size2<T>& operator+=(const Vector2<T>& other);
-  Size2<T>& operator-=(const Vector2<T>& other);
-  Size2<T>& operator*=(const Vector2<T>& other);
-  Size2<T>& operator/=(const Vector2<T>& other);
+  // Vec arithmetic
+  Size& operator+=(const Vec2<T>& other);
+  Size& operator-=(const Vec2<T>& other);
+  Size& operator*=(const Vec2<T>& other);
+  Size& operator/=(const Vec2<T>& other);
   template <class U>
-  Size2<Promote<T, U>> operator+(const Vector2<U>& other) const;
+  Size2<Promote<T, U>> operator+(const Vec2<U>& other) const;
   template <class U>
-  Size2<Promote<T, U>> operator-(const Vector2<U>& other) const;
+  Size2<Promote<T, U>> operator-(const Vec2<U>& other) const;
   template <class U>
-  Size2<Promote<T, U>> operator*(const Vector2<U>& other) const;
+  Size2<Promote<T, U>> operator*(const Vec2<U>& other) const;
   template <class U>
-  Size2<Promote<T, U>> operator/(const Vector2<U>& other) const;
+  Size2<Promote<T, U>> operator/(const Vec2<U>& other) const;
 
   // Attributes
   bool empty() const { return !width && !height; }
@@ -214,9 +223,9 @@ class Size<T, 2> final {
 
   // Conversion
   template <class U>
-  explicit operator Vector2<U>() { return vector; }
+  explicit operator Vec2<U>() { return vector; }
   template <class U>
-  explicit operator const Vector2<U>() const { return vector; }
+  explicit operator const Vec2<U>() const { return vector; }
 
   // Iterator
   Iterator begin() { return std::begin(vector); }
@@ -234,7 +243,7 @@ class Size<T, 2> final {
 
  public:
   union {
-    Vector2<T> vector;
+    Vec2<T> vector;
     struct { T width; T height; };
     struct { T w; T h; };
   };
@@ -285,6 +294,19 @@ inline Size2<T>::operator cv::Size_<T>() const {
 
 #endif  // TAKRAM_HAS_OPENCV
 
+#if TAKRAM_HAS_COREGRAPHICS
+
+template <class T>
+inline Size2<T>::Size(const CGSize& other)
+    : vector(other.width, other.height) {}
+
+template <class T>
+inline Size2<T>::operator CGSize() const {
+  return CGSizeMake(width, height);
+}
+
+#endif  // TAKRAM_HAS_COREGRAPHICS
+
 #pragma mark Explicit conversion
 
 template <class T>
@@ -292,13 +314,13 @@ template <class U>
 inline Size2<T>::Size(const Size3<U>& other) : vector(other.vector) {}
 
 template <class T>
-inline Size2<T>::Size(const Vector2<T>& other) : vector(other) {}
+inline Size2<T>::Size(const Vec2<T>& other) : vector(other) {}
 
 template <class T>
-inline Size2<T>::Size(const Vector3<T>& other) : vector(other) {}
+inline Size2<T>::Size(const Vec3<T>& other) : vector(other) {}
 
 template <class T>
-inline Size2<T>::Size(const Vector4<T>& other) : vector(other) {}
+inline Size2<T>::Size(const Vec4<T>& other) : vector(other) {}
 
 #if TAKRAM_HAS_OPENFRAMEWORKS
 
@@ -325,29 +347,16 @@ inline Size2<T>::operator ci::Vec2<T>() const {
 
 #endif  // TAKRAM_HAS_CINDER
 
-#pragma mark Copy semantics
-
-template <class T>
-inline Size2<T>::Size(const Size2<T>& other) : vector(other.vector) {}
-
-template <class T>
-inline Size2<T>& Size2<T>::operator=(const Size2<T>& other) {
-  if (&other != this) {
-    vector = other.vector;
-  }
-  return *this;
-}
-
 #pragma mark Factory
 
 template <class T>
 inline Size2<T> Size2<T>::min() {
-  return Size2<T>(Vector2<T>::min());
+  return Size(Vec2<T>::min());
 }
 
 template <class T>
 inline Size2<T> Size2<T>::max() {
-  return Size2<T>(Vector2<T>::max());
+  return Size(Vec2<T>::max());
 }
 
 template <class T>
@@ -368,19 +377,19 @@ inline Size2<T> Size2<T>::random(T min, T max) {
 template <class T>
 template <class Random>
 inline Size2<T> Size2<T>::random(Random *random) {
-  return Size2<T>(Vector2<T>::random(random));
+  return Size(Vec2<T>::random(random));
 }
 
 template <class T>
 template <class Random>
 inline Size2<T> Size2<T>::random(T max, Random *random) {
-  return Size2<T>(Vector2<T>::random(max, random));
+  return Size(Vec2<T>::random(max, random));
 }
 
 template <class T>
 template <class Random>
 inline Size2<T> Size2<T>::random(T min, T max, Random *random) {
-  return Size2<T>(Vector2<T>::random(min, max, random));
+  return Size(Vec2<T>::random(min, max, random));
 }
 
 #pragma mark Mutators
@@ -479,25 +488,25 @@ inline bool Size2<T>::operator>=(const Size2<U>& other) const {
 #pragma mark Arithmetic
 
 template <class T>
-inline Size2<T>& Size2<T>::operator+=(const Size2<T>& other) {
+inline Size2<T>& Size2<T>::operator+=(const Size& other) {
   vector += other.vector;
   return *this;
 }
 
 template <class T>
-inline Size2<T>& Size2<T>::operator-=(const Size2<T>& other) {
+inline Size2<T>& Size2<T>::operator-=(const Size& other) {
   vector -= other.vector;
   return *this;
 }
 
 template <class T>
-inline Size2<T>& Size2<T>::operator*=(const Size2<T>& other) {
+inline Size2<T>& Size2<T>::operator*=(const Size& other) {
   vector *= other.vector;
   return *this;
 }
 
 template <class T>
-inline Size2<T>& Size2<T>::operator/=(const Size2<T>& other) {
+inline Size2<T>& Size2<T>::operator/=(const Size& other) {
   vector /= other.vector;
   return *this;
 }
@@ -586,58 +595,58 @@ inline Size2<Promote<T, U>> operator*(U scalar, const Size2<T>& size) {
   return size * scalar;
 }
 
-#pragma mark Vector arithmetic
+#pragma mark Vec arithmetic
 
 template <class T>
-inline Size2<T>& Size2<T>::operator+=(const Vector2<T>& other) {
+inline Size2<T>& Size2<T>::operator+=(const Vec2<T>& other) {
   vector += other;
   return *this;
 }
 
 template <class T>
-inline Size2<T>& Size2<T>::operator-=(const Vector2<T>& other) {
+inline Size2<T>& Size2<T>::operator-=(const Vec2<T>& other) {
   vector -= other;
   return *this;
 }
 
 template <class T>
-inline Size2<T>& Size2<T>::operator*=(const Vector2<T>& other) {
+inline Size2<T>& Size2<T>::operator*=(const Vec2<T>& other) {
   vector *= other;
   return *this;
 }
 
 template <class T>
-inline Size2<T>& Size2<T>::operator/=(const Vector2<T>& other) {
+inline Size2<T>& Size2<T>::operator/=(const Vec2<T>& other) {
   vector /= other;
   return *this;
 }
 
 template <class T>
 template <class U>
-inline Size2<Promote<T, U>> Size2<T>::operator+(const Vector2<U>& other) const {
+inline Size2<Promote<T, U>> Size2<T>::operator+(const Vec2<U>& other) const {
   return Size2<Promote<T, U>>(vector + other);
 }
 
 template <class T>
 template <class U>
-inline Size2<Promote<T, U>> Size2<T>::operator-(const Vector2<U>& other) const {
+inline Size2<Promote<T, U>> Size2<T>::operator-(const Vec2<U>& other) const {
   return Size2<Promote<T, U>>(vector - other);
 }
 
 template <class T>
 template <class U>
-inline Size2<Promote<T, U>> Size2<T>::operator*(const Vector2<U>& other) const {
+inline Size2<Promote<T, U>> Size2<T>::operator*(const Vec2<U>& other) const {
   return Size2<Promote<T, U>>(vector * other);
 }
 
 template <class T>
 template <class U>
-inline Size2<Promote<T, U>> Size2<T>::operator/(const Vector2<U>& other) const {
+inline Size2<Promote<T, U>> Size2<T>::operator/(const Vec2<U>& other) const {
   return Size2<Promote<T, U>>(vector / other);
 }
 
 template <class T, class U>
-inline Size2<Promote<T, U>> operator*(const Vector2<U>& vector,
+inline Size2<Promote<T, U>> operator*(const Vec2<U>& vector,
                                       const Size2<T>& size) {
   return size * vector;
 }

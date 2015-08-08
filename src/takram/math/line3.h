@@ -51,18 +51,18 @@ template <class T>
 class Line<T, 3> final {
  public:
   using Type = T;
-  using Iterator = Vector3<T> *;
-  using ConstIterator = const Vector3<T> *;
+  using Iterator = Vec3<T> *;
+  using ConstIterator = const Vec3<T> *;
   using ReverseIterator = std::reverse_iterator<Iterator>;
   using ConstReverseIterator = std::reverse_iterator<ConstIterator>;
-  static constexpr const auto dimensions = Vector3<T>::dimensions;
+  static constexpr const auto dimensions = Vec3<T>::dimensions;
 
  public:
   Line();
   Line(T x1, T y1, T z1, T x2, T y2, T z2);
-  Line(const Vector3<T>& a, const Vector3<T>& b);
+  Line(const Vec3<T>& a, const Vec3<T>& b);
   Line(std::initializer_list<T> list);
-  Line(std::initializer_list<Vector3<T>> list);
+  Line(std::initializer_list<Vec3<T>> list);
 
   // Implicit conversion
   template <class U>
@@ -73,25 +73,25 @@ class Line<T, 3> final {
   explicit Line(const Line2<U>& other);
 
   // Copy semantics
-  Line(const Line3<T>& other) = default;
-  Line3<T>& operator=(const Line3<T>& other) = default;
+  Line(const Line& other) = default;
+  Line& operator=(const Line& other) = default;
 
   // Mutators
   void set(T x1, T y1, T z1, T x2, T y2, T z2);
-  void set(const Vector3<T>& a, const Vector3<T>& b);
+  void set(const Vec3<T>& a, const Vec3<T>& b);
   void set(std::initializer_list<T> list);
-  void set(std::initializer_list<Vector3<T>> list);
+  void set(std::initializer_list<Vec3<T>> list);
   void reset();
 
   // Element access
-  Vector3<T>& operator[](int index) { return at(index); }
-  const Vector3<T>& operator[](int index) const { return at(index); }
-  Vector3<T>& at(int index);
-  const Vector3<T>& at(int index) const;
-  Vector3<T>& front() { return a; }
-  const Vector3<T>& front() const { return a; }
-  Vector3<T>& back() { return b; }
-  const Vector3<T>& back() const { return b; }
+  Vec3<T>& operator[](int index) { return at(index); }
+  const Vec3<T>& operator[](int index) const { return at(index); }
+  Vec3<T>& at(int index);
+  const Vec3<T>& at(int index) const;
+  Vec3<T>& front() { return a; }
+  const Vec3<T>& front() const { return a; }
+  Vec3<T>& back() { return b; }
+  const Vec3<T>& back() const { return b; }
 
   // Comparison
   template <class U>
@@ -99,9 +99,19 @@ class Line<T, 3> final {
   template <class U>
   bool operator!=(const Line3<U>& other) const;
 
+  // Attributes
+  bool empty() const { return a == b; }
+  Vec3<Promote<T>> direction() const;
+  Vec3<Promote<T>> normal() const;
+  Vec3<Promote<T>> mid() const;
+
   // Length
   Promote<T> length() const;
   Promote<T> lengthSquared() const;
+
+  // Projection
+  template <class U>
+  Vec3<T> project(const Vec3<U>& point) const;
 
   // Iterator
   Iterator begin() { return &a; }
@@ -114,16 +124,16 @@ class Line<T, 3> final {
   ConstReverseIterator rend() const { return ConstReverseIterator(end()); }
 
   // Pointer
-  Vector3<T> * ptr() { return &a; }
-  const Vector3<T> * ptr() const { return &a; }
+  Vec3<T> * ptr() { return &a; }
+  const Vec3<T> * ptr() const { return &a; }
 
  public:
   union {
-    Vector3<T> a;
+    Vec3<T> a;
     struct { T x1; T y1; T z1; };
   };
   union {
-    Vector3<T> b;
+    Vec3<T> b;
     struct { T x2; T y2; T z2; };
   };
 };
@@ -143,7 +153,7 @@ inline Line3<T>::Line(T x1, T y1, T z1, T x2, T y2, T z2)
       b(x2, y2, z2) {}
 
 template <class T>
-inline Line3<T>::Line(const Vector3<T>& a, const Vector3<T>& b) : a(a), b(b) {}
+inline Line3<T>::Line(const Vec3<T>& a, const Vec3<T>& b) : a(a), b(b) {}
 
 template <class T>
 inline Line3<T>::Line(std::initializer_list<T> list) {
@@ -151,7 +161,7 @@ inline Line3<T>::Line(std::initializer_list<T> list) {
 }
 
 template <class T>
-inline Line3<T>::Line(std::initializer_list<Vector3<T>> list) {
+inline Line3<T>::Line(std::initializer_list<Vec3<T>> list) {
   set(list);
 }
 
@@ -164,7 +174,7 @@ inline void Line3<T>::set(T x1, T y1, T z1, T x2, T y2, T z2) {
 }
 
 template <class T>
-inline void Line3<T>::set(const Vector3<T>& a, const Vector3<T>& b) {
+inline void Line3<T>::set(const Vec3<T>& a, const Vec3<T>& b) {
   this->a = a;
   this->b = b;
 }
@@ -181,7 +191,7 @@ inline void Line3<T>::set(std::initializer_list<T> list) {
 }
 
 template <class T>
-inline void Line3<T>::set(std::initializer_list<Vector3<T>> list) {
+inline void Line3<T>::set(std::initializer_list<Vec3<T>> list) {
   auto itr = std::begin(list);
   if (itr == std::end(list)) return; a = decltype(a)(*itr);
   if (++itr == std::end(list)) return; b = decltype(b)(*itr);
@@ -189,13 +199,13 @@ inline void Line3<T>::set(std::initializer_list<Vector3<T>> list) {
 
 template <class T>
 inline void Line3<T>::reset() {
-  *this = Line3<T>();
+  *this = Line();
 }
 
 #pragma mark Element access
 
 template <class T>
-inline Vector3<T>& Line3<T>::at(int index) {
+inline Vec3<T>& Line3<T>::at(int index) {
   switch (index) {
     case 0: return a;
     case 1: return b;
@@ -207,7 +217,7 @@ inline Vector3<T>& Line3<T>::at(int index) {
 }
 
 template <class T>
-inline const Vector3<T>& Line3<T>::at(int index) const {
+inline const Vec3<T>& Line3<T>::at(int index) const {
   switch (index) {
     case 0: return a;
     case 1: return b;
@@ -232,6 +242,23 @@ inline bool Line3<T>::operator!=(const Line3<U>& other) const {
   return !operator==(other);
 }
 
+#pragma mark Attributes
+
+template <class T>
+inline Vec3<Promote<T>> Line3<T>::direction() const {
+  return (b - a).normalize();
+}
+
+template <class T>
+inline Vec3<Promote<T>> Line3<T>::normal() const {
+  return b.cross(a);
+}
+
+template <class T>
+inline Vec3<Promote<T>> Line3<T>::mid() const {
+  return (a + b) / 2;
+}
+
 #pragma mark Length
 
 template <class T>
@@ -242,6 +269,25 @@ inline Promote<T> Line3<T>::length() const {
 template <class T>
 inline Promote<T> Line3<T>::lengthSquared() const {
   return a.distanceSquared(b);
+}
+
+#pragma mark Projection
+
+template <class T>
+template <class U>
+inline Vec3<T> Line3<T>::project(const Vec3<U>& point) const {
+  const auto ab = b - a;
+  const auto magnitude = ab.magnitudeSquared();
+  if (!magnitude) {
+    return a;
+  }
+  const auto scale = (point - a).dot(ab) / magnitude;
+  if (scale <= 0) {
+    return a;
+  } else if (scale >= 1) {
+    return b;
+  }
+  return a + ab * scale;
 }
 
 #pragma mark Stream
