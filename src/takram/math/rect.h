@@ -47,6 +47,7 @@
 
 #include "takram/math/enablers.h"
 #include "takram/math/promotion.h"
+#include "takram/math/line.h"
 #include "takram/math/size.h"
 #include "takram/math/vector.h"
 
@@ -127,24 +128,20 @@ class Rect final {
   Vector2<Promote<T>> centroid() const;
 
   // Edges
-  T minX() const;
-  T maxX() const;
-  T minY() const;
-  T maxY() const;
   T left() const;
   T right() const;
   T top() const;
   T bottom() const;
+  Line2<T> leftEdge() const;
+  Line2<T> rightEdge() const;
+  Line2<T> topEdge() const;
+  Line2<T> bottomEdge() const;
 
   // Corners
   Vector2<T> topLeft() const;
   Vector2<T> topRight() const;
   Vector2<T> bottomLeft() const;
   Vector2<T> bottomRight() const;
-  Vector2<T> tl() const { return topLeft(); }
-  Vector2<T> tr() const { return topRight(); }
-  Vector2<T> bl() const { return bottomLeft(); }
-  Vector2<T> br() const { return bottomRight(); }
 
   // Canonicalization
   bool canonical() const { return width > 0 && height > 0; }
@@ -420,43 +417,47 @@ inline Vector2<Promote<T>> Rect<T>::centroid() const {
 #pragma mark Edges
 
 template <class T>
-inline T Rect<T>::minX() const {
+inline T Rect<T>::left() const {
   return std::min<T>(x, x + width);
 }
 
 template <class T>
-inline T Rect<T>::maxX() const {
+inline T Rect<T>::right() const {
   return std::max<T>(x, x + width);
 }
 
 template <class T>
-inline T Rect<T>::minY() const {
+inline T Rect<T>::top() const {
   return std::min<T>(y, y + height);
 }
 
 template <class T>
-inline T Rect<T>::maxY() const {
+inline T Rect<T>::bottom() const {
   return std::max<T>(y, y + height);
 }
 
 template <class T>
-inline T Rect<T>::left() const {
-  return minX();
+inline Line2<T> Rect<T>::leftEdge() const {
+  const auto x = left();
+  return Line2<T>({x, top()}, {x, bottom()});
 }
 
 template <class T>
-inline T Rect<T>::right() const {
-  return maxX();
+inline Line2<T> Rect<T>::rightEdge() const {
+  const auto x = right();
+  return Line2<T>({x, top()}, {x, bottom()});
 }
 
 template <class T>
-inline T Rect<T>::top() const {
-  return minY();
+inline Line2<T> Rect<T>::topEdge() const {
+  const auto y = top();
+  return Line2<T>({left(), y}, {right(), y});
 }
 
 template <class T>
-inline T Rect<T>::bottom() const {
-  return maxY();
+inline Line2<T> Rect<T>::bottomEdge() const {
+  const auto y = bottom();
+  return Line2<T>({left(), y}, {right(), y});
 }
 
 #pragma mark Corners
