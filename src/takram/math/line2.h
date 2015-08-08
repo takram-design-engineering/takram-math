@@ -287,7 +287,7 @@ inline std::pair<bool, Vec2<Promote<T>>> Line2<T>::intersect(
                     (other.b.y - other.a.y) * (a.x - other.a.x)) / denominator;
     const auto t = ((b.x - a.x) * (a.y - other.a.y) -
                     (b.y - a.y) * (a.x - other.a.x)) / denominator;
-    if (0.0 <= s && s <= 1.0 && 0.0 <= t && t <= 1.0) {
+    if (0 <= s && s <= 1 && 0 <= t && t <= 1) {
       return std::make_pair(true, a + (b - a) * s);
     }
   }
