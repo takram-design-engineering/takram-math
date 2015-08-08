@@ -41,9 +41,9 @@
 namespace takram {
 namespace math {
 
-#pragma mark -
+using DefaultRandomEngine = std::mt19937;
 
-template <class Engine = std::mt19937>
+template <class Engine = DefaultRandomEngine>
 class Random final {
  public:
   using Type = typename Engine::result_type;
@@ -89,6 +89,30 @@ class Random final {
   static std::mutex shared_mutex_;
   static bool shared_deleted_;
 };
+
+namespace random {
+
+// Random generation
+template <class Engine = DefaultRandomEngine>
+void seed(typename Random<Engine>::Type value);
+template <class Engine = DefaultRandomEngine>
+void randomize();
+template <class Engine = DefaultRandomEngine>
+typename Random<Engine>::Type next();
+
+// Distribution
+template <class T, class Engine = DefaultRandomEngine>
+T uniform();
+template <class T, class Engine = DefaultRandomEngine>
+T uniform(T max);
+template <class T, class Engine = DefaultRandomEngine>
+T uniform(T min, T max);
+template <class T, class Engine = DefaultRandomEngine>
+T gaussian();
+template <class T, class Engine = DefaultRandomEngine>
+T gaussian(Promote<T> mean, Promote<T> stddev);
+
+}  // namespace random
 
 template <class Engine>
 std::atomic<Random<Engine> *> Random<Engine>::shared_;
@@ -184,7 +208,57 @@ inline T Random<Engine>::gaussian(Promote<T> mean, Promote<T> stddev) {
   return std::normal_distribution<Promote<T>>(mean, stddev)(engine_);
 }
 
+namespace random {
+
+#pragma mark Random generation
+
+template <class Engine>
+inline void seed(typename Random<Engine>::Type value) {
+  Random<Engine>::shared().seed(value);
+}
+
+template <class Engine>
+inline void randomize() {
+  Random<Engine>::shared().randomize();
+}
+
+template <class Engine>
+inline typename Random<Engine>::Type next() {
+  return Random<Engine>::shared().next();
+}
+
+#pragma mark Distribution
+
+template <class T, class Engine>
+inline T uniform() {
+  return Random<Engine>::shared().uniform();
+}
+
+template <class T, class Engine>
+inline T uniform(T max) {
+  return Random<Engine>::shared().uniform(max);
+}
+
+template <class T, class Engine>
+inline T uniform(T min, T max) {
+  return Random<Engine>::shared().uniform(min, max);
+}
+
+template <class T, class Engine>
+inline T gaussian() {
+  return Random<Engine>::shared().gaussian();
+}
+
+template <class T, class Engine>
+inline T gaussian(Promote<T> mean, Promote<T> stddev) {
+  return Random<Engine>::shared().gaussian(mean, stddev);
+}
+
+}  // namespace random
+
 }  // namespace math
+
+namespace random = math::random;
 
 using math::Random;
 

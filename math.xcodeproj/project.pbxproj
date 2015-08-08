@@ -40,6 +40,7 @@
 		93BE692C1B7605EC0085DFFA /* circle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = circle.h; sourceTree = "<group>"; };
 		93BE692D1B76097E0085DFFA /* circle2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = circle2.h; sourceTree = "<group>"; };
 		93BE692E1B7609850085DFFA /* rectangle2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = rectangle2.h; sourceTree = "<group>"; };
+		93A815C71B73B7AE0066BD8C /* side.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = side.h; sourceTree = "<group>"; };
 		93C6B51519B22F5500A1CF93 /* libtakram_math.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libtakram_math.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		93D7E3D21B2C1C34006EA047 /* axis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = axis.h; sourceTree = "<group>"; };
 		93D7E3D31B2C1C34006EA047 /* constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = constants.h; sourceTree = "<group>"; };
@@ -137,6 +138,7 @@
 				93D7E3DD1B2C1C34006EA047 /* promotion.h */,
 				93D7E3DE1B2C1C34006EA047 /* random.h */,
 				93D7E3D21B2C1C34006EA047 /* axis.h */,
+				93A815C71B73B7AE0066BD8C /* side.h */,
 				93D7E3E81B2C1C34006EA047 /* vector.h */,
 				93D7E3EA1B2C1C34006EA047 /* vector2.h */,
 				93D7E3EB1B2C1C34006EA047 /* vector3.h */,

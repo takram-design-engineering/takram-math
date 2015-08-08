@@ -51,6 +51,7 @@
 
 #include "takram/math/enablers.h"
 #include "takram/math/promotion.h"
+#include "takram/math/line.h"
 #include "takram/math/size.h"
 #include "takram/math/vector.h"
 
@@ -145,20 +146,20 @@ class Rect<T, 2> final {
   T maxX() const;
   T minY() const;
   T maxY() const;
-  T left() const;
-  T right() const;
-  T top() const;
-  T bottom() const;
+  T left() const { return minX(); }
+  T right() const { return maxX(); }
+  T top() const { return minY(); }
+  T bottom() const { return maxY(); }
+  Line2<T> leftEdge() const;
+  Line2<T> rightEdge() const;
+  Line2<T> topEdge() const;
+  Line2<T> bottomEdge() const;
 
   // Corners
   Vec2<T> topLeft() const;
   Vec2<T> topRight() const;
   Vec2<T> bottomLeft() const;
   Vec2<T> bottomRight() const;
-  Vec2<T> tl() const { return topLeft(); }
-  Vec2<T> tr() const { return topRight(); }
-  Vec2<T> bl() const { return bottomLeft(); }
-  Vec2<T> br() const { return bottomRight(); }
 
   // Canonicalization
   bool canonical() const { return width > 0 && height > 0; }
@@ -452,23 +453,27 @@ inline T Rect2<T>::maxY() const {
 }
 
 template <class T>
-inline T Rect2<T>::left() const {
-  return minX();
+inline Line2<T> Rect2<T>::leftEdge() const {
+  const auto x = left();
+  return Line2<T>({x, top()}, {x, bottom()});
 }
 
 template <class T>
-inline T Rect2<T>::right() const {
-  return maxX();
+inline Line2<T> Rect2<T>::rightEdge() const {
+  const auto x = right();
+  return Line2<T>({x, top()}, {x, bottom()});
 }
 
 template <class T>
-inline T Rect2<T>::top() const {
-  return minY();
+inline Line2<T> Rect2<T>::topEdge() const {
+  const auto y = top();
+  return Line2<T>({left(), y}, {right(), y});
 }
 
 template <class T>
-inline T Rect2<T>::bottom() const {
-  return maxY();
+inline Line2<T> Rect2<T>::bottomEdge() const {
+  const auto y = bottom();
+  return Line2<T>({left(), y}, {right(), y});
 }
 
 #pragma mark Corners
