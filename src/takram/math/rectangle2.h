@@ -106,8 +106,8 @@ class Rect<T, 2> final {
 #endif  // TAKRAM_HAS_COREGRAPHICS
 
   // Copy semantics
-  Rect(const Rect& other) = default;
-  Rect& operator=(const Rect& other) = default;
+  Rect(const Rect&) = default;
+  Rect& operator=(const Rect&) = default;
 
   // Mutators
   void set(const Vec2<T>& origin);

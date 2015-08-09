@@ -73,8 +73,8 @@ class Line<T, 3> final {
   explicit Line(const Line2<U>& other);
 
   // Copy semantics
-  Line(const Line& other) = default;
-  Line& operator=(const Line& other) = default;
+  Line(const Line&) = default;
+  Line& operator=(const Line&) = default;
 
   // Mutators
   void set(T x1, T y1, T z1, T x2, T y2, T z2);
@@ -182,19 +182,27 @@ inline void Line3<T>::set(const Vec3<T>& a, const Vec3<T>& b) {
 template <class T>
 inline void Line3<T>::set(std::initializer_list<T> list) {
   auto itr = std::begin(list);
-  if (itr == std::end(list)) return; a.x = *itr;
-  if (++itr == std::end(list)) return; a.y = *itr;
-  if (++itr == std::end(list)) return; a.z = *itr;
-  if (++itr == std::end(list)) return; b.x = *itr;
-  if (++itr == std::end(list)) return; b.y = *itr;
-  if (++itr == std::end(list)) return; b.z = *itr;
+  if (itr == std::end(list)) return;
+  a.x = *itr;
+  if (++itr == std::end(list)) return;
+  a.y = *itr;
+  if (++itr == std::end(list)) return;
+  a.z = *itr;
+  if (++itr == std::end(list)) return;
+  b.x = *itr;
+  if (++itr == std::end(list)) return;
+  b.y = *itr;
+  if (++itr == std::end(list)) return;
+  b.z = *itr;
 }
 
 template <class T>
 inline void Line3<T>::set(std::initializer_list<Vec3<T>> list) {
   auto itr = std::begin(list);
-  if (itr == std::end(list)) return; a = decltype(a)(*itr);
-  if (++itr == std::end(list)) return; b = decltype(b)(*itr);
+  if (itr == std::end(list)) return;
+  a = decltype(a)(*itr);
+  if (++itr == std::end(list)) return;
+  b = decltype(b)(*itr);
 }
 
 template <class T>

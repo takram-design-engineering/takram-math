@@ -119,8 +119,8 @@ class Vec<T, 3> final {
 #endif  // TAKRAM_HAS_OPENCV
 
   // Copy semantics
-  Vec(const Vec& other) = default;
-  Vec& operator=(const Vec& other) = default;
+  Vec(const Vec&) = default;
+  Vec& operator=(const Vec&) = default;
 
   // Factory
   static Vec min();
@@ -479,9 +479,12 @@ template <class T>
 inline void Vec3<T>::set(const T *values, int size) {
   reset();
   const auto end = values + size;
-  if (values == end) return; x = *values;
-  if (++values == end) return; y = *values;
-  if (++values == end) return; z = *values;
+  if (values == end) return;
+  x = *values;
+  if (++values == end) return;
+  y = *values;
+  if (++values == end) return;
+  z = *values;
 }
 
 template <class T>
@@ -494,9 +497,12 @@ template <class T>
 inline void Vec3<T>::set(std::initializer_list<T> list) {
   reset();
   auto itr = std::begin(list);
-  if (itr == std::end(list)) return; x = *itr;
-  if (++itr == std::end(list)) return; y = *itr;
-  if (++itr == std::end(list)) return; z = *itr;
+  if (itr == std::end(list)) return;
+  x = *itr;
+  if (++itr == std::end(list)) return;
+  y = *itr;
+  if (++itr == std::end(list)) return;
+  z = *itr;
 }
 
 template <class T>
@@ -864,7 +870,7 @@ using math::Vec3;
 using math::Vec3i;
 using math::Vec3f;
 using math::Vec3d;
-  
+
 using math::Vector;
 using math::Vector3;
 using math::Vector3i;

@@ -100,8 +100,8 @@ class Size<T, 3> final {
 #endif  // TAKRAM_HAS_CINDER
 
   // Copy semantics
-  Size(const Size& other) = default;
-  Size& operator=(const Size& other) = default;
+  Size(const Size&) = default;
+  Size& operator=(const Size&) = default;
 
   // Factory
   static Size min();

@@ -53,8 +53,8 @@ class Random final {
   explicit Random(Type seed);
 
   // Copy semantics
-  Random(const Random& other) = default;
-  Random& operator=(const Random& other) = default;
+  Random(const Random&) = default;
+  Random& operator=(const Random&) = default;
 
   // Shared instance
   static Random& shared();
