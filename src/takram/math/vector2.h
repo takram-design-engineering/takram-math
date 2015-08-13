@@ -807,6 +807,7 @@ template <class U, class V>
 inline Vec2<T>& Vec2<T>::lerp(const Vec2<U>& other, V factor) {
   x += (other.x - x) * factor;
   y += (other.y - y) * factor;
+  return *this;
 }
 
 template <class T>

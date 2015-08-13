@@ -24,12 +24,23 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
+#include <type_traits>
+
 #include "gtest/gtest.h"
 
 #include "takram/math/triangle.h"
 
 namespace takram {
 namespace math {
+
+TEST(TriangleTest, Concepts) {
+  ASSERT_TRUE(std::is_default_constructible<Triangle2d>::value);
+  ASSERT_TRUE(std::is_copy_constructible<Triangle2d>::value);
+  ASSERT_TRUE(std::is_copy_assignable<Triangle2d>::value);
+  ASSERT_TRUE(std::is_move_constructible<Triangle2d>::value);
+  ASSERT_TRUE(std::is_move_assignable<Triangle2d>::value);
+  ASSERT_FALSE(std::has_virtual_destructor<Triangle2d>::value);
+}
 
 }  // namespace math
 }  // namespace takram

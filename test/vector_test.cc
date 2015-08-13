@@ -53,6 +53,15 @@ using Types = ::testing::Types<
 >;
 TYPED_TEST_CASE(VectorTest, Types);
 
+TEST(VectorTest, Concepts) {
+  ASSERT_TRUE(std::is_default_constructible<Vec2d>::value);
+  ASSERT_TRUE(std::is_copy_constructible<Vec2d>::value);
+  ASSERT_TRUE(std::is_copy_assignable<Vec2d>::value);
+  ASSERT_TRUE(std::is_move_constructible<Vec2d>::value);
+  ASSERT_TRUE(std::is_move_assignable<Vec2d>::value);
+  ASSERT_FALSE(std::has_virtual_destructor<Vec2d>::value);
+}
+
 TYPED_TEST(VectorTest, DefaultConstructible) {
   {
     Vec2<TypeParam> v;

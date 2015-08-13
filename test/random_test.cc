@@ -24,12 +24,23 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
+#include <type_traits>
+
 #include "gtest/gtest.h"
 
 #include "takram/math/random.h"
 
 namespace takram {
 namespace math {
+
+TEST(RandomTest, Concepts) {
+  ASSERT_TRUE(std::is_default_constructible<Random<>>::value);
+  ASSERT_TRUE(std::is_copy_constructible<Random<>>::value);
+  ASSERT_TRUE(std::is_copy_assignable<Random<>>::value);
+  ASSERT_TRUE(std::is_move_constructible<Random<>>::value);
+  ASSERT_TRUE(std::is_move_assignable<Random<>>::value);
+  ASSERT_FALSE(std::has_virtual_destructor<Random<>>::value);
+}
 
 }  // namespace math
 }  // namespace takram

@@ -24,12 +24,23 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
+#include <type_traits>
+
 #include "gtest/gtest.h"
 
 #include "takram/math/line.h"
 
 namespace takram {
 namespace math {
+
+TEST(LineTest, Concepts) {
+  ASSERT_TRUE(std::is_default_constructible<Line2d>::value);
+  ASSERT_TRUE(std::is_copy_constructible<Line2d>::value);
+  ASSERT_TRUE(std::is_copy_assignable<Line2d>::value);
+  ASSERT_TRUE(std::is_move_constructible<Line2d>::value);
+  ASSERT_TRUE(std::is_move_assignable<Line2d>::value);
+  ASSERT_FALSE(std::has_virtual_destructor<Line2d>::value);
+}
 
 }  // namespace math
 }  // namespace takram

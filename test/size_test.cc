@@ -53,6 +53,15 @@ using Types = ::testing::Types<
 >;
 TYPED_TEST_CASE(SizeTest, Types);
 
+TEST(SizeTest, Concepts) {
+  ASSERT_TRUE(std::is_default_constructible<Size2d>::value);
+  ASSERT_TRUE(std::is_copy_constructible<Size2d>::value);
+  ASSERT_TRUE(std::is_copy_assignable<Size2d>::value);
+  ASSERT_TRUE(std::is_move_constructible<Size2d>::value);
+  ASSERT_TRUE(std::is_move_assignable<Size2d>::value);
+  ASSERT_FALSE(std::has_virtual_destructor<Size2d>::value);
+}
+
 TYPED_TEST(SizeTest, DefaultConstructible) {
   {
     Size2<TypeParam> s;

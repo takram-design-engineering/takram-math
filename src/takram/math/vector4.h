@@ -865,7 +865,7 @@ inline Promote<T, U> Vec4<T>::dot(const Vec4<U>& other) const {
 template <class T>
 template <class U>
 inline Vec4<Promote<T, U>> Vec4<T>::cross(const Vec4<U>& other) const {
-  return Vec3<T>(*this).cross(Vec3<T>(other));
+  return Vec3<T>(*this).cross(Vec3<U>(other));
 }
 
 #pragma mark Interpolation
@@ -877,6 +877,7 @@ inline Vec4<T>& Vec4<T>::lerp(const Vec4<U>& other, V factor) {
   y += (other.y - y) * factor;
   z += (other.z - z) * factor;
   w += (other.w - w) * factor;
+  return *this;
 }
 
 template <class T>

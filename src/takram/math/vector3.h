@@ -870,6 +870,7 @@ inline Vec3<T>& Vec3<T>::lerp(const Vec3<U>& other, V factor) {
   x += (other.x - x) * factor;
   y += (other.y - y) * factor;
   z += (other.z - z) * factor;
+  return *this;
 }
 
 template <class T>
