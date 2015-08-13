@@ -202,7 +202,7 @@ class Vec<T, 4> final {
   Promote<T> headingYZ() const;
   Promote<T> headingZX() const;
   template <class U>
-  Promote<T> angle(const Vec4<U>& other) const;
+  Promote<T, U> angle(const Vec4<U>& other) const;
 
   // Magnitude
   Promote<T> magnitude() const;
@@ -223,15 +223,21 @@ class Vec<T, 4> final {
 
   // Distance
   template <class U>
-  Promote<T> distance(const Vec4<U>& other) const;
+  Promote<T, U> distance(const Vec4<U>& other) const;
   template <class U>
-  Promote<T> distanceSquared(const Vec4<U>& other) const;
+  Promote<T, U> distanceSquared(const Vec4<U>& other) const;
 
   // Product
   template <class U>
   Promote<T, U> dot(const Vec4<U>& other) const;
   template <class U>
   Vec4<Promote<T, U>> cross(const Vec4<U>& other) const;
+
+  // Interpolation
+  template <class U, class V>
+  Vec& lerp(const Vec4<U>& other, V factor);
+  template <class U, class V>
+  Vec4<Promote<T, U>> lerp(const Vec4<U>& other, V factor) const;
 
   // Iterator
   Iterator begin() { return &x; }
@@ -769,7 +775,7 @@ inline Promote<T> Vec4<T>::headingZX() const {
 
 template <class T>
 template <class U>
-inline Promote<T> Vec4<T>::angle(const Vec4<U>& other) const {
+inline Promote<T, U> Vec4<T>::angle(const Vec4<U>& other) const {
   return std::acos(normalized().dot(other.normalized()));
 }
 
@@ -837,17 +843,17 @@ inline Vec4<Promote<T>> Vec4<T>::inverted() const {
 
 template <class T>
 template <class U>
-inline Promote<T> Vec4<T>::distance(const Vec4<U>& other) const {
+inline Promote<T, U> Vec4<T>::distance(const Vec4<U>& other) const {
   return (*this - other).magnitude();
 }
 
 template <class T>
 template <class U>
-inline Promote<T> Vec4<T>::distanceSquared(const Vec4<U>& other) const {
+inline Promote<T, U> Vec4<T>::distanceSquared(const Vec4<U>& other) const {
   return (*this - other).magnitudeSquared();
 }
 
-#pragma mark Product
+#pragma mark Products
 
 template <class T>
 template <class U>
@@ -860,6 +866,26 @@ template <class T>
 template <class U>
 inline Vec4<Promote<T, U>> Vec4<T>::cross(const Vec4<U>& other) const {
   return Vec3<T>(*this).cross(Vec3<T>(other));
+}
+
+#pragma mark Interpolation
+
+template <class T>
+template <class U, class V>
+inline Vec4<T>& Vec4<T>::lerp(const Vec4<U>& other, V factor) {
+  x += (other.x - x) * factor;
+  y += (other.y - y) * factor;
+  z += (other.z - z) * factor;
+  w += (other.w - w) * factor;
+}
+
+template <class T>
+template <class U, class V>
+inline Vec4<Promote<T, U>> Vec4<T>::lerp(const Vec4<U>& other, V factor) const {
+  return Vec4<Promote<T, U>>(x + (other.x - x) * factor,
+                             y + (other.y - y) * factor,
+                             z + (other.z - z) * factor,
+                             w + (other.w - w) * factor);
 }
 
 #pragma mark Stream

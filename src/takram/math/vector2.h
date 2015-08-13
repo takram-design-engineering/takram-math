@@ -217,7 +217,7 @@ class Vec<T, 2> final {
   // Angle
   Promote<T> heading() const;
   template <class U>
-  Promote<T> angle(const Vec2<U>& other) const;
+  Promote<T, U> angle(const Vec2<U>& other) const;
 
   // Magnitude
   Promote<T> magnitude() const;
@@ -238,15 +238,21 @@ class Vec<T, 2> final {
 
   // Distance
   template <class U>
-  Promote<T> distance(const Vec2<U>& other) const;
+  Promote<T, U> distance(const Vec2<U>& other) const;
   template <class U>
-  Promote<T> distanceSquared(const Vec2<U>& other) const;
+  Promote<T, U> distanceSquared(const Vec2<U>& other) const;
 
   // Products
   template <class U>
   Promote<T, U> dot(const Vec2<U>& other) const;
   template <class U>
   Promote<T, U> cross(const Vec2<U>& other) const;
+
+  // Interpolation
+  template <class U, class V>
+  Vec& lerp(const Vec2<U>& other, V factor);
+  template <class U, class V>
+  Vec2<Promote<T, U>> lerp(const Vec2<U>& other, V factor) const;
 
   // Coordinate system conversion
   Vec2<Promote<T>> cartesian() const;
@@ -702,7 +708,7 @@ inline Promote<T> Vec2<T>::heading() const {
 
 template <class T>
 template <class U>
-inline Promote<T> Vec2<T>::angle(const Vec2<U>& other) const {
+inline Promote<T, U> Vec2<T>::angle(const Vec2<U>& other) const {
   using V = Promote<T, U>;
   return std::atan2(static_cast<V>(x) * other.y - y * other.x,
                     static_cast<V>(x) * other.x + y * other.y);
@@ -770,13 +776,13 @@ inline Vec2<Promote<T>> Vec2<T>::inverted() const {
 
 template <class T>
 template <class U>
-inline Promote<T> Vec2<T>::distance(const Vec2<U>& other) const {
+inline Promote<T, U> Vec2<T>::distance(const Vec2<U>& other) const {
   return (*this - other).magnitude();
 }
 
 template <class T>
 template <class U>
-inline Promote<T> Vec2<T>::distanceSquared(const Vec2<U>& other) const {
+inline Promote<T, U> Vec2<T>::distanceSquared(const Vec2<U>& other) const {
   return (*this - other).magnitudeSquared();
 }
 
@@ -792,6 +798,22 @@ template <class T>
 template <class U>
 inline Promote<T, U> Vec2<T>::cross(const Vec2<U>& other) const {
   return static_cast<Promote<T, U>>(x) * other.y - y * other.x;
+}
+
+#pragma mark Interpolation
+
+template <class T>
+template <class U, class V>
+inline Vec2<T>& Vec2<T>::lerp(const Vec2<U>& other, V factor) {
+  x += (other.x - x) * factor;
+  y += (other.y - y) * factor;
+}
+
+template <class T>
+template <class U, class V>
+inline Vec2<Promote<T, U>> Vec2<T>::lerp(const Vec2<U>& other, V factor) const {
+  return Vec2<Promote<T, U>>(x + (other.x - x) * factor,
+                             y + (other.y - y) * factor);
 }
 
 #pragma mark Coordinate system conversion
