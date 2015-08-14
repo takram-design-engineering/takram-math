@@ -153,76 +153,29 @@ TYPED_TEST(VectorTest, ConstructibleWithInitializerList) {
   const auto z = math::Random<>().uniform<TypeParam>();
   const auto w = math::Random<>().uniform<TypeParam>();
   {
-    Vec2<TypeParam> v{};
-    ASSERT_EQ(v.x, TypeParam());
-    ASSERT_EQ(v.y, TypeParam());
-  } {
     Vec2<TypeParam> v{x};
     ASSERT_EQ(v.x, x);
     ASSERT_EQ(v.y, TypeParam());
   } {
-    Vec2<TypeParam> v{x, y};
-    ASSERT_EQ(v.x, x);
-    ASSERT_EQ(v.y, y);
-  } {
     Vec2<TypeParam> v{x, y, TypeParam()};
     ASSERT_EQ(v.x, x);
     ASSERT_EQ(v.y, y);
-  } {
-    Vec3<TypeParam> v{};
-    ASSERT_EQ(v.x, TypeParam());
-    ASSERT_EQ(v.y, TypeParam());
-    ASSERT_EQ(v.z, TypeParam());
   } {
     Vec3<TypeParam> v{x};
     ASSERT_EQ(v.x, x);
     ASSERT_EQ(v.y, TypeParam());
     ASSERT_EQ(v.z, TypeParam());
   } {
-    Vec3<TypeParam> v{x, y};
-    ASSERT_EQ(v.x, x);
-    ASSERT_EQ(v.y, y);
-    ASSERT_EQ(v.z, TypeParam());
-  } {
-    Vec3<TypeParam> v{x, y, z};
-    ASSERT_EQ(v.x, x);
-    ASSERT_EQ(v.y, y);
-    ASSERT_EQ(v.z, z);
-  } {
     Vec3<TypeParam> v{x, y, z, TypeParam()};
     ASSERT_EQ(v.x, x);
     ASSERT_EQ(v.y, y);
     ASSERT_EQ(v.z, z);
-  } {
-    Vec4<TypeParam> v{};
-    ASSERT_EQ(v.x, TypeParam());
-    ASSERT_EQ(v.y, TypeParam());
-    ASSERT_EQ(v.z, TypeParam());
-    ASSERT_EQ(v.w, TypeParam());
   } {
     Vec4<TypeParam> v{x};
     ASSERT_EQ(v.x, x);
     ASSERT_EQ(v.y, TypeParam());
     ASSERT_EQ(v.z, TypeParam());
     ASSERT_EQ(v.w, TypeParam());
-  } {
-    Vec4<TypeParam> v{x, y};
-    ASSERT_EQ(v.x, x);
-    ASSERT_EQ(v.y, y);
-    ASSERT_EQ(v.z, TypeParam());
-    ASSERT_EQ(v.w, TypeParam());
-  } {
-    Vec4<TypeParam> v{x, y, z};
-    ASSERT_EQ(v.x, x);
-    ASSERT_EQ(v.y, y);
-    ASSERT_EQ(v.z, z);
-    ASSERT_EQ(v.w, TypeParam());
-  } {
-    Vec4<TypeParam> v{x, y, z, w};
-    ASSERT_EQ(v.x, x);
-    ASSERT_EQ(v.y, y);
-    ASSERT_EQ(v.z, z);
-    ASSERT_EQ(v.w, w);
   } {
     Vec4<TypeParam> v{x, y, z, w, TypeParam()};
     ASSERT_EQ(v.x, x);
@@ -308,19 +261,9 @@ TYPED_TEST(VectorTest, InitializerListAssignable) {
   const auto w = math::Random<>().uniform<TypeParam>();
   {
     Vec2<TypeParam> v;
-    v = {};
-    ASSERT_EQ(v.x, TypeParam());
-    ASSERT_EQ(v.y, TypeParam());
-  } {
-    Vec2<TypeParam> v;
     v = {x};
     ASSERT_EQ(v.x, x);
     ASSERT_EQ(v.y, TypeParam());
-  } {
-    Vec2<TypeParam> v;
-    v = {x, y};
-    ASSERT_EQ(v.x, x);
-    ASSERT_EQ(v.y, y);
   } {
     Vec2<TypeParam> v;
     v = {x, y, TypeParam()};
@@ -328,28 +271,10 @@ TYPED_TEST(VectorTest, InitializerListAssignable) {
     ASSERT_EQ(v.y, y);
   } {
     Vec3<TypeParam> v;
-    v = {};
-    ASSERT_EQ(v.x, TypeParam());
-    ASSERT_EQ(v.y, TypeParam());
-    ASSERT_EQ(v.z, TypeParam());
-  } {
-    Vec3<TypeParam> v;
     v = {x};
     ASSERT_EQ(v.x, x);
     ASSERT_EQ(v.y, TypeParam());
     ASSERT_EQ(v.z, TypeParam());
-  } {
-    Vec3<TypeParam> v;
-    v = {x, y};
-    ASSERT_EQ(v.x, x);
-    ASSERT_EQ(v.y, y);
-    ASSERT_EQ(v.z, TypeParam());
-  } {
-    Vec3<TypeParam> v;
-    v = {x, y, z};
-    ASSERT_EQ(v.x, x);
-    ASSERT_EQ(v.y, y);
-    ASSERT_EQ(v.z, z);
   } {
     Vec3<TypeParam> v;
     v = {x, y, z, TypeParam()};
@@ -358,39 +283,11 @@ TYPED_TEST(VectorTest, InitializerListAssignable) {
     ASSERT_EQ(v.z, z);
   } {
     Vec4<TypeParam> v;
-    v = {};
-    ASSERT_EQ(v.x, TypeParam());
-    ASSERT_EQ(v.y, TypeParam());
-    ASSERT_EQ(v.z, TypeParam());
-    ASSERT_EQ(v.w, TypeParam());
-  } {
-    Vec4<TypeParam> v;
     v = {x};
     ASSERT_EQ(v.x, x);
     ASSERT_EQ(v.y, TypeParam());
     ASSERT_EQ(v.z, TypeParam());
     ASSERT_EQ(v.w, TypeParam());
-  } {
-    Vec4<TypeParam> v;
-    v = {x, y};
-    ASSERT_EQ(v.x, x);
-    ASSERT_EQ(v.y, y);
-    ASSERT_EQ(v.z, TypeParam());
-    ASSERT_EQ(v.w, TypeParam());
-  } {
-    Vec4<TypeParam> v;
-    v = {x, y, z};
-    ASSERT_EQ(v.x, x);
-    ASSERT_EQ(v.y, y);
-    ASSERT_EQ(v.z, z);
-    ASSERT_EQ(v.w, TypeParam());
-  } {
-    Vec4<TypeParam> v;
-    v = {x, y, z, w};
-    ASSERT_EQ(v.x, x);
-    ASSERT_EQ(v.y, y);
-    ASSERT_EQ(v.z, z);
-    ASSERT_EQ(v.w, w);
   } {
     Vec4<TypeParam> v;
     v = {x, y, z, w, TypeParam()};

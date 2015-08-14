@@ -156,14 +156,26 @@ template <class T>
 inline Line3<T>::Line(const Vec3<T>& a, const Vec3<T>& b) : a(a), b(b) {}
 
 template <class T>
-inline Line3<T>::Line(std::initializer_list<T> list) {
+inline Line3<T>::Line(std::initializer_list<T> list) : a(), b() {
   set(list);
 }
 
 template <class T>
-inline Line3<T>::Line(std::initializer_list<Vec3<T>> list) {
+inline Line3<T>::Line(std::initializer_list<Vec3<T>> list) : a(), b() {
   set(list);
 }
+
+#pragma mark Implicit conversion
+
+template <class T>
+template <class U>
+inline Line3<T>::Line(const Line3<U>& other) : a(other.a), b(other.b) {}
+
+#pragma mark Explicit conversion
+
+template <class T>
+template <class U>
+inline Line3<T>::Line(const Line2<U>& other) : a(other.a), b(other.b) {}
 
 #pragma mark Mutators
 

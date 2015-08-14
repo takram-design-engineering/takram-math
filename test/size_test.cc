@@ -126,41 +126,18 @@ TYPED_TEST(SizeTest, ConstructibleWithInitializerList) {
   const auto h = math::Random<>().uniform<TypeParam>();
   const auto d = math::Random<>().uniform<TypeParam>();
   {
-    Size2<TypeParam> s{};
-    ASSERT_EQ(s.width, TypeParam());
-    ASSERT_EQ(s.height, TypeParam());
-  } {
     Size2<TypeParam> s{w};
     ASSERT_EQ(s.width, w);
     ASSERT_EQ(s.height, TypeParam());
-  } {
-    Size2<TypeParam> s{w, h};
-    ASSERT_EQ(s.width, w);
-    ASSERT_EQ(s.height, h);
   } {
     Size2<TypeParam> s{w, h, TypeParam()};
     ASSERT_EQ(s.width, w);
     ASSERT_EQ(s.height, h);
   } {
-    Size3<TypeParam> s{};
-    ASSERT_EQ(s.width, TypeParam());
-    ASSERT_EQ(s.height, TypeParam());
-    ASSERT_EQ(s.depth, TypeParam());
-  } {
     Size3<TypeParam> s{w};
     ASSERT_EQ(s.width, w);
     ASSERT_EQ(s.height, TypeParam());
     ASSERT_EQ(s.depth, TypeParam());
-  } {
-    Size3<TypeParam> s{w, h};
-    ASSERT_EQ(s.width, w);
-    ASSERT_EQ(s.height, h);
-    ASSERT_EQ(s.depth, TypeParam());
-  } {
-    Size3<TypeParam> s{w, h, d};
-    ASSERT_EQ(s.width, w);
-    ASSERT_EQ(s.height, h);
-    ASSERT_EQ(s.depth, d);
   } {
     Size3<TypeParam> s{w, h, d, TypeParam()};
     ASSERT_EQ(s.width, w);
@@ -225,19 +202,9 @@ TYPED_TEST(SizeTest, InitializerListAssignable) {
   const auto d = math::Random<>().uniform<TypeParam>();
   {
     Size2<TypeParam> s;
-    s = {};
-    ASSERT_EQ(s.width, TypeParam());
-    ASSERT_EQ(s.height, TypeParam());
-  } {
-    Size2<TypeParam> s;
     s = {w};
     ASSERT_EQ(s.width, w);
     ASSERT_EQ(s.height, TypeParam());
-  } {
-    Size2<TypeParam> s;
-    s = {w, h};
-    ASSERT_EQ(s.width, w);
-    ASSERT_EQ(s.height, h);
   } {
     Size2<TypeParam> s;
     s = {w, h, TypeParam()};
@@ -245,28 +212,10 @@ TYPED_TEST(SizeTest, InitializerListAssignable) {
     ASSERT_EQ(s.height, h);
   } {
     Size3<TypeParam> s;
-    s = {};
-    ASSERT_EQ(s.width, TypeParam());
-    ASSERT_EQ(s.height, TypeParam());
-    ASSERT_EQ(s.depth, TypeParam());
-  } {
-    Size3<TypeParam> s;
     s = {w};
     ASSERT_EQ(s.width, w);
     ASSERT_EQ(s.height, TypeParam());
     ASSERT_EQ(s.depth, TypeParam());
-  } {
-    Size3<TypeParam> s;
-    s = {w, h};
-    ASSERT_EQ(s.width, w);
-    ASSERT_EQ(s.height, h);
-    ASSERT_EQ(s.depth, TypeParam());
-  } {
-    Size3<TypeParam> s;
-    s = {w, h, d};
-    ASSERT_EQ(s.width, w);
-    ASSERT_EQ(s.height, h);
-    ASSERT_EQ(s.depth, d);
   } {
     Size3<TypeParam> s;
     s = {w, h, d, TypeParam()};

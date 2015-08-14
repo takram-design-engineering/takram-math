@@ -153,14 +153,35 @@ inline Triangle3<T>::Triangle(const Vec3<T>& a,
       c(c) {}
 
 template <class T>
-inline Triangle3<T>::Triangle(std::initializer_list<T> list) {
+inline Triangle3<T>::Triangle(std::initializer_list<T> list) : a(), b(), c() {
   set(list);
 }
 
 template <class T>
-inline Triangle3<T>::Triangle(std::initializer_list<Vec3<T>> list) {
+inline Triangle3<T>::Triangle(std::initializer_list<Vec3<T>> list)
+    : a(),
+      b(),
+      c() {
   set(list);
 }
+
+#pragma mark Implicit conversion
+
+template <class T>
+template <class U>
+inline Triangle3<T>::Triangle(const Triangle3<U>& other)
+    : a(other.a),
+      b(other.b),
+      c(other.c) {}
+
+#pragma mark Explicit conversion
+
+template <class T>
+template <class U>
+inline Triangle3<T>::Triangle(const Triangle2<U>& other)
+    : a(other.a),
+      b(other.b),
+      c(other.c) {}
 
 #pragma mark Mutators
 
