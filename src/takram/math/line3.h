@@ -110,7 +110,7 @@ class Line<T, 3> final {
   Promote<T> lengthSquared() const;
 
   // Projection
-  template <class U>
+  template <class U = T>
   Vec3<T> project(const Vec3<U>& point) const;
 
   // Iterator

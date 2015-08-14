@@ -164,17 +164,17 @@ class Vec<T, 3> final {
   const T& back() const { return z; }
 
   // Comparison
-  template <class U = T>
+  template <class U>
   bool operator==(const Vec3<U>& other) const;
-  template <class U = T>
+  template <class U>
   bool operator!=(const Vec3<U>& other) const;
-  template <class U = T>
+  template <class U>
   bool operator<(const Vec3<U>& other) const;
-  template <class U = T>
+  template <class U>
   bool operator>(const Vec3<U>& other) const;
-  template <class U = T>
+  template <class U>
   bool operator<=(const Vec3<U>& other) const;
-  template <class U = T>
+  template <class U>
   bool operator>=(const Vec3<U>& other) const;
 
   // Arithmetic
@@ -182,13 +182,13 @@ class Vec<T, 3> final {
   Vec& operator-=(const Vec& other);
   Vec& operator*=(const Vec& other);
   Vec& operator/=(const Vec& other);
-  template <class U = T>
+  template <class U>
   Vec3<Promote<T, U>> operator+(const Vec3<U>& other) const;
-  template <class U = T>
+  template <class U>
   Vec3<Promote<T, U>> operator-(const Vec3<U>& other) const;
-  template <class U = T>
+  template <class U>
   Vec3<Promote<T, U>> operator*(const Vec3<U>& other) const;
-  template <class U = T>
+  template <class U>
   Vec3<Promote<T, U>> operator/(const Vec3<U>& other) const;
   Vec3<Promote<T>> operator-() const;
 

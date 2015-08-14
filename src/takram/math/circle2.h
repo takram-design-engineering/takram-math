@@ -88,7 +88,7 @@ class Circle<T, 2> final {
   Circle2<Promote<T>> canonicalized() const;
 
   // Containment
-  template <class U>
+  template <class U = T>
   bool contains(const Vec2<U>& point) const;
 
  public:

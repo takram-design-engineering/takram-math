@@ -201,7 +201,7 @@ class Size<T, 2> final {
   template <class U, EnableIfScalar<U> * = nullptr>
   Size2<Promote<T, U>> operator/(U scalar) const;
 
-  // Vec arithmetic
+  // Vector arithmetic
   Size& operator+=(const Vec2<T>& other);
   Size& operator-=(const Vec2<T>& other);
   Size& operator*=(const Vec2<T>& other);
@@ -595,7 +595,7 @@ inline Size2<Promote<T, U>> operator*(U scalar, const Size2<T>& size) {
   return size * scalar;
 }
 
-#pragma mark Vec arithmetic
+#pragma mark Vector arithmetic
 
 template <class T>
 inline Size2<T>& Size2<T>::operator+=(const Vec2<T>& other) {
