@@ -106,7 +106,7 @@ using Circle2d = Circle2<double>;
 #pragma mark -
 
 template <class T>
-inline Circle2<T>::Circle() : radius() {}
+inline Circle2<T>::Circle() : center(), radius() {}
 
 template <class T>
 inline Circle2<T>::Circle(const Vec2<T>& center, T radius)

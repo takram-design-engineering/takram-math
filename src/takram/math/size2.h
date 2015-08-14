@@ -96,8 +96,8 @@ class Size<T, 2> final {
 #endif  // TAKRAM_HAS_OPENCV
 
 #if TAKRAM_HAS_COREGRAPHICS
-  explicit Size(const CGSize& other);
-  explicit operator CGSize() const;
+  Size(const CGSize& other);
+  operator CGSize() const;
 #endif  // TAKRAM_HAS_COREGRAPHICS
 
   // Explicit conversion
