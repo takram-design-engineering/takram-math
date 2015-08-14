@@ -88,6 +88,8 @@ class Vec<T, 3> final {
   // Implicit conversion
   template <class U>
   Vec(const Vec3<U>& other);
+  template <class U>
+  operator Vec3<U>() const;
 
 #if TAKRAM_HAS_OPENCV
   template <class U>
@@ -162,17 +164,17 @@ class Vec<T, 3> final {
   const T& back() const { return z; }
 
   // Comparison
-  template <class U>
+  template <class U = T>
   bool operator==(const Vec3<U>& other) const;
-  template <class U>
+  template <class U = T>
   bool operator!=(const Vec3<U>& other) const;
-  template <class U>
+  template <class U = T>
   bool operator<(const Vec3<U>& other) const;
-  template <class U>
+  template <class U = T>
   bool operator>(const Vec3<U>& other) const;
-  template <class U>
+  template <class U = T>
   bool operator<=(const Vec3<U>& other) const;
-  template <class U>
+  template <class U = T>
   bool operator>=(const Vec3<U>& other) const;
 
   // Arithmetic
@@ -180,13 +182,13 @@ class Vec<T, 3> final {
   Vec& operator-=(const Vec& other);
   Vec& operator*=(const Vec& other);
   Vec& operator/=(const Vec& other);
-  template <class U>
+  template <class U = T>
   Vec3<Promote<T, U>> operator+(const Vec3<U>& other) const;
-  template <class U>
+  template <class U = T>
   Vec3<Promote<T, U>> operator-(const Vec3<U>& other) const;
-  template <class U>
+  template <class U = T>
   Vec3<Promote<T, U>> operator*(const Vec3<U>& other) const;
-  template <class U>
+  template <class U = T>
   Vec3<Promote<T, U>> operator/(const Vec3<U>& other) const;
   Vec3<Promote<T>> operator-() const;
 
@@ -211,7 +213,7 @@ class Vec<T, 3> final {
   Promote<T> headingXY() const;
   Promote<T> headingYZ() const;
   Promote<T> headingZX() const;
-  template <class U>
+  template <class U = T>
   Promote<T, U> angle(const Vec3<U>& other) const;
 
   // Magnitude
@@ -220,7 +222,7 @@ class Vec<T, 3> final {
   template <class U>
   Vec& limit(U limit);
   template <class U>
-  Vec3<Promote<T>> limited(U limit) const;
+  Vec3<Promote<T, U>> limited(U limit) const;
 
   // Normalization
   bool normal() const { return magnitude() == 1; }
@@ -232,22 +234,32 @@ class Vec<T, 3> final {
   Vec3<Promote<T>> inverted() const;
 
   // Distance
-  template <class U>
+  template <class U = T>
   Promote<T, U> distance(const Vec3<U>& other) const;
-  template <class U>
+  template <class U = T>
   Promote<T, U> distanceSquared(const Vec3<U>& other) const;
 
   // Products
-  template <class U>
+  template <class U = T>
   Promote<T, U> dot(const Vec3<U>& other) const;
-  template <class U>
+  template <class U = T>
   Vec3<Promote<T, U>> cross(const Vec3<U>& other) const;
 
   // Interpolation
-  template <class U, class V>
+  template <class V, class U = T>
   Vec& lerp(const Vec3<U>& other, V factor);
-  template <class U, class V>
+  template <class V, class U = T>
   Vec3<Promote<T, U>> lerp(const Vec3<U>& other, V factor) const;
+
+  // Jitter
+  template <class U = T>
+  Vec& jitter(const Vec3<U>& vector);
+  template <class Random, class U = T>
+  Vec& jitter(const Vec3<U>& vector, Random *random);
+  template <class U = T>
+  Vec3<Promote<T, U>> jittered(const Vec3<U>& vector) const;
+  template <class Random, class U = T>
+  Vec3<Promote<T, U>> jittered(const Vec3<U>& vector, Random *random) const;
 
   // Coordinate system conversion
   Vec3<Promote<T>> cartesian() const;
@@ -320,6 +332,12 @@ inline Vec3<T>::Vec(const Vec3<U>& other)
     : x(other.x),
       y(other.y),
       z(other.z) {}
+
+template <class T>
+template <class U>
+inline Vec3<T>::operator Vec3<U>() const {
+  return Vec3<U>(*this);
+}
 
 #if TAKRAM_HAS_OPENCV
 
@@ -796,8 +814,8 @@ inline Vec3<T>& Vec3<T>::limit(U limit) {
 
 template <class T>
 template <class U>
-inline Vec3<Promote<T>> Vec3<T>::limited(U limit) const {
-  return Vec3<Promote<T>>(*this).limit(limit);
+inline Vec3<Promote<T, U>> Vec3<T>::limited(U limit) const {
+  return Vec3<Promote<T, U>>(*this).limit(limit);
 }
 
 #pragma mark Normalization
@@ -865,7 +883,7 @@ inline Vec3<Promote<T, U>> Vec3<T>::cross(const Vec3<U>& other) const {
 #pragma mark Interpolation
 
 template <class T>
-template <class U, class V>
+template <class V, class U>
 inline Vec3<T>& Vec3<T>::lerp(const Vec3<U>& other, V factor) {
   x += (other.x - x) * factor;
   y += (other.y - y) * factor;
@@ -874,11 +892,42 @@ inline Vec3<T>& Vec3<T>::lerp(const Vec3<U>& other, V factor) {
 }
 
 template <class T>
-template <class U, class V>
+template <class V, class U>
 inline Vec3<Promote<T, U>> Vec3<T>::lerp(const Vec3<U>& other, V factor) const {
   return Vec3<Promote<T, U>>(x + (other.x - x) * factor,
                              y + (other.y - y) * factor,
                              z + (other.z - z) * factor);
+}
+
+#pragma mark Jitter
+
+template <class T>
+template <class U>
+inline Vec3<T>& Vec3<T>::jitter(const Vec3<U>& vector) {
+  return jitter(vector, &Random<>::shared());
+}
+
+template <class T>
+template <class Random, class U>
+inline Vec3<T>& Vec3<T>::jitter(const Vec3<U>& vector, Random *random) {
+  using V = Promote<T, U>;
+  x += vector.x * random->template uniform<V>(-1, 1);
+  y += vector.y * random->template uniform<V>(-1, 1);
+  z += vector.z * random->template uniform<V>(-1, 1);
+  return *this;
+}
+
+template <class T>
+template <class U>
+inline Vec3<Promote<T, U>> Vec3<T>::jittered(const Vec3<U>& vector) const {
+  return Vec3<Promote<T, U>>(*this).jitter(vector);
+}
+
+template <class T>
+template <class Random, class U>
+inline Vec3<Promote<T, U>> Vec3<T>::jittered(const Vec3<U>& vector,
+                                             Random *random) const {
+  return Vec3<Promote<T, U>>(*this).jitter(vector, random);
 }
 
 #pragma mark Stream
