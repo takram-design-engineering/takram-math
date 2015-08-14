@@ -273,7 +273,7 @@ inline Vec2<Promote<T>> Line2<T>::direction() const {
 
 template <class T>
 inline Vec2<Promote<T>> Line2<T>::normal() const {
-  return b.cross(a);
+  return Vec2<Promote<T>>(a.y - b.y, b.x - a.x);
 }
 
 template <class T>

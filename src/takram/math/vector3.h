@@ -910,6 +910,9 @@ inline Vec3<T>& Vec3<T>::jitter(const Vec3<U>& vector) {
 template <class T>
 template <class Random, class U>
 inline Vec3<T>& Vec3<T>::jitter(const Vec3<U>& vector, Random *random) {
+  if (vector.empty()) {
+    return *this;
+  }
   using V = Promote<T, U>;
   x += vector.x * random->template uniform<V>(-1, 1);
   y += vector.y * random->template uniform<V>(-1, 1);
