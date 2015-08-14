@@ -88,8 +88,6 @@ class Vec<T, 3> final {
   // Implicit conversion
   template <class U>
   Vec(const Vec3<U>& other);
-  template <class U>
-  operator Vec3<U>() const;
 
 #if TAKRAM_HAS_OPENCV
   template <class U>
@@ -332,12 +330,6 @@ inline Vec3<T>::Vec(const Vec3<U>& other)
     : x(other.x),
       y(other.y),
       z(other.z) {}
-
-template <class T>
-template <class U>
-inline Vec3<T>::operator Vec3<U>() const {
-  return Vec3<U>(*this);
-}
 
 #if TAKRAM_HAS_OPENCV
 
