@@ -174,7 +174,7 @@ class Rect<T, 2> final {
   Rect2<Promote<T, U>> translated(U offset) const;
   template <class U>
   Rect2<Promote<T, U>> translated(U dx, U dy) const;
-  template <class U>
+  template <class U = T>
   Rect2<Promote<T, U>> translated(const Vec2<U>& offset) const;
 
   // Scaling
@@ -185,11 +185,11 @@ class Rect<T, 2> final {
   Rect2<Promote<T, U>> scaled(U scale) const;
   template <class U>
   Rect2<Promote<T, U>> scaled(U sx, U sy) const;
-  template <class U>
+  template <class U = T>
   Rect2<Promote<T, U>> scaled(const Vec2<U>& scale) const;
 
   // Containment
-  template <class U>
+  template <class U = T>
   bool contains(const Vec2<U>& point) const;
 
  public:

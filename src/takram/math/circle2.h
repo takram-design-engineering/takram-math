@@ -53,8 +53,8 @@ class Circle<T, 2> final {
   Circle(const Vec2<T>& a, const Vec2<T>& b, const Vec2<T>& c);
 
   // Copy semantics
-  Circle(const Circle& other);
-  Circle& operator=(const Circle& other);
+  Circle(const Circle& other) = default;
+  Circle& operator=(const Circle& other) = default;
 
   // Mutators
   void set(const Vec2<T>& center, T radius);
@@ -77,7 +77,7 @@ class Circle<T, 2> final {
   bool operator>=(const Circle2<U>& other) const;
 
   // Attributes
-  bool empty() const { return radius.empty(); }
+  bool empty() const { return !radius; }
   Promote<T> diameter() const;
   Promote<T> circumference() const;
   Promote<T> area() const;
@@ -88,7 +88,7 @@ class Circle<T, 2> final {
   Circle2<Promote<T>> canonicalized() const;
 
   // Containment
-  template <class U>
+  template <class U = T>
   bool contains(const Vec2<U>& point) const;
 
  public:

@@ -182,7 +182,7 @@ class Size<T, 3> final {
   template <class U, EnableIfScalar<U> * = nullptr>
   Size3<Promote<T, U>> operator/(U scalar) const;
 
-  // Vec arithmetic
+  // Vector arithmetic
   Size& operator+=(const Vec3<T>& vector);
   Size& operator-=(const Vec3<T>& vector);
   Size& operator*=(const Vec3<T>& vector);
@@ -334,19 +334,19 @@ inline Size3<T> Size3<T>::random(T min, T max) {
 template <class T>
 template <class Random>
 inline Size3<T> Size3<T>::random(Random *random) {
-  return Size(Vec3<T>::Random(random));
+  return Size(Vec3<T>::random(random));
 }
 
 template <class T>
 template <class Random>
 inline Size3<T> Size3<T>::random(T max, Random *random) {
-  return Size(Vec3<T>::Random(max, random));
+  return Size(Vec3<T>::random(max, random));
 }
 
 template <class T>
 template <class Random>
 inline Size3<T> Size3<T>::random(T min, T max, Random *random) {
-  return Size(Vec3<T>::Random(min, max, random));
+  return Size(Vec3<T>::random(min, max, random));
 }
 
 #pragma mark Mutators
@@ -552,7 +552,7 @@ inline Size3<Promote<T, U>> operator*(U scalar, const Size3<T>& size) {
   return size * scalar;
 }
 
-#pragma mark Vec arithmetic
+#pragma mark Vector arithmetic
 
 template <class T>
 inline Size3<T>& Size3<T>::operator+=(const Vec3<T>& other) {

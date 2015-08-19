@@ -216,7 +216,7 @@ class Vec<T, 2> final {
 
   // Angle
   Promote<T> heading() const;
-  template <class U>
+  template <class U = T>
   Promote<T, U> angle(const Vec2<U>& other) const;
 
   // Magnitude
@@ -225,7 +225,7 @@ class Vec<T, 2> final {
   template <class U>
   Vec& limit(U limit);
   template <class U>
-  Vec2<Promote<T>> limited(U limit) const;
+  Vec2<Promote<T, U>> limited(U limit) const;
 
   // Normalization
   bool normal() const { return magnitude() == 1; }
@@ -237,22 +237,32 @@ class Vec<T, 2> final {
   Vec2<Promote<T>> inverted() const;
 
   // Distance
-  template <class U>
+  template <class U = T>
   Promote<T, U> distance(const Vec2<U>& other) const;
-  template <class U>
+  template <class U = T>
   Promote<T, U> distanceSquared(const Vec2<U>& other) const;
 
   // Products
-  template <class U>
+  template <class U = T>
   Promote<T, U> dot(const Vec2<U>& other) const;
-  template <class U>
+  template <class U = T>
   Promote<T, U> cross(const Vec2<U>& other) const;
 
   // Interpolation
-  template <class U, class V>
+  template <class V, class U = T>
   Vec& lerp(const Vec2<U>& other, V factor);
-  template <class U, class V>
+  template <class V, class U = T>
   Vec2<Promote<T, U>> lerp(const Vec2<U>& other, V factor) const;
+
+  // Jitter
+  template <class U = T>
+  Vec& jitter(const Vec2<U>& vector);
+  template <class Random, class U = T>
+  Vec& jitter(const Vec2<U>& vector, Random *random);
+  template <class U = T>
+  Vec2<Promote<T, U>> jittered(const Vec2<U>& vector) const;
+  template <class Random, class U = T>
+  Vec2<Promote<T, U>> jittered(const Vec2<U>& vector, Random *random) const;
 
   // Coordinate system conversion
   Vec2<Promote<T>> cartesian() const;
@@ -738,8 +748,8 @@ inline Vec2<T>& Vec2<T>::limit(U limit) {
 
 template <class T>
 template <class U>
-inline Vec2<Promote<T>> Vec2<T>::limited(U limit) const {
-  return Vec2<Promote<T>>(*this).limit(limit);
+inline Vec2<Promote<T, U>> Vec2<T>::limited(U limit) const {
+  return Vec2<Promote<T, U>>(*this).limit(limit);
 }
 
 #pragma mark Normalization
@@ -803,7 +813,7 @@ inline Promote<T, U> Vec2<T>::cross(const Vec2<U>& other) const {
 #pragma mark Interpolation
 
 template <class T>
-template <class U, class V>
+template <class V, class U>
 inline Vec2<T>& Vec2<T>::lerp(const Vec2<U>& other, V factor) {
   x += (other.x - x) * factor;
   y += (other.y - y) * factor;
@@ -811,10 +821,43 @@ inline Vec2<T>& Vec2<T>::lerp(const Vec2<U>& other, V factor) {
 }
 
 template <class T>
-template <class U, class V>
+template <class V, class U>
 inline Vec2<Promote<T, U>> Vec2<T>::lerp(const Vec2<U>& other, V factor) const {
   return Vec2<Promote<T, U>>(x + (other.x - x) * factor,
                              y + (other.y - y) * factor);
+}
+
+#pragma mark Jitter
+
+template <class T>
+template <class U>
+inline Vec2<T>& Vec2<T>::jitter(const Vec2<U>& vector) {
+  return jitter(vector, &Random<>::shared());
+}
+
+template <class T>
+template <class Random, class U>
+inline Vec2<T>& Vec2<T>::jitter(const Vec2<U>& vector, Random *random) {
+  if (vector.empty()) {
+    return *this;
+  }
+  using V = Promote<T, U>;
+  x += vector.x * random->template uniform<V>(-1, 1);
+  y += vector.y * random->template uniform<V>(-1, 1);
+  return *this;
+}
+
+template <class T>
+template <class U>
+inline Vec2<Promote<T, U>> Vec2<T>::jittered(const Vec2<U>& vector) const {
+  return Vec2<Promote<T, U>>(*this).jitter(vector);
+}
+
+template <class T>
+template <class Random, class U>
+inline Vec2<Promote<T, U>> Vec2<T>::jittered(const Vec2<U>& vector,
+                                             Random *random) const {
+  return Vec2<Promote<T, U>>(*this).jitter(vector, random);
 }
 
 #pragma mark Coordinate system conversion

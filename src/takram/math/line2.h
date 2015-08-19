@@ -112,13 +112,13 @@ class Line<T, 2> final {
   Promote<T> lengthSquared() const;
 
   // Intersection
-  template <class U>
+  template <class U = T>
   std::pair<bool, Vec2<Promote<T>>> intersect(const Line2<U>& other) const;
 
   // Projection
-  template <class U>
+  template <class U = T>
   Vec2<T> project(const Vec2<U>& point) const;
-  template <class U>
+  template <class U = T>
   Side side(const Vec2<U>& point) const;
 
   // Iterator
@@ -273,7 +273,7 @@ inline Vec2<Promote<T>> Line2<T>::direction() const {
 
 template <class T>
 inline Vec2<Promote<T>> Line2<T>::normal() const {
-  return b.cross(a);
+  return Vec2<Promote<T>>(a.y - b.y, b.x - a.x);
 }
 
 template <class T>
