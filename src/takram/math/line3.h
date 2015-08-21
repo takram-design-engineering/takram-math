@@ -313,8 +313,8 @@ inline Vec3<T> Line3<T>::project(const Vec3<U>& point) const {
 #pragma mark Stream
 
 template <class T>
-inline std::ostream& operator<<(std::ostream& os, const Line3<T>& other) {
-  return os << "( " << other.a << ", " << other.b << " )";
+inline std::ostream& operator<<(std::ostream& os, const Line3<T>& line) {
+  return os << "( " << line.a << ", " << line.b << " )";
 }
 
 }  // namespace math

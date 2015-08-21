@@ -170,6 +170,7 @@ class Vec<T, 4> final {
   Vec& operator-=(const Vec& other);
   Vec& operator*=(const Vec& other);
   Vec& operator/=(const Vec& other);
+  Vec4<Promote<T>> operator-() const;
   template <class U>
   Vec4<Promote<T, U>> operator+(const Vec4<U>& other) const;
   template <class U>
@@ -178,7 +179,6 @@ class Vec<T, 4> final {
   Vec4<Promote<T, U>> operator*(const Vec4<U>& other) const;
   template <class U>
   Vec4<Promote<T, U>> operator/(const Vec4<U>& other) const;
-  Vec4<Promote<T>> operator-() const;
 
   // Scalar arithmetic
   Vec& operator+=(T scalar);
@@ -269,6 +269,16 @@ class Vec<T, 4> final {
   T z;
   T w;
 };
+
+// Scalar arithmetic
+template <class T, class U, EnableIfScalar<T> * = nullptr>
+Vec4<Promote<T, U>> operator+(T lhs, const Vec4<U>& rhs);
+template <class T, class U, EnableIfScalar<T> * = nullptr>
+Vec4<Promote<T, U>> operator-(T lhs, const Vec4<U>& rhs);
+template <class T, class U, EnableIfScalar<T> * = nullptr>
+Vec4<Promote<T, U>> operator*(T lhs, const Vec4<U>& rhs);
+template <class T, class U, EnableIfScalar<T> * = nullptr>
+Vec4<Promote<T, U>> operator/(T lhs, const Vec4<U>& rhs);
 
 using Vec4i = Vec4<int>;
 using Vec4f = Vec4<float>;
@@ -623,12 +633,20 @@ inline Vec4<T>& Vec4<T>::operator*=(const Vec& other) {
 
 template <class T>
 inline Vec4<T>& Vec4<T>::operator/=(const Vec& other) {
-  assert(other.x && other.y && other.z && other.w);
   x /= other.x;
   y /= other.y;
   z /= other.z;
   w /= other.w;
   return *this;
+}
+
+template <class T>
+inline Vec4<Promote<T>> Vec4<T>::operator-() const {
+  using V = Promote<T>;
+  return Vec4<V>(-static_cast<V>(x),
+                 -static_cast<V>(y),
+                 -static_cast<V>(z),
+                 -static_cast<V>(w));
 }
 
 template <class T>
@@ -665,20 +683,10 @@ template <class T>
 template <class U>
 inline Vec4<Promote<T, U>> Vec4<T>::operator/(const Vec4<U>& other) const {
   using V = Promote<T, U>;
-  assert(other.x && other.y && other.z && other.w);
   return Vec4<V>(static_cast<V>(x) / other.x,
                  static_cast<V>(y) / other.y,
                  static_cast<V>(z) / other.z,
                  static_cast<V>(w) / other.w);
-}
-
-template <class T>
-inline Vec4<Promote<T>> Vec4<T>::operator-() const {
-  using V = Promote<T>;
-  return Vec4<V>(-static_cast<V>(x),
-                 -static_cast<V>(y),
-                 -static_cast<V>(z),
-                 -static_cast<V>(w));
 }
 
 #pragma mark Scalar arithmetic
@@ -712,7 +720,6 @@ inline Vec4<T>& Vec4<T>::operator*=(T scalar) {
 
 template <class T>
 inline Vec4<T>& Vec4<T>::operator/=(T scalar) {
-  assert(scalar);
   x /= scalar;
   y /= scalar;
   z /= scalar;
@@ -754,16 +761,46 @@ template <class T>
 template <class U, EnableIfScalar<U> *>
 inline Vec4<Promote<T, U>> Vec4<T>::operator/(U scalar) const {
   using V = Promote<T, U>;
-  assert(scalar);
   return Vec4<V>(static_cast<V>(x) / scalar,
                  static_cast<V>(y) / scalar,
                  static_cast<V>(z) / scalar,
                  static_cast<V>(w) / scalar);
 }
 
-template <class T, class U, EnableIfScalar<U> * = nullptr>
-inline Vec4<Promote<T, U>> operator*(U scalar, const Vec4<T>& vector) {
-  return vector * scalar;
+template <class T, class U, EnableIfScalar<T> *>
+inline Vec4<Promote<T, U>> operator+(T lhs, const Vec4<U>& rhs) {
+  using V = Promote<T, U>;
+  return Vec4<V>(static_cast<V>(lhs) + rhs.x,
+                 static_cast<V>(lhs) + rhs.y,
+                 static_cast<V>(lhs) + rhs.z,
+                 static_cast<V>(lhs) + rhs.w);
+}
+
+template <class T, class U, EnableIfScalar<T> *>
+inline Vec4<Promote<T, U>> operator-(T lhs, const Vec4<U>& rhs) {
+  using V = Promote<T, U>;
+  return Vec4<V>(static_cast<V>(lhs) - rhs.x,
+                 static_cast<V>(lhs) - rhs.y,
+                 static_cast<V>(lhs) - rhs.z,
+                 static_cast<V>(lhs) - rhs.w);
+}
+
+template <class T, class U, EnableIfScalar<T> *>
+inline Vec4<Promote<T, U>> operator*(T lhs, const Vec4<U>& rhs) {
+  using V = Promote<T, U>;
+  return Vec4<V>(static_cast<V>(lhs) * rhs.x,
+                 static_cast<V>(lhs) * rhs.y,
+                 static_cast<V>(lhs) * rhs.z,
+                 static_cast<V>(lhs) * rhs.w);
+}
+
+template <class T, class U, EnableIfScalar<T> *>
+inline Vec4<Promote<T, U>> operator/(T lhs, const Vec4<U>& rhs) {
+  using V = Promote<T, U>;
+  return Vec4<V>(static_cast<V>(lhs) / rhs.x,
+                 static_cast<V>(lhs) / rhs.y,
+                 static_cast<V>(lhs) / rhs.z,
+                 static_cast<V>(lhs) / rhs.w);
 }
 
 #pragma mark Attributes
@@ -937,9 +974,9 @@ inline Vec4<Promote<T, U>> Vec4<T>::jittered(const Vec4<U>& vector,
 #pragma mark Stream
 
 template <class T>
-inline std::ostream& operator<<(std::ostream& os, const Vec4<T>& other) {
-  return os << "( " << other.x << ", " << other.y << ", " << other.z
-            << ", " << other.w << " )";
+inline std::ostream& operator<<(std::ostream& os, const Vec4<T>& vector) {
+  return os << "( " << vector.x << ", " << vector.y << ", " << vector.z
+            << ", " << vector.w << " )";
 }
 
 }  // namespace math

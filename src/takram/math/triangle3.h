@@ -287,8 +287,8 @@ inline bool Triangle3<T>::operator!=(const Triangle3<U>& other) const {
 #pragma mark Stream
 
 template <class T>
-inline std::ostream& operator<<(std::ostream& os, const Triangle3<T>& other) {
-  return os << "( " << other.a << ", " << other.b << ", " << other.c << " )";
+inline std::ostream& operator<<(std::ostream& os, const Triangle3<T>& tri) {
+  return os << "( " << tri.a << ", " << tri.b << ", " << tri.c << " )";
 }
 
 }  // namespace math

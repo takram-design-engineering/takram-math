@@ -187,6 +187,7 @@ class Vec<T, 2> final {
   Vec& operator-=(const Vec& other);
   Vec& operator*=(const Vec& other);
   Vec& operator/=(const Vec& other);
+  Vec2<Promote<T>> operator-() const;
   template <class U>
   Vec2<Promote<T, U>> operator+(const Vec2<U>& other) const;
   template <class U>
@@ -195,7 +196,6 @@ class Vec<T, 2> final {
   Vec2<Promote<T, U>> operator*(const Vec2<U>& other) const;
   template <class U>
   Vec2<Promote<T, U>> operator/(const Vec2<U>& other) const;
-  Vec2<Promote<T>> operator-() const;
 
   // Scalar arithmetic
   Vec& operator+=(T scalar);
@@ -286,6 +286,16 @@ class Vec<T, 2> final {
   T x;
   T y;
 };
+
+// Scalar arithmetic
+template <class T, class U, EnableIfScalar<T> * = nullptr>
+Vec2<Promote<T, U>> operator+(T lhs, const Vec2<U>& rhs);
+template <class T, class U, EnableIfScalar<T> * = nullptr>
+Vec2<Promote<T, U>> operator-(T lhs, const Vec2<U>& rhs);
+template <class T, class U, EnableIfScalar<T> * = nullptr>
+Vec2<Promote<T, U>> operator*(T lhs, const Vec2<U>& rhs);
+template <class T, class U, EnableIfScalar<T> * = nullptr>
+Vec2<Promote<T, U>> operator/(T lhs, const Vec2<U>& rhs);
 
 using Vec2i = Vec2<int>;
 using Vec2f = Vec2<float>;
@@ -603,10 +613,15 @@ inline Vec2<T>& Vec2<T>::operator*=(const Vec& other) {
 
 template <class T>
 inline Vec2<T>& Vec2<T>::operator/=(const Vec& other) {
-  assert(other.x && other.y);
   x /= other.x;
   y /= other.y;
   return *this;
+}
+
+template <class T>
+inline Vec2<Promote<T>> Vec2<T>::operator-() const {
+  using V = Promote<T>;
+  return Vec2<V>(-static_cast<V>(x), -static_cast<V>(y));
 }
 
 template <class T>
@@ -633,15 +648,8 @@ inline Vec2<Promote<T, U>> Vec2<T>::operator*(const Vec2<U>& other) const {
 template <class T>
 template <class U>
 inline Vec2<Promote<T, U>> Vec2<T>::operator/(const Vec2<U>& other) const {
-  assert(other.x && other.y);
   using V = Promote<T, U>;
   return Vec2<V>(static_cast<V>(x) / other.x, static_cast<V>(y) / other.y);
-}
-
-template <class T>
-inline Vec2<Promote<T>> Vec2<T>::operator-() const {
-  using V = Promote<T>;
-  return Vec2<V>(-static_cast<V>(x), -static_cast<V>(y));
 }
 
 #pragma mark Scalar arithmetic
@@ -669,7 +677,6 @@ inline Vec2<T>& Vec2<T>::operator*=(T scalar) {
 
 template <class T>
 inline Vec2<T>& Vec2<T>::operator/=(T scalar) {
-  assert(scalar);
   x /= scalar;
   y /= scalar;
   return *this;
@@ -700,13 +707,31 @@ template <class T>
 template <class U, EnableIfScalar<U> *>
 inline Vec2<Promote<T, U>> Vec2<T>::operator/(U scalar) const {
   using V = Promote<T, U>;
-  assert(scalar);
   return Vec2<V>(static_cast<V>(x) / scalar, static_cast<V>(y) / scalar);
 }
 
-template <class T, class U, EnableIfScalar<U> * = nullptr>
-inline Vec2<Promote<T, U>> operator*(U scalar, const Vec2<T>& vector) {
-  return vector * scalar;
+template <class T, class U, EnableIfScalar<T> *>
+inline Vec2<Promote<T, U>> operator+(T lhs, const Vec2<U>& rhs) {
+  using V = Promote<T, U>;
+  return Vec2<V>(static_cast<V>(lhs) + rhs.x, static_cast<V>(lhs) + rhs.y);
+}
+
+template <class T, class U, EnableIfScalar<T> *>
+inline Vec2<Promote<T, U>> operator-(T lhs, const Vec2<U>& rhs) {
+  using V = Promote<T, U>;
+  return Vec2<V>(static_cast<V>(lhs) - rhs.x, static_cast<V>(lhs) - rhs.y);
+}
+
+template <class T, class U, EnableIfScalar<T> *>
+inline Vec2<Promote<T, U>> operator*(T lhs, const Vec2<U>& rhs) {
+  using V = Promote<T, U>;
+  return Vec2<V>(static_cast<V>(lhs) * rhs.x, static_cast<V>(lhs) * rhs.y);
+}
+
+template <class T, class U, EnableIfScalar<T> *>
+inline Vec2<Promote<T, U>> operator/(T lhs, const Vec2<U>& rhs) {
+  using V = Promote<T, U>;
+  return Vec2<V>(static_cast<V>(lhs) / rhs.x, static_cast<V>(lhs) / rhs.y);
 }
 
 #pragma mark Angle
@@ -877,8 +902,8 @@ inline Vec2<Promote<T>> Vec2<T>::polar() const {
 #pragma mark Stream
 
 template <class T>
-inline std::ostream& operator<<(std::ostream& os, const Vec2<T>& other) {
-  return os << "( " << other.x << ", " << other.y << " )";
+inline std::ostream& operator<<(std::ostream& os, const Vec2<T>& vector) {
+  return os << "( " << vector.x << ", " << vector.y << " )";
 }
 
 }  // namespace math

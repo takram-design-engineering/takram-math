@@ -608,8 +608,8 @@ inline bool Rect2<T>::contains(const Vec2<U>& point) const {
 #pragma mark Stream
 
 template <class T>
-inline std::ostream& operator<<(std::ostream& os, const Rect2<T>& other) {
-  return os << "( " << other.origin << ", " << other.size << " )";
+inline std::ostream& operator<<(std::ostream& os, const Rect2<T>& rect) {
+  return os << "( " << rect.origin << ", " << rect.size << " )";
 }
 
 }  // namespace math

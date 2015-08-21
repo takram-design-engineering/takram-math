@@ -342,8 +342,8 @@ inline Side Line2<T>::side(const Vec2<U>& point) const {
 #pragma mark Stream
 
 template <class T>
-inline std::ostream& operator<<(std::ostream& os, const Line2<T>& other) {
-  return os << "( " << other.a << ", " << other.b << " )";
+inline std::ostream& operator<<(std::ostream& os, const Line2<T>& line) {
+  return os << "( " << line.a << ", " << line.b << " )";
 }
 
 }  // namespace math

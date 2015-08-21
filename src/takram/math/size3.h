@@ -158,6 +158,7 @@ class Size<T, 3> final {
   Size& operator-=(const Size& other);
   Size& operator*=(const Size& other);
   Size& operator/=(const Size& other);
+  Size3<Promote<T>> operator-() const;
   template <class U>
   Size3<Promote<T, U>> operator+(const Size3<U>& other) const;
   template <class U>
@@ -166,7 +167,6 @@ class Size<T, 3> final {
   Size3<Promote<T, U>> operator*(const Size3<U>& other) const;
   template <class U>
   Size3<Promote<T, U>> operator/(const Size3<U>& other) const;
-  Size3<Promote<T>> operator-() const;
 
   // Scalar arithmetic
   Size& operator+=(T scalar);
@@ -231,6 +231,26 @@ class Size<T, 3> final {
     struct { T w; T h; T d; };
   };
 };
+
+// Scalar arithmetic
+template <class T, class U, EnableIfScalar<T> * = nullptr>
+Size3<Promote<T, U>> operator+(T lhs, const Size3<U>& rhs);
+template <class T, class U, EnableIfScalar<T> * = nullptr>
+Size3<Promote<T, U>> operator-(T lhs, const Size3<U>& rhs);
+template <class T, class U, EnableIfScalar<T> * = nullptr>
+Size3<Promote<T, U>> operator*(T lhs, const Size3<U>& rhs);
+template <class T, class U, EnableIfScalar<T> * = nullptr>
+Size3<Promote<T, U>> operator/(T lhs, const Size3<U>& rhs);
+
+// Vector arithmetic
+template <class T, class U>
+Vec3<Promote<T, U>> operator+(const Vec3<T>& lhs, const Size3<U>& rhs);
+template <class T, class U>
+Vec3<Promote<T, U>> operator-(const Vec3<T>& lhs, const Size3<U>& rhs);
+template <class T, class U>
+Vec3<Promote<T, U>> operator*(const Vec3<T>& lhs, const Size3<U>& rhs);
+template <class T, class U>
+Vec3<Promote<T, U>> operator/(const Vec3<T>& lhs, const Size3<U>& rhs);
 
 using Size3i = Size3<int>;
 using Size3f = Size3<float>;
@@ -469,6 +489,11 @@ inline Size3<T>& Size3<T>::operator/=(const Size& other) {
 }
 
 template <class T>
+inline Size3<Promote<T>> Size3<T>::operator-() const {
+  return Size3<Promote<T>>(-vector);
+}
+
+template <class T>
 template <class U>
 inline Size3<Promote<T, U>> Size3<T>::operator+(const Size3<U>& other) const {
   return Size3<Promote<T, U>>(vector + other.vector);
@@ -490,11 +515,6 @@ template <class T>
 template <class U>
 inline Size3<Promote<T, U>> Size3<T>::operator/(const Size3<U>& other) const {
   return Size3<Promote<T, U>>(vector / other.vector);
-}
-
-template <class T>
-inline Size3<Promote<T>> Size3<T>::operator-() const {
-  return Size3<Promote<T>>(-vector);
 }
 
 #pragma mark Scalar arithmetic
@@ -547,9 +567,24 @@ inline Size3<Promote<T, U>> Size3<T>::operator/(U scalar) const {
   return Size3<Promote<T, U>>(vector / scalar);
 }
 
-template <class T, class U, EnableIfScalar<U> * = nullptr>
-inline Size3<Promote<T, U>> operator*(U scalar, const Size3<T>& size) {
-  return size * scalar;
+template <class T, class U, EnableIfScalar<T> *>
+inline Size3<Promote<T, U>> operator+(T lhs, const Size3<U>& rhs) {
+  return Size3<Promote<T, U>>(lhs + rhs.vector);
+}
+
+template <class T, class U, EnableIfScalar<T> *>
+inline Size3<Promote<T, U>> operator-(T lhs, const Size3<U>& rhs) {
+  return Size3<Promote<T, U>>(lhs - rhs.vector);
+}
+
+template <class T, class U, EnableIfScalar<T> *>
+inline Size3<Promote<T, U>> operator*(T lhs, const Size3<U>& rhs) {
+  return Size3<Promote<T, U>>(lhs * rhs.vector);
+}
+
+template <class T, class U, EnableIfScalar<T> *>
+inline Size3<Promote<T, U>> operator/(T lhs, const Size3<U>& rhs) {
+  return Size3<Promote<T, U>>(lhs / rhs.vector);
 }
 
 #pragma mark Vector arithmetic
@@ -603,9 +638,23 @@ inline Size3<Promote<T, U>> Size3<T>::operator/(const Vec3<U>& other) const {
 }
 
 template <class T, class U>
-inline Size3<Promote<T, U>> operator*(const Vec3<U>& vector,
-                                      const Size3<T>& size) {
-  return size * vector;
+inline Vec3<Promote<T, U>> operator+(const Vec3<T>& lhs, const Size3<U>& rhs) {
+  return lhs + rhs.vector;
+}
+
+template <class T, class U>
+inline Vec3<Promote<T, U>> operator-(const Vec3<T>& lhs, const Size3<U>& rhs) {
+  return lhs - rhs.vector;
+}
+
+template <class T, class U>
+inline Vec3<Promote<T, U>> operator*(const Vec3<T>& lhs, const Size3<U>& rhs) {
+  return lhs * rhs.vector;
+}
+
+template <class T, class U>
+inline Vec3<Promote<T, U>> operator/(const Vec3<T>& lhs, const Size3<U>& rhs) {
+  return lhs / rhs.vector;
 }
 
 #pragma mark Attributes
@@ -638,8 +687,8 @@ inline Promote<T> Size3<T>::diagonal() const {
 #pragma mark Stream
 
 template <class T>
-inline std::ostream& operator<<(std::ostream& os, const Size3<T>& other) {
-  return os << other.vector;
+inline std::ostream& operator<<(std::ostream& os, const Size3<T>& size) {
+  return os << size.vector;
 }
 
 }  // namespace math

@@ -180,6 +180,7 @@ class Vec<T, 3> final {
   Vec& operator-=(const Vec& other);
   Vec& operator*=(const Vec& other);
   Vec& operator/=(const Vec& other);
+  Vec3<Promote<T>> operator-() const;
   template <class U>
   Vec3<Promote<T, U>> operator+(const Vec3<U>& other) const;
   template <class U>
@@ -188,7 +189,6 @@ class Vec<T, 3> final {
   Vec3<Promote<T, U>> operator*(const Vec3<U>& other) const;
   template <class U>
   Vec3<Promote<T, U>> operator/(const Vec3<U>& other) const;
-  Vec3<Promote<T>> operator-() const;
 
   // Scalar arithmetic
   Vec& operator+=(T scalar);
@@ -282,6 +282,16 @@ class Vec<T, 3> final {
   T y;
   T z;
 };
+
+// Scalar arithmetic
+template <class T, class U, EnableIfScalar<T> * = nullptr>
+Vec3<Promote<T, U>> operator+(T lhs, const Vec3<U>& rhs);
+template <class T, class U, EnableIfScalar<T> * = nullptr>
+Vec3<Promote<T, U>> operator-(T lhs, const Vec3<U>& rhs);
+template <class T, class U, EnableIfScalar<T> * = nullptr>
+Vec3<Promote<T, U>> operator*(T lhs, const Vec3<U>& rhs);
+template <class T, class U, EnableIfScalar<T> * = nullptr>
+Vec3<Promote<T, U>> operator/(T lhs, const Vec3<U>& rhs);
 
 using Vec3i = Vec3<int>;
 using Vec3f = Vec3<float>;
@@ -632,11 +642,16 @@ inline Vec3<T>& Vec3<T>::operator*=(const Vec& other) {
 
 template <class T>
 inline Vec3<T>& Vec3<T>::operator/=(const Vec& other) {
-  assert(other.x && other.y && other.z);
   x /= other.x;
   y /= other.y;
   z /= other.z;
   return *this;
+}
+
+template <class T>
+inline Vec3<Promote<T>> Vec3<T>::operator-() const {
+  using V = Promote<T>;
+  return Vec3<V>(-static_cast<V>(x), -static_cast<V>(y), -static_cast<V>(z));
 }
 
 template <class T>
@@ -670,16 +685,9 @@ template <class T>
 template <class U>
 inline Vec3<Promote<T, U>> Vec3<T>::operator/(const Vec3<U>& other) const {
   using V = Promote<T, U>;
-  assert(other.x && other.y && other.z);
   return Vec3<V>(static_cast<V>(x) / other.x,
                  static_cast<V>(y) / other.y,
                  static_cast<V>(z) / other.z);
-}
-
-template <class T>
-inline Vec3<Promote<T>> Vec3<T>::operator-() const {
-  using V = Promote<T>;
-  return Vec3<V>(-static_cast<V>(x), -static_cast<V>(y), -static_cast<V>(z));
 }
 
 #pragma mark Scalar arithmetic
@@ -710,7 +718,6 @@ inline Vec3<T>& Vec3<T>::operator*=(T scalar) {
 
 template <class T>
 inline Vec3<T>& Vec3<T>::operator/=(T scalar) {
-  assert(scalar);
   x /= scalar;
   y /= scalar;
   z /= scalar;
@@ -748,15 +755,41 @@ template <class T>
 template <class U, EnableIfScalar<U> *>
 inline Vec3<Promote<T, U>> Vec3<T>::operator/(U scalar) const {
   using V = Promote<T, U>;
-  assert(scalar);
   return Vec3<V>(static_cast<V>(x) / scalar,
                  static_cast<V>(y) / scalar,
                  static_cast<V>(z) / scalar);
 }
 
-template <class T, class U, EnableIfScalar<U> * = nullptr>
-inline Vec3<Promote<T, U>> operator*(U scalar, const Vec3<T>& vector) {
-  return vector * scalar;
+template <class T, class U, EnableIfScalar<T> *>
+inline Vec3<Promote<T, U>> operator+(T lhs, const Vec3<U>& rhs) {
+  using V = Promote<T, U>;
+  return Vec3<V>(static_cast<V>(lhs) + rhs.x,
+                 static_cast<V>(lhs) + rhs.y,
+                 static_cast<V>(lhs) + rhs.z);
+}
+
+template <class T, class U, EnableIfScalar<T> *>
+inline Vec3<Promote<T, U>> operator-(T lhs, const Vec3<U>& rhs) {
+  using V = Promote<T, U>;
+  return Vec3<V>(static_cast<V>(lhs) - rhs.x,
+                 static_cast<V>(lhs) - rhs.y,
+                 static_cast<V>(lhs) - rhs.z);
+}
+
+template <class T, class U, EnableIfScalar<T> *>
+inline Vec3<Promote<T, U>> operator*(T lhs, const Vec3<U>& rhs) {
+  using V = Promote<T, U>;
+  return Vec3<V>(static_cast<V>(lhs) * rhs.x,
+                 static_cast<V>(lhs) * rhs.y,
+                 static_cast<V>(lhs) * rhs.z);
+}
+
+template <class T, class U, EnableIfScalar<T> *>
+inline Vec3<Promote<T, U>> operator/(T lhs, const Vec3<U>& rhs) {
+  using V = Promote<T, U>;
+  return Vec3<V>(static_cast<V>(lhs) / rhs.x,
+                 static_cast<V>(lhs) * rhs.y,
+                 static_cast<V>(lhs) * rhs.z);
 }
 
 #pragma mark Angle
@@ -928,8 +961,8 @@ inline Vec3<Promote<T, U>> Vec3<T>::jittered(const Vec3<U>& vector,
 #pragma mark Stream
 
 template <class T>
-inline std::ostream& operator<<(std::ostream& os, const Vec3<T>& other) {
-  return os << "( " << other.x << ", " << other.y << ", " << other.z << " )";
+inline std::ostream& operator<<(std::ostream& os, const Vec3<T>& vector) {
+  return os << "( " << vector.x << ", " << vector.y << ", " << vector.z << " )";
 }
 
 }  // namespace math
