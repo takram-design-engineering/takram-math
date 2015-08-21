@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		930955321A4FB46600D09023 /* libtakram_math.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9309550E1A4FB1FC00D09023 /* libtakram_math.dylib */; };
+		93C2E2821B87168A007DD87D /* test.cc in Sources */ = {isa = PBXBuildFile; fileRef = 93C2E2811B87168A007DD87D /* test.cc */; };
 		93D7E42C1B2C20BE006EA047 /* triangle_test.cc in Sources */ = {isa = PBXBuildFile; fileRef = 93D7E4271B2C20BE006EA047 /* triangle_test.cc */; };
 		93D7E42F1B2C20BE006EA047 /* line_test.cc in Sources */ = {isa = PBXBuildFile; fileRef = 93D7E42A1B2C20BE006EA047 /* line_test.cc */; };
 		93D7E4301B2C20BE006EA047 /* vector_test.cc in Sources */ = {isa = PBXBuildFile; fileRef = 93D7E42B1B2C20BE006EA047 /* vector_test.cc */; };
@@ -37,10 +38,11 @@
 		930959321A5062D400D09023 /* project.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = project.xcconfig; sourceTree = "<group>"; };
 		935064D81B47A4BA0091E123 /* shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = shared.xcconfig; sourceTree = "<group>"; };
 		936798381B2FB069004BE30A /* rectangle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rectangle.h; sourceTree = "<group>"; };
+		93A815C71B73B7AE0066BD8C /* side.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = side.h; sourceTree = "<group>"; };
 		93BE692C1B7605EC0085DFFA /* circle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = circle.h; sourceTree = "<group>"; };
 		93BE692D1B76097E0085DFFA /* circle2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = circle2.h; sourceTree = "<group>"; };
 		93BE692E1B7609850085DFFA /* rectangle2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = rectangle2.h; sourceTree = "<group>"; };
-		93A815C71B73B7AE0066BD8C /* side.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = side.h; sourceTree = "<group>"; };
+		93C2E2811B87168A007DD87D /* test.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = test.cc; sourceTree = "<group>"; };
 		93C6B51519B22F5500A1CF93 /* libtakram_math.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libtakram_math.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		93D7E3D21B2C1C34006EA047 /* axis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = axis.h; sourceTree = "<group>"; };
 		93D7E3D31B2C1C34006EA047 /* constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = constants.h; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 		93D7E4261B2C20BE006EA047 /* test */ = {
 			isa = PBXGroup;
 			children = (
+				93C2E2811B87168A007DD87D /* test.cc */,
 				93D7E45E1B2C4119006EA047 /* random_test.cc */,
 				93D7E42B1B2C20BE006EA047 /* vector_test.cc */,
 				93D7E4291B2C20BE006EA047 /* size_test.cc */,
@@ -364,6 +367,7 @@
 				93D7E42F1B2C20BE006EA047 /* line_test.cc in Sources */,
 				93D7E42C1B2C20BE006EA047 /* triangle_test.cc in Sources */,
 				93D7E45F1B2C4119006EA047 /* random_test.cc in Sources */,
+				93C2E2821B87168A007DD87D /* test.cc in Sources */,
 				93D7E4301B2C20BE006EA047 /* vector_test.cc in Sources */,
 				93D7E4391B2C331E006EA047 /* size_test.cc in Sources */,
 			);

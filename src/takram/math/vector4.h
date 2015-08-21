@@ -235,8 +235,6 @@ class Vec<T, 4> final {
 
   // Interpolation
   template <class V, class U = T>
-  Vec& lerp(const Vec4<U>& other, V factor);
-  template <class V, class U = T>
   Vec4<Promote<T, U>> lerp(const Vec4<U>& other, V factor) const;
 
   // Jitter
@@ -916,16 +914,6 @@ inline Vec4<Promote<T, U>> Vec4<T>::cross(const Vec4<U>& other) const {
 }
 
 #pragma mark Interpolation
-
-template <class T>
-template <class V, class U>
-inline Vec4<T>& Vec4<T>::lerp(const Vec4<U>& other, V factor) {
-  x += (other.x - x) * factor;
-  y += (other.y - y) * factor;
-  z += (other.z - z) * factor;
-  w += (other.w - w) * factor;
-  return *this;
-}
 
 template <class T>
 template <class V, class U>

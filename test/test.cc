@@ -1,5 +1,5 @@
 //
-//  takram/math.cc
+//  test.cc
 //
 //  MIT License
 //
@@ -24,13 +24,25 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
+#include "gtest/gtest.h"
+
 #include "takram/math.h"
 
 namespace takram {
 namespace math {
 
-const double version_number = 1.0;
-const unsigned char version_string[] = "1.0";
+template class Random<>;
+template class Vec<double, 2>;
+template class Vec<double, 3>;
+template class Vec<double, 4>;
+template class Size<double, 2>;
+template class Size<double, 3>;
+template class Line<double, 2>;
+template class Line<double, 3>;
+template class Triangle<double, 2>;
+template class Triangle<double, 3>;
+template class Rect<double, 2>;
+template class Circle<double, 2>;
 
 }  // namespace math
 }  // namespace takram
