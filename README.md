@@ -6,9 +6,9 @@ A collection of C++ classes and functions to compute common mathematical operati
 ### Classes
 
 - [`takram::math::Random`](src/takram/math/random.h)
-- [`takram::math::Vector2`](src/takram/math/vector2.h)
-- [`takram::math::Vector3`](src/takram/math/vector3.h)
-- [`takram::math::Vector4`](src/takram/math/vector4.h)
+- [`takram::math::Vec2`](src/takram/math/vector2.h)
+- [`takram::math::Vec3`](src/takram/math/vector3.h)
+- [`takram::math::Vec4`](src/takram/math/vector4.h)
 - [`takram::math::Size2`](src/takram/math/size2.h)
 - [`takram::math::Size3`](src/takram/math/size3.h)
 - [`takram::math::Line2`](src/takram/math/line2.h)
@@ -48,22 +48,22 @@ takram::Vec2i veci;
 takram::Vec2d vecd;
 takram::Vec2f vecf;
 
-veci + veci;  // Vector2<double>
-veci + vecf;  // Vector2<double>
-veci + vecd;  // Vector2<double>
-vecf + vecf;  // Vector2<float>
-vecf + vecd;  // Vector2<double>
+veci + veci;  // Vec2<double>
+veci + vecf;  // Vec2<double>
+veci + vecd;  // Vec2<double>
+vecf + vecf;  // Vec2<float>
+vecf + vecd;  // Vec2<double>
 ```
 
 ### Implicit Type Conversions
 
-[Vector](src/takram/math/vector.h), [Size](src/takram/math/size.h) and [Rect](src/takram/math/rect.h) are implicitly convertible to/from corresponding types of OpenCV, openFrameworks and Cinder.
+[Vec](src/takram/math/vector.h), [Size](src/takram/math/size.h) and [Rect](src/takram/math/rectangle.h) are implicitly convertible to/from corresponding types of OpenCV, openFrameworks and Cinder.
 
 | | OpenCV | openFrameworks | Cinder   
 |---------|------------|----------------|----------
-| [Vector2](src/takram/math/vector2.h) | cv::Point | ofVec2f | ci::Vec2 
-| [Vector3](src/takram/math/vector3.h) | cv::Point3 | ofVec3f | ci::Vec3 
-| [Vector4](src/takram/math/vector4.h) | | ofVec4f | ci::Vec4 
+| [Vec2](src/takram/math/vector2.h) | cv::Point | ofVec2f | ci::Vec2 
+| [Vec3](src/takram/math/vector3.h) | cv::Point3 | ofVec3f | ci::Vec3 
+| [Vec4](src/takram/math/vector4.h) | | ofVec4f | ci::Vec4 
 | [Size2](src/takram/math/size2.h) | cv::Size   | |          
 | [Size3](src/takram/math/size3.h) | | |          
 | [Rect2](src/takram/math/rectangle2.h) | cv::Rect | ofRectangle | ci::Rect 
