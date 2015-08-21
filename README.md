@@ -15,7 +15,7 @@ A collection of C++ classes and functions to compute common mathematical operati
 - [`takram::math::Line3`](src/takram/math/line3.h)
 - [`takram::math::Triangle2`](src/takram/math/triangle2.h)
 - [`takram::math::Triangle3`](src/takram/math/triangle3.h)
-- [`takram::math::Rect`](src/takram/math/rect.h)
+- [`takram::math::Rect2`](src/takram/math/rectangle2.h)
 
 ## Examples
 
@@ -28,7 +28,7 @@ A collection of C++ classes and functions to compute common mathematical operati
 
 #include "takram/math/random.h"
 
-takram::Random random;
+takram::Random<> random;
 
 // Uniform distribution ranges from 0 to the max int
 random.uniform<int>(std::numeric_limits<int>::max());
@@ -66,7 +66,7 @@ vecf + vecd;  // Vector2<double>
 | [Vector4](src/takram/math/vector4.h) | | ofVec4f | ci::Vec4 
 | [Size2](src/takram/math/size2.h) | cv::Size   | |          
 | [Size3](src/takram/math/size3.h) | | |          
-| [Rect](src/takram/math/rect.h) | cv::Rect | ofRectangle | ci::Rect 
+| [Rect2](src/takram/math/rectangle2.h) | cv::Rect | ofRectangle | ci::Rect 
 
 ## Setup Guide
 
