@@ -29,6 +29,7 @@
 #define TAKRAM_MATH_TRIANGLE2_H_
 
 #include <cassert>
+#include <cmath>
 #include <initializer_list>
 #include <iterator>
 #include <ostream>
@@ -97,6 +98,12 @@ class Triangle<T, 2> final {
   bool operator==(const Triangle2<U>& other) const;
   template <class U>
   bool operator!=(const Triangle2<U>& other) const;
+
+  // Attributes
+  bool empty() const { return a.empty() && b.empty() && c.empty(); }
+  Promote<T> area() const;
+  Promote<T> perimeter() const;
+  Vec2<Promote<T>> centroid() const;
 
   // Iterator
   Iterator begin() { return &a; }
@@ -272,6 +279,25 @@ template <class T>
 template <class U>
 inline bool Triangle2<T>::operator!=(const Triangle2<U>& other) const {
   return !operator==(other);
+}
+
+#pragma mark Attributes
+
+template <class T>
+inline Promote<T> Triangle2<T>::area() const {
+  return (b - a).cross(c - a) / 2;
+}
+
+template <class T>
+inline Promote<T> Triangle2<T>::perimeter() const {
+  return std::sqrt(a.distanceSquared(b) +
+                   b.distanceSquared(c) +
+                   c.distanceSquared(a));
+}
+
+template <class T>
+inline Vec2<Promote<T>> Triangle2<T>::centroid() const {
+  return (a + b + c) / 3;
 }
 
 #pragma mark Stream

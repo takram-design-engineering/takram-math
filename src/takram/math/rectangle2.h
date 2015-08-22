@@ -138,10 +138,10 @@ class Rect<T, 2> final {
   Promote<T> aspect() const;
   Promote<T> diagonal() const;
   Promote<T> area() const;
-  Promote<T> circumference() const;
+  Promote<T> perimeter() const;
   Vec2<Promote<T>> centroid() const;
 
-  // Edges
+  // Coordinates
   T minX() const;
   T maxX() const;
   T minY() const;
@@ -150,12 +150,16 @@ class Rect<T, 2> final {
   T right() const { return maxX(); }
   T top() const { return minY(); }
   T bottom() const { return maxY(); }
+
+  // Edges
   Line2<T> leftEdge() const;
   Line2<T> rightEdge() const;
   Line2<T> topEdge() const;
   Line2<T> bottomEdge() const;
 
   // Corners
+  Vec2<T> min() const;
+  Vec2<T> max() const;
   Vec2<T> topLeft() const;
   Vec2<T> topRight() const;
   Vec2<T> bottomLeft() const;
@@ -421,16 +425,16 @@ inline Promote<T> Rect2<T>::area() const {
 }
 
 template <class T>
-inline Promote<T> Rect2<T>::circumference() const {
-  return 2 * std::abs(Promote<T>(width)) + 2 * std::abs(Promote<T>(height));
+inline Promote<T> Rect2<T>::perimeter() const {
+  return 2 * std::abs(width) + 2 * std::abs(height);
 }
 
 template <class T>
 inline Vec2<Promote<T>> Rect2<T>::centroid() const {
-  return origin + Vec2<Promote<T>>(static_cast<Size2<T>>(size) / 2);
+  return origin + size / 2;
 }
 
-#pragma mark Edges
+#pragma mark Coordinates
 
 template <class T>
 inline T Rect2<T>::minX() const {
@@ -451,6 +455,8 @@ template <class T>
 inline T Rect2<T>::maxY() const {
   return std::max<T>(y, y + height);
 }
+
+#pragma mark Edges
 
 template <class T>
 inline Line2<T> Rect2<T>::leftEdge() const {
@@ -477,6 +483,16 @@ inline Line2<T> Rect2<T>::bottomEdge() const {
 }
 
 #pragma mark Corners
+
+template <class T>
+inline Vec2<T> Rect2<T>::min() const {
+  return Vec2<T>(minX(), minY());
+}
+
+template <class T>
+inline Vec2<T> Rect2<T>::max() const {
+  return Vec2<T>(maxX(), maxY());
+}
 
 template <class T>
 inline Vec2<T> Rect2<T>::topLeft() const {
