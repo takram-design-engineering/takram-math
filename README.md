@@ -59,14 +59,14 @@ vecf + vecd;  // Vec2<double>
 
 [Vec](src/takram/math/vector.h), [Size](src/takram/math/size.h) and [Rect](src/takram/math/rectangle.h) are implicitly convertible to/from corresponding types of OpenCV, openFrameworks and Cinder.
 
-| | OpenCV | openFrameworks | Cinder   
+| | OpenCV | openFrameworks | Cinder
 |---------|------------|----------------|----------
-| [Vec2](src/takram/math/vector2.h) | cv::Point | ofVec2f | ci::Vec2 
-| [Vec3](src/takram/math/vector3.h) | cv::Point3 | ofVec3f | ci::Vec3 
-| [Vec4](src/takram/math/vector4.h) | | ofVec4f | ci::Vec4 
-| [Size2](src/takram/math/size2.h) | cv::Size   | |          
-| [Size3](src/takram/math/size3.h) | | |          
-| [Rect2](src/takram/math/rectangle2.h) | cv::Rect | ofRectangle | ci::Rect 
+| [Vec2](src/takram/math/vector2.h) | cv::Point | ofVec2f | ci::Vec2
+| [Vec3](src/takram/math/vector3.h) | cv::Point3 | ofVec3f | ci::Vec3
+| [Vec4](src/takram/math/vector4.h) | | ofVec4f | ci::Vec4
+| [Size2](src/takram/math/size2.h) | cv::Size   | |
+| [Size3](src/takram/math/size3.h) | | |
+| [Rect2](src/takram/math/rectangle2.h) | cv::Rect | ofRectangle | ci::Rect
 
 ## Setup Guide
 
@@ -78,7 +78,7 @@ Run "setup.sh" inside "script" directory to initialize submodules and build depe
 
 ## License
 
-MIT License
+The MIT License
 
 Copyright (C) 2015 takram design engineering
 

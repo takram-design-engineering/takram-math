@@ -1,9 +1,9 @@
 //
-//  test.xcconfig
+//  takram/math/matrix.h
 //
 //  The MIT License
 //
-//  Copyright (C) 2014-2015 Shota Matsuda
+//  Copyright (C) 2015 Shota Matsuda
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a
 //  copy of this software and associated documentation files (the "Software"),
@@ -24,12 +24,11 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
-TAKRAM_MATH_DIR = $(PROJECT_DIR)
-#include "shared.xcconfig"
+#pragma once
+#ifndef TAKRAM_MATH_MATRIX_H_
+#define TAKRAM_MATH_MATRIX_H_
 
-// Linking
-OTHER_LDFLAGS = $(inherited) "$(PROJECT_DIR)/build/gtest/libgtest.a" "$(PROJECT_DIR)/build/gtest/libgtest_main.a"
+#include "takram/math/matrix2.h"
+#include "takram/math/matrix3.h"
 
-// Search Paths
-HEADER_SEARCH_PATHS = $(inherited) $(OPENCV_HEADER_SEARCH_PATHS) $(OPENFRAMEWORKS_HEADER_SEARCH_PATHS) $(CINDER_HEADER_SEARCH_PATHS)
-USER_HEADER_SEARCH_PATHS = $(inherited) "$(PROJECT_DIR)/lib/gtest/include"
+#endif  // TAKRAM_MATH_MATRIX_H_

@@ -1,7 +1,7 @@
 //
 //  takram/math/random.h
 //
-//  MIT License
+//  The MIT License
 //
 //  Copyright (C) 2015 Shota Matsuda
 //
@@ -81,7 +81,7 @@ class Random final {
   T gaussian(Promote<T> mean, Promote<T> stddev);
 
  private:
-  static void delete_shared();
+  static void deleteShared();
 
  private:
   Engine engine_;
@@ -141,14 +141,14 @@ inline Random<Engine>& Random<Engine>::shared() {
       assert(!shared_deleted_);
       shared = new Random;
       shared_.store(shared, std::memory_order_release);
-      std::atexit(&delete_shared);
+      std::atexit(&deleteShared);
     }
   }
   return *shared;
 }
 
 template <class Engine>
-inline void Random<Engine>::delete_shared() {
+inline void Random<Engine>::deleteShared() {
   std::lock_guard<std::mutex> lock(shared_mutex_);
   delete shared_.exchange(nullptr);
   shared_deleted_ = true;
