@@ -3,6 +3,8 @@ Math
 
 A collection of C++ classes and functions to compute common mathematical operations and transformations that interoperate with common creative-coding libraries (WIP).
 
+[![Build Status](https://travis-ci.org/takram-design-engineering/takram-math.svg)](https://travis-ci.org/takram-design-engineering/takram-math)
+
 ### Classes
 
 - [`takram::math::Random`](src/takram/math/random.h)
