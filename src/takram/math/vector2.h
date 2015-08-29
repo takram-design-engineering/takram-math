@@ -181,6 +181,8 @@ class Vec<T, 2> final {
   bool operator<=(const Vec2<U>& other) const;
   template <class U>
   bool operator>=(const Vec2<U>& other) const;
+  template <class V, class U = T>
+  bool equals(const Vec2<U>& other, V tolerance) const;
 
   // Arithmetic
   Vec& operator+=(const Vec& other);
@@ -584,6 +586,13 @@ template <class T>
 template <class U>
 inline bool Vec2<T>::operator>=(const Vec2<U>& other) const {
   return operator>(other) || operator==(other);
+}
+
+template <class T>
+template <class V, class U>
+inline bool Vec2<T>::equals(const Vec2<U>& other, V tolerance) const {
+  return (std::abs(x - other.x) <= tolerance &&
+          std::abs(y - other.y) <= tolerance);
 }
 
 #pragma mark Arithmetic

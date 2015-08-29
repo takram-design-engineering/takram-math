@@ -132,6 +132,8 @@ class Rect<T, 2> final {
   bool operator<=(const Rect2<U>& other) const;
   template <class U>
   bool operator>=(const Rect2<U>& other) const;
+  template <class V, class U = T>
+  bool equals(const Rect2<U>& other, V tolerance) const;
 
   // Attributes
   bool empty() const { return size.empty(); }
@@ -405,6 +407,13 @@ template <class T>
 template <class U>
 inline bool Rect2<T>::operator>=(const Rect2<U>& other) const {
   return operator>(other) || operator==(other);
+}
+
+template <class T>
+template <class V, class U>
+inline bool Rect2<T>::equals(const Rect2<U>& other, V tolerance) const {
+  return (min().equals(other.min(), tolerance) &&
+          max().equals(other.max(), tolerance));
 }
 
 #pragma mark Attributes
