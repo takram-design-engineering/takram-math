@@ -196,7 +196,11 @@ class Rect<T, 2> final {
 
   // Containment
   template <class U = T>
+  bool contains(const Rect2<U>& other) const;
+  template <class U = T>
   bool contains(const Vec2<U>& point) const;
+  template <class U = T>
+  bool intersects(const Rect2<U>& other) const;
 
  public:
   union {
@@ -625,9 +629,22 @@ inline Rect2<Promote<T, U>> Rect2<T>::scaled(const Vec2<U>& scale) const {
 
 template <class T>
 template <class U>
+inline bool Rect2<T>::contains(const Rect2<U>& other) const {
+  return contains(other.min()) && contains(other.max());
+}
+
+template <class T>
+template <class U>
 inline bool Rect2<T>::contains(const Vec2<U>& point) const {
   return !(point.x < minX() || maxX() < point.x ||
            point.y < minY() || maxY() < point.y);
+}
+
+template <class T>
+template <class U>
+inline bool Rect2<T>::intersects(const Rect2<U>& other) const {
+  return !(minX() > other.maxX() || maxX() < other.minX() ||
+           minY() > other.maxY() || maxY() < other.minY());
 }
 
 #pragma mark Stream
