@@ -32,6 +32,7 @@
 #include <cassert>
 #include <cmath>
 #include <ostream>
+#include <utility>
 
 #if TAKRAM_HAS_OPENCV
 #include "opencv2/core/core.hpp"
@@ -145,8 +146,10 @@ class Rect<T, 2> final {
 
   // Coordinates
   T minX() const;
+  Promote<T> midX() const;
   T maxX() const;
   T minY() const;
+  Promote<T> midY() const;
   T maxY() const;
   T left() const { return minX(); }
   T right() const { return maxX(); }
@@ -173,9 +176,12 @@ class Rect<T, 2> final {
   Rect2<Promote<T>> canonicalized() const;
 
   // Translation
-  Rect& translate(T offset);
-  Rect& translate(T dx, T dy);
-  Rect& translate(const Vec2<T>& offset);
+  template <class U>
+  Rect& translate(U offset);
+  template <class U>
+  Rect& translate(U dx, U dy);
+  template <class U = T>
+  Rect& translate(const Vec2<U>& offset);
   template <class U>
   Rect2<Promote<T, U>> translated(U offset) const;
   template <class U>
@@ -184,9 +190,12 @@ class Rect<T, 2> final {
   Rect2<Promote<T, U>> translated(const Vec2<U>& offset) const;
 
   // Scaling
-  Rect& scale(T scale);
-  Rect& scale(T sx, T sy);
-  Rect& scale(const Vec2<T>& scale);
+  template <class U>
+  Rect& scale(U scale);
+  template <class U>
+  Rect& scale(U sx, U sy);
+  template <class U>
+  Rect& scale(const Vec2<U>& scale);
   template <class U>
   Rect2<Promote<T, U>> scaled(U scale) const;
   template <class U>
@@ -201,6 +210,13 @@ class Rect<T, 2> final {
   bool contains(const Vec2<U>& point) const;
   template <class U = T>
   bool intersects(const Rect2<U>& other) const;
+
+  // Resizing
+  Rect& include(T x, T y);
+  Rect& include(const Vec2<T>& point);
+  Rect& include(const Rect2<T>& rect);
+  template <class Iterator>
+  Rect& include(Iterator first, Iterator last);
 
  public:
   union {
@@ -455,6 +471,11 @@ inline T Rect2<T>::minX() const {
 }
 
 template <class T>
+inline Promote<T> Rect2<T>::midX() const {
+  return x + static_cast<Promote<T>>(width) / 2;
+}
+
+template <class T>
 inline T Rect2<T>::maxX() const {
   return std::max<T>(x, x + width);
 }
@@ -462,6 +483,11 @@ inline T Rect2<T>::maxX() const {
 template <class T>
 inline T Rect2<T>::minY() const {
   return std::min<T>(y, y + height);
+}
+
+template <class T>
+inline Promote<T> Rect2<T>::midY() const {
+  return y + static_cast<Promote<T>>(height) / 2;
 }
 
 template <class T>
@@ -550,20 +576,23 @@ inline Rect2<Promote<T>> Rect2<T>::canonicalized() const {
 #pragma mark Translation
 
 template <class T>
-inline Rect2<T>& Rect2<T>::translate(T offset) {
+template <class U>
+inline Rect2<T>& Rect2<T>::translate(U offset) {
   origin += offset;
   return *this;
 }
 
 template <class T>
-inline Rect2<T>& Rect2<T>::translate(T dx, T dy) {
+template <class U>
+inline Rect2<T>& Rect2<T>::translate(U dx, U dy) {
   x += dx;
   y += dy;
   return *this;
 }
 
 template <class T>
-inline Rect2<T>& Rect2<T>::translate(const Vec2<T>& offset) {
+template <class U>
+inline Rect2<T>& Rect2<T>::translate(const Vec2<U>& offset) {
   origin += offset;
   return *this;
 }
@@ -589,20 +618,23 @@ inline Rect2<Promote<T, U>> Rect2<T>::translated(const Vec2<U>& offset) const {
 #pragma mark Scaling
 
 template <class T>
-inline Rect2<T>& Rect2<T>::scale(T scale) {
+template <class U>
+inline Rect2<T>& Rect2<T>::scale(U scale) {
   size *= scale;
   return *this;
 }
 
 template <class T>
-inline Rect2<T>& Rect2<T>::scale(T sx, T sy) {
+template <class U>
+inline Rect2<T>& Rect2<T>::scale(U sx, U sy) {
   width *= sx;
   height *= sy;
   return *this;
 }
 
 template <class T>
-inline Rect2<T>& Rect2<T>::scale(const Vec2<T>& scale) {
+template <class U>
+inline Rect2<T>& Rect2<T>::scale(const Vec2<U>& scale) {
   size *= scale;
   return *this;
 }
@@ -623,6 +655,48 @@ template <class T>
 template <class U>
 inline Rect2<Promote<T, U>> Rect2<T>::scaled(const Vec2<U>& scale) const {
   return Rect2<Promote<T, U>>(*this).scale(scale);
+}
+
+#pragma mark Resizing
+
+template <class T>
+inline Rect2<T>& Rect2<T>::include(T x, T y) {
+  // TODO(shotamatsuda): Avoid canonicalization
+  canonicalize();
+  if (x < this->x) {
+    this->x = x;
+  }
+  if (y < this->y) {
+    this->y = y;
+  }
+  if (x > this->x + width) {
+    width = x - this->x;
+  }
+  if (y > this->y + height) {
+    height = y - this->y;
+  }
+  return *this;
+}
+
+template <class T>
+inline Rect2<T>& Rect2<T>::include(const Vec2<T>& point) {
+  return include(point.x, point.y);
+}
+
+template <class T>
+inline Rect2<T>& Rect2<T>::include(const Rect2<T>& rect) {
+  include(rect.minX(), rect.minY());
+  include(rect.maxX(), rect.maxY());
+  return *this;
+}
+
+template <class T>
+template <class Iterator>
+inline Rect2<T>& Rect2<T>::include(Iterator first, Iterator last) {
+  for (auto itr = first; itr != last; ++itr) {
+    include(*itr);
+  }
+  return *this;
 }
 
 #pragma mark Containment

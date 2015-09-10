@@ -145,7 +145,7 @@ template <class T>
 inline void Circle2<T>::set(const Vec2<T>& a,
                             const Vec2<T>& b,
                             const Vec2<T>& c) {
-  // TODO:
+  // TODO(shotamatsuda):
 }
 
 template <class T>
