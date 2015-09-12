@@ -664,9 +664,11 @@ inline Rect2<T>& Rect2<T>::include(T x, T y) {
   // TODO(shotamatsuda): Avoid canonicalization
   canonicalize();
   if (x < this->x) {
+    width = this->width + this->x - x;
     this->x = x;
   }
   if (y < this->y) {
+    height = this->height + this->y - y;
     this->y = y;
   }
   if (x > this->x + width) {
