@@ -75,6 +75,8 @@ class Circle<T, 2> final {
   bool operator<=(const Circle2<U>& other) const;
   template <class U>
   bool operator>=(const Circle2<U>& other) const;
+  template <class V, class U = T>
+  bool equals(const Circle2<U>& other, V tolerance) const;
 
   // Attributes
   bool empty() const { return !radius; }
@@ -143,7 +145,7 @@ template <class T>
 inline void Circle2<T>::set(const Vec2<T>& a,
                             const Vec2<T>& b,
                             const Vec2<T>& c) {
-  // TODO:
+  // TODO(shotamatsuda):
 }
 
 template <class T>
@@ -189,6 +191,13 @@ template <class T>
 template <class U>
 inline bool Circle2<T>::operator>=(const Circle2<U>& other) const {
   return operator>(other) || operator==(other);
+}
+
+template <class T>
+template <class V, class U>
+inline bool Circle2<T>::equals(const Circle2<U>& other, V tolerance) const {
+  return ((center - radius).equals((other.center - other.radius), tolerance) &&
+          (center + radius).equals((other.center + other.radius), tolerance));
 }
 
 #pragma mark Attributes

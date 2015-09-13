@@ -171,6 +171,8 @@ class Size<T, 2> final {
   bool operator<=(const Size2<U>& other) const;
   template <class U>
   bool operator>=(const Size2<U>& other) const;
+  template <class V, class U = T>
+  bool equals(const Size2<U>& other, V tolerance) const;
 
   // Arithmetic
   Size& operator+=(const Size& other);
@@ -503,6 +505,12 @@ template <class T>
 template <class U>
 inline bool Size2<T>::operator>=(const Size2<U>& other) const {
   return vector >= other.vector;
+}
+
+template <class T>
+template <class V, class U>
+inline bool Size2<T>::equals(const Size2<U>& other, V tolerance) const {
+  return vector.equals(other.vector);
 }
 
 #pragma mark Arithmetic

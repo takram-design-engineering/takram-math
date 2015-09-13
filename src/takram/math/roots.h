@@ -1,5 +1,5 @@
 //
-//  takram/math.h
+//  takram/math/roots.h
 //
 //  The MIT License
 //
@@ -25,29 +25,50 @@
 //
 
 #pragma once
-#ifndef TAKRAM_MATH_H_
-#define TAKRAM_MATH_H_
+#ifndef TAKRAM_MATH_ROOTS_H_
+#define TAKRAM_MATH_ROOTS_H_
+
+#include <cmath>
 
 namespace takram {
 namespace math {
 
-extern const double version_number;
-extern const unsigned char version_string[];
+template <class T, class Iterator>
+unsigned int solveLinear(T a, T b, Iterator result);
+template <class T, class Iterator>
+unsigned int solveQuadratic(T a, T b, T c, Iterator result);
+
+#pragma mark -
+
+template <class T, class Iterator>
+inline unsigned int solveLinear(T a, T b, Iterator result) {
+  if (!a) {
+    return 0;
+  }
+  *result = -b / a;
+  return 1;
+}
+
+template <class T, class Iterator>
+inline unsigned int solveQuadratic(T a, T b, T c, Iterator result) {
+  if (!a) {
+    return solveLinear(b, c, result);
+  }
+  const auto discriminant = b * b - 4 * a * c;
+  if (discriminant < 0) {
+    return 0;
+  }
+  if (!discriminant) {
+    *result = -b / (2 * a);
+    return 1;
+  }
+  const auto d = std::sqrt(discriminant);
+  *result = (-b - d) / (2 * a);
+  *++result = (-b + d) / (2 * a);
+  return 2;
+}
 
 }  // namespace math
 }  // namespace takram
 
-#include "takram/math/axis.h"
-#include "takram/math/circle.h"
-#include "takram/math/constants.h"
-#include "takram/math/functions.h"
-#include "takram/math/line.h"
-#include "takram/math/promotion.h"
-#include "takram/math/random.h"
-#include "takram/math/rectangle.h"
-#include "takram/math/roots.h"
-#include "takram/math/size.h"
-#include "takram/math/triangle.h"
-#include "takram/math/vector.h"
-
-#endif  // TAKRAM_MATH_H_
+#endif  // TAKRAM_MATH_ROOTS_H_

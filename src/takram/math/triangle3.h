@@ -98,6 +98,8 @@ class Triangle<T, 3> final {
   bool operator==(const Triangle3<U>& other) const;
   template <class U>
   bool operator!=(const Triangle3<U>& other) const;
+  template <class V, class U = T>
+  bool equals(const Triangle3<U>& other, V tolerance) const;
 
   // Attributes
   bool empty() const { return a.empty() && b.empty() && c.empty(); }
@@ -289,6 +291,14 @@ template <class T>
 template <class U>
 inline bool Triangle3<T>::operator!=(const Triangle3<U>& other) const {
   return !operator==(other);
+}
+
+template <class T>
+template <class V, class U>
+inline bool Triangle3<T>::equals(const Triangle3<U>& other, V tolerance) const {
+  return (a.equals(other.a, tolerance) &&
+          b.equals(other.b, tolerance) &&
+          c.equals(other.c, tolerance));
 }
 
 #pragma mark Attributes

@@ -98,6 +98,8 @@ class Line<T, 3> final {
   bool operator==(const Line3<U>& other) const;
   template <class U>
   bool operator!=(const Line3<U>& other) const;
+  template <class V, class U = T>
+  bool equals(const Line3<U>& other, V tolerance) const;
 
   // Attributes
   bool empty() const { return a == b; }
@@ -260,6 +262,12 @@ template <class T>
 template <class U>
 inline bool Line3<T>::operator!=(const Line3<U>& other) const {
   return !operator==(other);
+}
+
+template <class T>
+template <class V, class U>
+inline bool Line3<T>::equals(const Line3<U>& other, V tolerance) const {
+  return a.equals(other.a, tolerance) && b.equals(other.b, tolerance);
 }
 
 #pragma mark Attributes
