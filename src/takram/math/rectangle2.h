@@ -245,36 +245,36 @@ using Rectangle2d = Rect2d;
 #pragma mark -
 
 template <class T>
-inline Rect2<T>::Rect() : origin(), size() {}
+inline Rect<T, 2>::Rect() : origin(), size() {}
 
 template <class T>
-inline Rect2<T>::Rect(const Vec2<T>& origin) : origin(origin), size() {}
+inline Rect<T, 2>::Rect(const Vec2<T>& origin) : origin(origin), size() {}
 
 template <class T>
-inline Rect2<T>::Rect(const Size2<T>& size) : origin(), size(size) {}
+inline Rect<T, 2>::Rect(const Size2<T>& size) : origin(), size(size) {}
 
 template <class T>
-inline Rect2<T>::Rect(T x, T y, T width, T height)
+inline Rect<T, 2>::Rect(T x, T y, T width, T height)
     : origin(x, y),
       size(width, height) {}
 
 template <class T>
-inline Rect2<T>::Rect(T x, T y, const Size2<T>& size)
+inline Rect<T, 2>::Rect(T x, T y, const Size2<T>& size)
     : origin(x, y),
       size(size) {}
 
 template <class T>
-inline Rect2<T>::Rect(const Vec2<T>& origin, T width, T height)
+inline Rect<T, 2>::Rect(const Vec2<T>& origin, T width, T height)
     : origin(origin),
       size(width, height) {}
 
 template <class T>
-inline Rect2<T>::Rect(const Vec2<T>& origin, const Size2<T>& size)
+inline Rect<T, 2>::Rect(const Vec2<T>& origin, const Size2<T>& size)
     : origin(origin),
       size(size) {}
 
 template <class T>
-inline Rect2<T>::Rect(const Vec2<T>& p1, const Vec2<T>& p2)
+inline Rect<T, 2>::Rect(const Vec2<T>& p1, const Vec2<T>& p2)
     : origin(std::min(p1.x, p2.x), std::min(p1.y, p2.y)),
       size(std::max(p1.x, p2.x) - origin.x, std::max(p1.y, p2.y) - origin.y) {}
 
@@ -282,19 +282,19 @@ inline Rect2<T>::Rect(const Vec2<T>& p1, const Vec2<T>& p2)
 
 template <class T>
 template <class U>
-inline Rect2<T>::Rect(const Rect2<U>& other)
+inline Rect<T, 2>::Rect(const Rect2<U>& other)
     : origin(other.origin),
       size(other.size) {}
 
 #if TAKRAM_HAS_COREGRAPHICS
 
 template <class T>
-inline Rect2<T>::Rect(const CGRect& other)
+inline Rect<T, 2>::Rect(const CGRect& other)
     : origin(other.origin),
       size(other.size) {}
 
 template <class T>
-inline Rect2<T>::operator CGRect() const {
+inline Rect<T, 2>::operator CGRect() const {
   return CGRectMake(x, y, width, height);
 }
 
@@ -304,12 +304,12 @@ inline Rect2<T>::operator CGRect() const {
 
 template <class T>
 template <class U>
-inline Rect2<T>::Rect(const cv::Rect_<U>& other)
+inline Rect<T, 2>::Rect(const cv::Rect_<U>& other)
     : origin(other.x, other.y),
       size(other.width, other.height) {}
 
 template <class T>
-inline Rect2<T>::operator cv::Rect_<T>() const {
+inline Rect<T, 2>::operator cv::Rect_<T>() const {
   return ofRectangle(x, y, width, height);
 }
 
@@ -318,7 +318,7 @@ inline Rect2<T>::operator cv::Rect_<T>() const {
 #if TAKRAM_HAS_OPENFRAMEWORKS
 
 template <class T>
-inline Rect2<T>::Rect(const ofRectangle& other)
+inline Rect<T, 2>::Rect(const ofRectangle& other)
     : origin(other.x, other.y),
       size(other.width, other.height) {}
 
@@ -333,7 +333,7 @@ inline Rect<T>::operator ofRectangle() const {
 
 template <class T>
 template <class U>
-inline Rect2<T>::Rect(const ci::RectT<U>& other)
+inline Rect<T, 2>::Rect(const ci::RectT<U>& other)
     : origin(other.x1, other.y1),
       size(other.x2 - other.x1, other.y2 - other.y1) {}
 
@@ -347,47 +347,47 @@ inline Rect<T>::operator ci::RectT<T>() const {
 #pragma mark Mutators
 
 template <class T>
-inline void Rect2<T>::set(const Vec2<T>& origin) {
+inline void Rect<T, 2>::set(const Vec2<T>& origin) {
   this->origin = origin;
 }
 
 template <class T>
-inline void Rect2<T>::set(const Size2<T>& size) {
+inline void Rect<T, 2>::set(const Size2<T>& size) {
   this->size = size;
 }
 
 template <class T>
-inline void Rect2<T>::set(T x, T y, T width, T height) {
+inline void Rect<T, 2>::set(T x, T y, T width, T height) {
   origin.set(x, y);
   size.set(width, height);
 }
 
 template <class T>
-inline void Rect2<T>::set(const Vec2<T>& origin, const Size2<T>& size) {
+inline void Rect<T, 2>::set(const Vec2<T>& origin, const Size2<T>& size) {
   this->origin = origin;
   this->size = size;
 }
 
 template <class T>
-inline void Rect2<T>::set(T x, T y, const Size2<T>& size) {
+inline void Rect<T, 2>::set(T x, T y, const Size2<T>& size) {
   origin.set(x, y);
   this->size = size;
 }
 
 template <class T>
-inline void Rect2<T>::set(const Vec2<T>& origin, T width, T height) {
+inline void Rect<T, 2>::set(const Vec2<T>& origin, T width, T height) {
   this->origin = origin;
   size.set(width, height);
 }
 
 template <class T>
-inline void Rect2<T>::set(const Vec2<T>& p1, const Vec2<T>& p2) {
+inline void Rect<T, 2>::set(const Vec2<T>& p1, const Vec2<T>& p2) {
   origin.set(std::min(p1.x, p2.x), std::min(p1.y, p2.y));
   size.set(std::max(p1.x, p2.x) - origin.x, std::max(p1.y, p2.y) - origin.y);
 }
 
 template <class T>
-inline void Rect2<T>::reset() {
+inline void Rect<T, 2>::reset() {
   *this = Rect();
 }
 
@@ -395,43 +395,43 @@ inline void Rect2<T>::reset() {
 
 template <class T>
 template <class U>
-inline bool Rect2<T>::operator==(const Rect2<U>& other) const {
+inline bool Rect<T, 2>::operator==(const Rect2<U>& other) const {
   return origin == other.origin && size == other.size;
 }
 
 template <class T>
 template <class U>
-inline bool Rect2<T>::operator!=(const Rect2<U>& other) const {
+inline bool Rect<T, 2>::operator!=(const Rect2<U>& other) const {
   return !operator==(other);
 }
 
 template <class T>
 template <class U>
-inline bool Rect2<T>::operator<(const Rect2<U>& other) const {
+inline bool Rect<T, 2>::operator<(const Rect2<U>& other) const {
   return origin < other.origin || (origin == other.origin && size < other.size);
 }
 
 template <class T>
 template <class U>
-inline bool Rect2<T>::operator>(const Rect2<U>& other) const {
+inline bool Rect<T, 2>::operator>(const Rect2<U>& other) const {
   return origin > other.origin || (origin == other.origin && size > other.size);
 }
 
 template <class T>
 template <class U>
-inline bool Rect2<T>::operator<=(const Rect2<U>& other) const {
+inline bool Rect<T, 2>::operator<=(const Rect2<U>& other) const {
   return operator<(other) || operator==(other);
 }
 
 template <class T>
 template <class U>
-inline bool Rect2<T>::operator>=(const Rect2<U>& other) const {
+inline bool Rect<T, 2>::operator>=(const Rect2<U>& other) const {
   return operator>(other) || operator==(other);
 }
 
 template <class T>
 template <class V, class U>
-inline bool Rect2<T>::equals(const Rect2<U>& other, V tolerance) const {
+inline bool Rect<T, 2>::equals(const Rect2<U>& other, V tolerance) const {
   return (min().equals(other.min(), tolerance) &&
           max().equals(other.max(), tolerance));
 }
@@ -439,84 +439,84 @@ inline bool Rect2<T>::equals(const Rect2<U>& other, V tolerance) const {
 #pragma mark Attributes
 
 template <class T>
-inline Promote<T> Rect2<T>::aspect() const {
+inline Promote<T> Rect<T, 2>::aspect() const {
   return size.aspect();
 }
 
 template <class T>
-inline Promote<T> Rect2<T>::diagonal() const {
+inline Promote<T> Rect<T, 2>::diagonal() const {
   return size.diagonal();
 }
 
 template <class T>
-inline Promote<T> Rect2<T>::area() const {
+inline Promote<T> Rect<T, 2>::area() const {
   return size.area();
 }
 
 template <class T>
-inline Promote<T> Rect2<T>::perimeter() const {
+inline Promote<T> Rect<T, 2>::perimeter() const {
   return 2 * std::abs(width) + 2 * std::abs(height);
 }
 
 template <class T>
-inline Vec2<Promote<T>> Rect2<T>::centroid() const {
+inline Vec2<Promote<T>> Rect<T, 2>::centroid() const {
   return origin + size / 2;
 }
 
 #pragma mark Coordinates
 
 template <class T>
-inline T Rect2<T>::minX() const {
+inline T Rect<T, 2>::minX() const {
   return std::min<T>(x, x + width);
 }
 
 template <class T>
-inline Promote<T> Rect2<T>::midX() const {
+inline Promote<T> Rect<T, 2>::midX() const {
   return x + static_cast<Promote<T>>(width) / 2;
 }
 
 template <class T>
-inline T Rect2<T>::maxX() const {
+inline T Rect<T, 2>::maxX() const {
   return std::max<T>(x, x + width);
 }
 
 template <class T>
-inline T Rect2<T>::minY() const {
+inline T Rect<T, 2>::minY() const {
   return std::min<T>(y, y + height);
 }
 
 template <class T>
-inline Promote<T> Rect2<T>::midY() const {
+inline Promote<T> Rect<T, 2>::midY() const {
   return y + static_cast<Promote<T>>(height) / 2;
 }
 
 template <class T>
-inline T Rect2<T>::maxY() const {
+inline T Rect<T, 2>::maxY() const {
   return std::max<T>(y, y + height);
 }
 
 #pragma mark Edges
 
 template <class T>
-inline Line2<T> Rect2<T>::leftEdge() const {
+inline Line2<T> Rect<T, 2>::leftEdge() const {
   const auto x = left();
   return Line2<T>({x, top()}, {x, bottom()});
 }
 
 template <class T>
-inline Line2<T> Rect2<T>::rightEdge() const {
+inline Line2<T> Rect<T, 2>::rightEdge() const {
   const auto x = right();
   return Line2<T>({x, top()}, {x, bottom()});
 }
 
 template <class T>
-inline Line2<T> Rect2<T>::topEdge() const {
+inline Line2<T> Rect<T, 2>::topEdge() const {
   const auto y = top();
   return Line2<T>({left(), y}, {right(), y});
 }
 
 template <class T>
-inline Line2<T> Rect2<T>::bottomEdge() const {
+inline Line2<T> Rect<T, 2>::bottomEdge() const {
   const auto y = bottom();
   return Line2<T>({left(), y}, {right(), y});
 }
@@ -524,39 +524,39 @@ inline Line2<T> Rect2<T>::bottomEdge() const {
 #pragma mark Corners
 
 template <class T>
-inline Vec2<T> Rect2<T>::min() const {
+inline Vec2<T> Rect<T, 2>::min() const {
   return Vec2<T>(minX(), minY());
 }
 
 template <class T>
-inline Vec2<T> Rect2<T>::max() const {
+inline Vec2<T> Rect<T, 2>::max() const {
   return Vec2<T>(maxX(), maxY());
 }
 
 template <class T>
-inline Vec2<T> Rect2<T>::topLeft() const {
+inline Vec2<T> Rect<T, 2>::topLeft() const {
   return Vec2<T>(left(), top());
 }
 
 template <class T>
-inline Vec2<T> Rect2<T>::topRight() const {
+inline Vec2<T> Rect<T, 2>::topRight() const {
   return Vec2<T>(right(), top());
 }
 
 template <class T>
-inline Vec2<T> Rect2<T>::bottomLeft() const {
+inline Vec2<T> Rect<T, 2>::bottomLeft() const {
   return Vec2<T>(left(), bottom());
 }
 
 template <class T>
-inline Vec2<T> Rect2<T>::bottomRight() const {
+inline Vec2<T> Rect<T, 2>::bottomRight() const {
   return Vec2<T>(right(), bottom());
 }
 
 #pragma mark Canonical form
 
 template <class T>
-inline Rect2<T>& Rect2<T>::canonicalize() {
+inline Rect2<T>& Rect<T, 2>::canonicalize() {
   if (width < 0) {
     x += width;
     width = -width;
@@ -569,7 +569,7 @@ inline Rect2<T>& Rect2<T>::canonicalize() {
 }
 
 template <class T>
-inline Rect2<Promote<T>> Rect2<T>::canonicalized() const {
+inline Rect2<Promote<T>> Rect<T, 2>::canonicalized() const {
   return Rect2<Promote<T>>(*this).canonicalize();
 }
 
@@ -577,14 +577,14 @@ inline Rect2<Promote<T>> Rect2<T>::canonicalized() const {
 
 template <class T>
 template <class U>
-inline Rect2<T>& Rect2<T>::translate(U offset) {
+inline Rect2<T>& Rect<T, 2>::translate(U offset) {
   origin += offset;
   return *this;
 }
 
 template <class T>
 template <class U>
-inline Rect2<T>& Rect2<T>::translate(U dx, U dy) {
+inline Rect2<T>& Rect<T, 2>::translate(U dx, U dy) {
   x += dx;
   y += dy;
   return *this;
@@ -592,26 +592,27 @@ inline Rect2<T>& Rect2<T>::translate(U dx, U dy) {
 
 template <class T>
 template <class U>
-inline Rect2<T>& Rect2<T>::translate(const Vec2<U>& offset) {
+inline Rect2<T>& Rect<T, 2>::translate(const Vec2<U>& offset) {
   origin += offset;
   return *this;
 }
 
 template <class T>
 template <class U>
-inline Rect2<Promote<T, U>> Rect2<T>::translated(U offset) const {
+inline Rect2<Promote<T, U>> Rect<T, 2>::translated(U offset) const {
   return Rect2<Promote<T, U>>(*this).translate(offset);
 }
 
 template <class T>
 template <class U>
-inline Rect2<Promote<T, U>> Rect2<T>::translated(U dx, U dy) const {
+inline Rect2<Promote<T, U>> Rect<T, 2>::translated(U dx, U dy) const {
   return Rect2<Promote<T, U>>(*this).translate(dx, dy);
 }
 
 template <class T>
 template <class U>
-inline Rect2<Promote<T, U>> Rect2<T>::translated(const Vec2<U>& offset) const {
+inline Rect2<Promote<T, U>> Rect<T, 2>::translated(
+    const Vec2<U>& offset) const {
   return Rect2<Promote<T, U>>(*this).translate(offset);
 }
 
@@ -619,14 +620,14 @@ inline Rect2<Promote<T, U>> Rect2<T>::translated(const Vec2<U>& offset) const {
 
 template <class T>
 template <class U>
-inline Rect2<T>& Rect2<T>::scale(U scale) {
+inline Rect2<T>& Rect<T, 2>::scale(U scale) {
   size *= scale;
   return *this;
 }
 
 template <class T>
 template <class U>
-inline Rect2<T>& Rect2<T>::scale(U sx, U sy) {
+inline Rect2<T>& Rect<T, 2>::scale(U sx, U sy) {
   width *= sx;
   height *= sy;
   return *this;
@@ -634,33 +635,33 @@ inline Rect2<T>& Rect2<T>::scale(U sx, U sy) {
 
 template <class T>
 template <class U>
-inline Rect2<T>& Rect2<T>::scale(const Vec2<U>& scale) {
+inline Rect2<T>& Rect<T, 2>::scale(const Vec2<U>& scale) {
   size *= scale;
   return *this;
 }
 
 template <class T>
 template <class U>
-inline Rect2<Promote<T, U>> Rect2<T>::scaled(U scale) const {
+inline Rect2<Promote<T, U>> Rect<T, 2>::scaled(U scale) const {
   return Rect2<Promote<T, U>>(*this).scale(scale);
 }
 
 template <class T>
 template <class U>
-inline Rect2<Promote<T, U>> Rect2<T>::scaled(U sx, U sy) const {
+inline Rect2<Promote<T, U>> Rect<T, 2>::scaled(U sx, U sy) const {
   return Rect2<Promote<T, U>>(*this).scale(sx, sy);
 }
 
 template <class T>
 template <class U>
-inline Rect2<Promote<T, U>> Rect2<T>::scaled(const Vec2<U>& scale) const {
+inline Rect2<Promote<T, U>> Rect<T, 2>::scaled(const Vec2<U>& scale) const {
   return Rect2<Promote<T, U>>(*this).scale(scale);
 }
 
 #pragma mark Resizing
 
 template <class T>
-inline Rect2<T>& Rect2<T>::include(T x, T y) {
+inline Rect2<T>& Rect<T, 2>::include(T x, T y) {
   // TODO(shotamatsuda): Avoid canonicalization
   canonicalize();
   if (x < this->x) {
@@ -681,12 +682,12 @@ inline Rect2<T>& Rect2<T>::include(T x, T y) {
 }
 
 template <class T>
-inline Rect2<T>& Rect2<T>::include(const Vec2<T>& point) {
+inline Rect2<T>& Rect<T, 2>::include(const Vec2<T>& point) {
   return include(point.x, point.y);
 }
 
 template <class T>
-inline Rect2<T>& Rect2<T>::include(const Rect2<T>& rect) {
+inline Rect2<T>& Rect<T, 2>::include(const Rect2<T>& rect) {
   include(rect.minX(), rect.minY());
   include(rect.maxX(), rect.maxY());
   return *this;
@@ -694,7 +695,7 @@ inline Rect2<T>& Rect2<T>::include(const Rect2<T>& rect) {
 
 template <class T>
 template <class Iterator>
-inline Rect2<T>& Rect2<T>::include(Iterator first, Iterator last) {
+inline Rect2<T>& Rect<T, 2>::include(Iterator first, Iterator last) {
   for (auto itr = first; itr != last; ++itr) {
     include(*itr);
   }
@@ -705,20 +706,20 @@ inline Rect2<T>& Rect2<T>::include(Iterator first, Iterator last) {
 
 template <class T>
 template <class U>
-inline bool Rect2<T>::contains(const Rect2<U>& other) const {
+inline bool Rect<T, 2>::contains(const Rect2<U>& other) const {
   return contains(other.min()) && contains(other.max());
 }
 
 template <class T>
 template <class U>
-inline bool Rect2<T>::contains(const Vec2<U>& point) const {
+inline bool Rect<T, 2>::contains(const Vec2<U>& point) const {
   return !(point.x < minX() || maxX() < point.x ||
            point.y < minY() || maxY() < point.y);
 }
 
 template <class T>
 template <class U>
-inline bool Rect2<T>::intersects(const Rect2<U>& other) const {
+inline bool Rect<T, 2>::intersects(const Rect2<U>& other) const {
   return !(minX() > other.maxX() || maxX() < other.minX() ||
            minY() > other.maxY() || maxY() < other.minY());
 }

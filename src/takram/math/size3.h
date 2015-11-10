@@ -261,53 +261,53 @@ using Size3d = Size3<double>;
 #pragma mark -
 
 template <class T>
-inline Size3<T>::Size() : vector() {}
+inline Size<T, 3>::Size() : vector() {}
 
 template <class T>
-inline Size3<T>::Size(T value) : vector(value) {}
+inline Size<T, 3>::Size(T value) : vector(value) {}
 
 template <class T>
-inline Size3<T>::Size(T width, T height, T depth)
+inline Size<T, 3>::Size(T width, T height, T depth)
     : vector(width, height, depth) {}
 
 template <class T>
-inline Size3<T>::Size(const T *values, int size) : vector(values, size) {}
+inline Size<T, 3>::Size(const T *values, int size) : vector(values, size) {}
 
 template <class T>
 template <class... Args>
-inline Size3<T>::Size(const std::tuple<Args...>& tuple) : vector(tuple) {}
+inline Size<T, 3>::Size(const std::tuple<Args...>& tuple) : vector(tuple) {}
 
 template <class T>
-inline Size3<T>::Size(std::initializer_list<T> list) : vector(list) {}
+inline Size<T, 3>::Size(std::initializer_list<T> list) : vector(list) {}
 
 #pragma mark Implicit conversion
 
 template <class T>
 template <class U>
-inline Size3<T>::Size(const Size3<U>& other) : vector(other.vector) {}
+inline Size<T, 3>::Size(const Size3<U>& other) : vector(other.vector) {}
 
 #pragma mark Explicit conversion
 
 template <class T>
 template <class U>
-inline Size3<T>::Size(const Size2<U>& other) : vector(other.vector) {}
+inline Size<T, 3>::Size(const Size2<U>& other) : vector(other.vector) {}
 
 template <class T>
-inline Size3<T>::Size(const Vec2<T>& other) : vector(other) {}
+inline Size<T, 3>::Size(const Vec2<T>& other) : vector(other) {}
 
 template <class T>
-inline Size3<T>::Size(const Vec3<T>& other) : vector(other) {}
+inline Size<T, 3>::Size(const Vec3<T>& other) : vector(other) {}
 
 template <class T>
-inline Size3<T>::Size(const Vec4<T>& other) : vector(other) {}
+inline Size<T, 3>::Size(const Vec4<T>& other) : vector(other) {}
 
 #if TAKRAM_HAS_OPENFRAMEWORKS
 
 template <class T>
-inline Size3<T>::Size(const ofVec3f& other) : vector(other) {}
+inline Size<T, 3>::Size(const ofVec3f& other) : vector(other) {}
 
 template <class T>
-inline Size3<T>::operator ofVec3f() const {
+inline Size<T, 3>::operator ofVec3f() const {
   return ofVec3f(vector);
 }
 
@@ -317,10 +317,10 @@ inline Size3<T>::operator ofVec3f() const {
 
 template <class T>
 template <class U>
-inline Size3<T>::Size(const ci::Vec3<U>& other) : vector(other) {}
+inline Size<T, 3>::Size(const ci::Vec3<U>& other) : vector(other) {}
 
 template <class T>
-inline Size3<T>::operator ci::Vec3<T>() const {
+inline Size<T, 3>::operator ci::Vec3<T>() const {
   return ci::Vec3<T>(width, height, depth);
 }
 
@@ -329,100 +329,100 @@ inline Size3<T>::operator ci::Vec3<T>() const {
 #pragma mark Factory
 
 template <class T>
-inline Size3<T> Size3<T>::min() {
+inline Size3<T> Size<T, 3>::min() {
   return Size(Vec3<T>::min());
 }
 
 template <class T>
-inline Size3<T> Size3<T>::max() {
+inline Size3<T> Size<T, 3>::max() {
   return Size(Vec3<T>::max());
 }
 
 template <class T>
-inline Size3<T> Size3<T>::random() {
+inline Size3<T> Size<T, 3>::random() {
   return random(&Random<>::shared());
 }
 
 template <class T>
-inline Size3<T> Size3<T>::random(T max) {
+inline Size3<T> Size<T, 3>::random(T max) {
   return random(max, &Random<>::shared());
 }
 
 template <class T>
-inline Size3<T> Size3<T>::random(T min, T max) {
+inline Size3<T> Size<T, 3>::random(T min, T max) {
   return random(min, max, &Random<>::shared());
 }
 
 template <class T>
 template <class Random>
-inline Size3<T> Size3<T>::random(Random *random) {
+inline Size3<T> Size<T, 3>::random(Random *random) {
   return Size(Vec3<T>::random(random));
 }
 
 template <class T>
 template <class Random>
-inline Size3<T> Size3<T>::random(T max, Random *random) {
+inline Size3<T> Size<T, 3>::random(T max, Random *random) {
   return Size(Vec3<T>::random(max, random));
 }
 
 template <class T>
 template <class Random>
-inline Size3<T> Size3<T>::random(T min, T max, Random *random) {
+inline Size3<T> Size<T, 3>::random(T min, T max, Random *random) {
   return Size(Vec3<T>::random(min, max, random));
 }
 
 #pragma mark Mutators
 
 template <class T>
-inline void Size3<T>::set(T value) {
+inline void Size<T, 3>::set(T value) {
   vector.set(value);
 }
 
 template <class T>
-inline void Size3<T>::set(T width, T height, T depth) {
+inline void Size<T, 3>::set(T width, T height, T depth) {
   vector.set(width, height, depth);
 }
 
 template <class T>
-inline void Size3<T>::set(const T *values, int size) {
+inline void Size<T, 3>::set(const T *values, int size) {
   vector.set(values, size);
 }
 
 template <class T>
 template <class... Args>
-inline void Size3<T>::set(const std::tuple<Args...>& tuple) {
+inline void Size<T, 3>::set(const std::tuple<Args...>& tuple) {
   vector.set(tuple);
 }
 
 template <class T>
-inline void Size3<T>::set(std::initializer_list<T> list) {
+inline void Size<T, 3>::set(std::initializer_list<T> list) {
   vector.set(list);
 }
 
 template <class T>
-inline void Size3<T>::reset() {
+inline void Size<T, 3>::reset() {
   vector.reset();
 }
 
 #pragma mark Element access
 
 template <class T>
-inline T& Size3<T>::at(int index) {
+inline T& Size<T, 3>::at(int index) {
   return vector.at(index);
 }
 
 template <class T>
-inline const T& Size3<T>::at(int index) const {
+inline const T& Size<T, 3>::at(int index) const {
   return vector.at(index);
 }
 
 template <class T>
-inline T& Size3<T>::at(Axis axis) {
+inline T& Size<T, 3>::at(Axis axis) {
   return at(static_cast<int>(axis));
 }
 
 template <class T>
-inline const T& Size3<T>::at(Axis axis) const {
+inline const T& Size<T, 3>::at(Axis axis) const {
   return at(static_cast<int>(axis));
 }
 
@@ -430,148 +430,148 @@ inline const T& Size3<T>::at(Axis axis) const {
 
 template <class T>
 template <class U>
-inline bool Size3<T>::operator==(const Size3<U>& other) const {
+inline bool Size<T, 3>::operator==(const Size3<U>& other) const {
   return vector == other.vector;
 }
 
 template <class T>
 template <class U>
-inline bool Size3<T>::operator!=(const Size3<U>& other) const {
+inline bool Size<T, 3>::operator!=(const Size3<U>& other) const {
   return vector != other.vector;
 }
 
 template <class T>
 template <class U>
-inline bool Size3<T>::operator<(const Size3<U>& other) const {
+inline bool Size<T, 3>::operator<(const Size3<U>& other) const {
   return vector < other.vector;
 }
 
 template <class T>
 template <class U>
-inline bool Size3<T>::operator>(const Size3<U>& other) const {
+inline bool Size<T, 3>::operator>(const Size3<U>& other) const {
   return vector > other.vector;
 }
 
 template <class T>
 template <class U>
-inline bool Size3<T>::operator<=(const Size3<U>& other) const {
+inline bool Size<T, 3>::operator<=(const Size3<U>& other) const {
   return vector <= other.vector;
 }
 
 template <class T>
 template <class U>
-inline bool Size3<T>::operator>=(const Size3<U>& other) const {
+inline bool Size<T, 3>::operator>=(const Size3<U>& other) const {
   return vector >= other.vector;
 }
 
 template <class T>
 template <class V, class U>
-inline bool Size3<T>::equals(const Size3<U>& other, V tolerance) const {
+inline bool Size<T, 3>::equals(const Size3<U>& other, V tolerance) const {
   return vector.equals(other.vector);
 }
 
 #pragma mark Arithmetic
 
 template <class T>
-inline Size3<T>& Size3<T>::operator+=(const Size& other) {
+inline Size3<T>& Size<T, 3>::operator+=(const Size& other) {
   vector += other.vector;
   return *this;
 }
 
 template <class T>
-inline Size3<T>& Size3<T>::operator-=(const Size& other) {
+inline Size3<T>& Size<T, 3>::operator-=(const Size& other) {
   vector -= other.vector;
   return *this;
 }
 
 template <class T>
-inline Size3<T>& Size3<T>::operator*=(const Size& other) {
+inline Size3<T>& Size<T, 3>::operator*=(const Size& other) {
   vector *= other.vector;
   return *this;
 }
 
 template <class T>
-inline Size3<T>& Size3<T>::operator/=(const Size& other) {
+inline Size3<T>& Size<T, 3>::operator/=(const Size& other) {
   vector /= other.vector;
   return *this;
 }
 
 template <class T>
-inline Size3<Promote<T>> Size3<T>::operator-() const {
+inline Size3<Promote<T>> Size<T, 3>::operator-() const {
   return Size3<Promote<T>>(-vector);
 }
 
 template <class T>
 template <class U>
-inline Size3<Promote<T, U>> Size3<T>::operator+(const Size3<U>& other) const {
+inline Size3<Promote<T, U>> Size<T, 3>::operator+(const Size3<U>& other) const {
   return Size3<Promote<T, U>>(vector + other.vector);
 }
 
 template <class T>
 template <class U>
-inline Size3<Promote<T, U>> Size3<T>::operator-(const Size3<U>& other) const {
+inline Size3<Promote<T, U>> Size<T, 3>::operator-(const Size3<U>& other) const {
   return Size3<Promote<T, U>>(vector - other.vector);
 }
 
 template <class T>
 template <class U>
-inline Size3<Promote<T, U>> Size3<T>::operator*(const Size3<U>& other) const {
+inline Size3<Promote<T, U>> Size<T, 3>::operator*(const Size3<U>& other) const {
   return Size3<Promote<T, U>>(vector * other.vector);
 }
 
 template <class T>
 template <class U>
-inline Size3<Promote<T, U>> Size3<T>::operator/(const Size3<U>& other) const {
+inline Size3<Promote<T, U>> Size<T, 3>::operator/(const Size3<U>& other) const {
   return Size3<Promote<T, U>>(vector / other.vector);
 }
 
 #pragma mark Scalar arithmetic
 
 template <class T>
-inline Size3<T>& Size3<T>::operator+=(T scalar) {
+inline Size3<T>& Size<T, 3>::operator+=(T scalar) {
   vector += scalar;
   return *this;
 }
 
 template <class T>
-inline Size3<T>& Size3<T>::operator-=(T scalar) {
+inline Size3<T>& Size<T, 3>::operator-=(T scalar) {
   vector -= scalar;
   return *this;
 }
 
 template <class T>
-inline Size3<T>& Size3<T>::operator*=(T scalar) {
+inline Size3<T>& Size<T, 3>::operator*=(T scalar) {
   vector *= scalar;
   return *this;
 }
 
 template <class T>
-inline Size3<T>& Size3<T>::operator/=(T scalar) {
+inline Size3<T>& Size<T, 3>::operator/=(T scalar) {
   vector /= scalar;
   return *this;
 }
 
 template <class T>
 template <class U, EnableIfScalar<U> *>
-inline Size3<Promote<T, U>> Size3<T>::operator+(U scalar) const {
+inline Size3<Promote<T, U>> Size<T, 3>::operator+(U scalar) const {
   return Size3<Promote<T, U>>(vector + scalar);
 }
 
 template <class T>
 template <class U, EnableIfScalar<U> *>
-inline Size3<Promote<T, U>> Size3<T>::operator-(U scalar) const {
+inline Size3<Promote<T, U>> Size<T, 3>::operator-(U scalar) const {
   return Size3<Promote<T, U>>(vector - scalar);
 }
 
 template <class T>
 template <class U, EnableIfScalar<U> *>
-inline Size3<Promote<T, U>> Size3<T>::operator*(U scalar) const {
+inline Size3<Promote<T, U>> Size<T, 3>::operator*(U scalar) const {
   return Size3<Promote<T, U>>(vector * scalar);
 }
 
 template <class T>
 template <class U, EnableIfScalar<U> *>
-inline Size3<Promote<T, U>> Size3<T>::operator/(U scalar) const {
+inline Size3<Promote<T, U>> Size<T, 3>::operator/(U scalar) const {
   return Size3<Promote<T, U>>(vector / scalar);
 }
 
@@ -598,50 +598,50 @@ inline Size3<Promote<T, U>> operator/(T lhs, const Size3<U>& rhs) {
 #pragma mark Vector arithmetic
 
 template <class T>
-inline Size3<T>& Size3<T>::operator+=(const Vec3<T>& other) {
+inline Size3<T>& Size<T, 3>::operator+=(const Vec3<T>& other) {
   vector += other;
   return *this;
 }
 
 template <class T>
-inline Size3<T>& Size3<T>::operator-=(const Vec3<T>& other) {
+inline Size3<T>& Size<T, 3>::operator-=(const Vec3<T>& other) {
   vector -= other;
   return *this;
 }
 
 template <class T>
-inline Size3<T>& Size3<T>::operator*=(const Vec3<T>& other) {
+inline Size3<T>& Size<T, 3>::operator*=(const Vec3<T>& other) {
   vector *= other;
   return *this;
 }
 
 template <class T>
-inline Size3<T>& Size3<T>::operator/=(const Vec3<T>& other) {
+inline Size3<T>& Size<T, 3>::operator/=(const Vec3<T>& other) {
   vector /= other;
   return *this;
 }
 
 template <class T>
 template <class U>
-inline Size3<Promote<T, U>> Size3<T>::operator+(const Vec3<U>& other) const {
+inline Size3<Promote<T, U>> Size<T, 3>::operator+(const Vec3<U>& other) const {
   return Size3<Promote<T, U>>(vector + other);
 }
 
 template <class T>
 template <class U>
-inline Size3<Promote<T, U>> Size3<T>::operator-(const Vec3<U>& other) const {
+inline Size3<Promote<T, U>> Size<T, 3>::operator-(const Vec3<U>& other) const {
   return Size3<Promote<T, U>>(vector - other);
 }
 
 template <class T>
 template <class U>
-inline Size3<Promote<T, U>> Size3<T>::operator*(const Vec3<U>& other) const {
+inline Size3<Promote<T, U>> Size<T, 3>::operator*(const Vec3<U>& other) const {
   return Size3<Promote<T, U>>(vector * other);
 }
 
 template <class T>
 template <class U>
-inline Size3<Promote<T, U>> Size3<T>::operator/(const Vec3<U>& other) const {
+inline Size3<Promote<T, U>> Size<T, 3>::operator/(const Vec3<U>& other) const {
   return Size3<Promote<T, U>>(vector / other);
 }
 
@@ -668,27 +668,27 @@ inline Vec3<Promote<T, U>> operator/(const Vec3<T>& lhs, const Size3<U>& rhs) {
 #pragma mark Attributes
 
 template <class T>
-inline Promote<T> Size3<T>::aspectXY() const {
+inline Promote<T> Size<T, 3>::aspectXY() const {
   return static_cast<Promote<T>>(width) / height;
 }
 
 template <class T>
-inline Promote<T> Size3<T>::aspectYZ() const {
+inline Promote<T> Size<T, 3>::aspectYZ() const {
   return static_cast<Promote<T>>(height) / depth;
 }
 
 template <class T>
-inline Promote<T> Size3<T>::aspectZX() const {
+inline Promote<T> Size<T, 3>::aspectZX() const {
   return static_cast<Promote<T>>(depth) / width;
 }
 
 template <class T>
-inline Promote<T> Size3<T>::volume() const {
+inline Promote<T> Size<T, 3>::volume() const {
   return std::abs(static_cast<Promote<T>>(width) * height * depth);
 }
 
 template <class T>
-inline Promote<T> Size3<T>::diagonal() const {
+inline Promote<T> Size<T, 3>::diagonal() const {
   return vector.magnitude();
 }
 

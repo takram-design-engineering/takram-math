@@ -308,27 +308,27 @@ using Vector3d = Vec3d;
 #pragma mark -
 
 template <class T>
-inline Vec3<T>::Vec() : x(), y(), z() {}
+inline Vec<T, 3>::Vec() : x(), y(), z() {}
 
 template <class T>
-inline Vec3<T>::Vec(T value) : x(value), y(value), z(value) {}
+inline Vec<T, 3>::Vec(T value) : x(value), y(value), z(value) {}
 
 template <class T>
-inline Vec3<T>::Vec(T x, T y, T z) : x(x), y(y), z(z) {}
+inline Vec<T, 3>::Vec(T x, T y, T z) : x(x), y(y), z(z) {}
 
 template <class T>
-inline Vec3<T>::Vec(const T *values, int size) {
+inline Vec<T, 3>::Vec(const T *values, int size) {
   set(values, size);
 }
 
 template <class T>
 template <class... Args>
-inline Vec3<T>::Vec(const std::tuple<Args...>& tuple) {
+inline Vec<T, 3>::Vec(const std::tuple<Args...>& tuple) {
   set(tuple);
 }
 
 template <class T>
-inline Vec3<T>::Vec(std::initializer_list<T> list) {
+inline Vec<T, 3>::Vec(std::initializer_list<T> list) {
   set(list);
 }
 
@@ -336,7 +336,7 @@ inline Vec3<T>::Vec(std::initializer_list<T> list) {
 
 template <class T>
 template <class U>
-inline Vec3<T>::Vec(const Vec3<U>& other)
+inline Vec<T, 3>::Vec(const Vec3<U>& other)
     : x(other.x),
       y(other.y),
       z(other.z) {}
@@ -345,13 +345,13 @@ inline Vec3<T>::Vec(const Vec3<U>& other)
 
 template <class T>
 template <class U>
-inline Vec3<T>::Vec(const cv::Point3_<U>& other)
+inline Vec<T, 3>::Vec(const cv::Point3_<U>& other)
     : x(other.x),
       y(other.y),
       z(other.z) {}
 
 template <class T>
-inline Vec3<T>::operator cv::Point3_<T>() const {
+inline Vec<T, 3>::operator cv::Point3_<T>() const {
   return cv::Point3_<T>(x, y, z);
 }
 
@@ -360,13 +360,13 @@ inline Vec3<T>::operator cv::Point3_<T>() const {
 #if TAKRAM_HAS_OPENFRAMEWORKS
 
 template <class T>
-inline Vec3<T>::Vec(const ofVec3f& other)
+inline Vec<T, 3>::Vec(const ofVec3f& other)
     : x(other.x),
       y(other.y),
       z(other.z) {}
 
 template <class T>
-inline Vec3<T>::operator ofVec3f() const {
+inline Vec<T, 3>::operator ofVec3f() const {
   return ofVec3f(x, y, z);
 }
 
@@ -376,13 +376,13 @@ inline Vec3<T>::operator ofVec3f() const {
 
 template <class T>
 template <class U>
-inline Vec3<T>::Vec(const ci::Vec3<U>& other)
+inline Vec<T, 3>::Vec(const ci::Vec3<U>& other)
     : x(other.x),
       y(other.y),
       z(other.z) {}
 
 template <class T>
-inline Vec3<T>::operator ci::Vec3<T>() const {
+inline Vec<T, 3>::operator ci::Vec3<T>() const {
   return ci::Vec3<T>(x, y, z);
 }
 
@@ -392,14 +392,14 @@ inline Vec3<T>::operator ci::Vec3<T>() const {
 
 template <class T>
 template <class U>
-inline Vec3<T>::Vec(const Vec2<U>& other)
+inline Vec<T, 3>::Vec(const Vec2<U>& other)
     : x(other.x),
       y(other.y),
       z() {}
 
 template <class T>
 template <class U>
-inline Vec3<T>::Vec(const Vec4<U>& other)
+inline Vec<T, 3>::Vec(const Vec4<U>& other)
     : x(other.x),
       y(other.y),
       z(other.z) {}
@@ -408,11 +408,11 @@ inline Vec3<T>::Vec(const Vec4<U>& other)
 
 template <class T>
 template <class U>
-inline Vec3<T>::Vec(const cv::Vec<U, dimensions>& other)
+inline Vec<T, 3>::Vec(const cv::Vec<U, dimensions>& other)
     : Vec(other.val, dimensions) {}
 
 template <class T>
-inline Vec3<T>::operator cv::Vec<T, dimensions>() const {
+inline Vec<T, 3>::operator cv::Vec<T, dimensions>() const {
   return cv::Vec<T, dimensions>(x, y, z);
 }
 
@@ -421,52 +421,52 @@ inline Vec3<T>::operator cv::Vec<T, dimensions>() const {
 #pragma mark Factory
 
 template <class T>
-inline Vec3<T> Vec3<T>::min() {
+inline Vec3<T> Vec<T, 3>::min() {
   return Vec(std::numeric_limits<T>::min(),
              std::numeric_limits<T>::min(),
              std::numeric_limits<T>::min());
 }
 
 template <class T>
-inline Vec3<T> Vec3<T>::max() {
+inline Vec3<T> Vec<T, 3>::max() {
   return Vec(std::numeric_limits<T>::max(),
              std::numeric_limits<T>::max(),
              std::numeric_limits<T>::max());
 }
 
 template <class T>
-inline Vec3<T> Vec3<T>::headingXY(Promote<T> angle) {
+inline Vec3<T> Vec<T, 3>::headingXY(Promote<T> angle) {
   return Vec(std::cos(angle), std::sin(angle));
 }
 
 template <class T>
-inline Vec3<T> Vec3<T>::headingYZ(Promote<T> angle) {
+inline Vec3<T> Vec<T, 3>::headingYZ(Promote<T> angle) {
   return Vec(std::cos(angle), T(), std::sin(angle));
 }
 
 template <class T>
-inline Vec3<T> Vec3<T>::headingZX(Promote<T> angle) {
+inline Vec3<T> Vec<T, 3>::headingZX(Promote<T> angle) {
   return Vec(T(), std::cos(angle), std::sin(angle));
 }
 
 template <class T>
-inline Vec3<T> Vec3<T>::random() {
+inline Vec3<T> Vec<T, 3>::random() {
   return random(&Random<>::shared());
 }
 
 template <class T>
-inline Vec3<T> Vec3<T>::random(T max) {
+inline Vec3<T> Vec<T, 3>::random(T max) {
   return random(max, &Random<>::shared());
 }
 
 template <class T>
-inline Vec3<T> Vec3<T>::random(T min, T max) {
+inline Vec3<T> Vec<T, 3>::random(T min, T max) {
   return random(min, max, &Random<>::shared());
 }
 
 template <class T>
 template <class Random>
-inline Vec3<T> Vec3<T>::random(Random *random) {
+inline Vec3<T> Vec<T, 3>::random(Random *random) {
   return Vec::random(std::numeric_limits<T>::min(),
                      std::numeric_limits<T>::max(),
                      random);
@@ -474,13 +474,13 @@ inline Vec3<T> Vec3<T>::random(Random *random) {
 
 template <class T>
 template <class Random>
-inline Vec3<T> Vec3<T>::random(T max, Random *random) {
+inline Vec3<T> Vec<T, 3>::random(T max, Random *random) {
   return Vec::random(T(), max, random);
 }
 
 template <class T>
 template <class Random>
-inline Vec3<T> Vec3<T>::random(T min, T max, Random *random) {
+inline Vec3<T> Vec<T, 3>::random(T min, T max, Random *random) {
   assert(random);
   return Vec(random->template uniform<T>(min, max),
              random->template uniform<T>(min, max),
@@ -490,19 +490,19 @@ inline Vec3<T> Vec3<T>::random(T min, T max, Random *random) {
 #pragma mark Mutators
 
 template <class T>
-inline void Vec3<T>::set(T value) {
+inline void Vec<T, 3>::set(T value) {
   x = y = z = value;
 }
 
 template <class T>
-inline void Vec3<T>::set(T x, T y, T z) {
+inline void Vec<T, 3>::set(T x, T y, T z) {
   this->x = x;
   this->y = y;
   this->z = z;
 }
 
 template <class T>
-inline void Vec3<T>::set(const T *values, int size) {
+inline void Vec<T, 3>::set(const T *values, int size) {
   reset();
   const auto end = values + size;
   if (values == end) return;
@@ -515,12 +515,12 @@ inline void Vec3<T>::set(const T *values, int size) {
 
 template <class T>
 template <class... Args>
-inline void Vec3<T>::set(const std::tuple<Args...>& tuple) {
+inline void Vec<T, 3>::set(const std::tuple<Args...>& tuple) {
   std::tie(x, y, z) = tuple;
 }
 
 template <class T>
-inline void Vec3<T>::set(std::initializer_list<T> list) {
+inline void Vec<T, 3>::set(std::initializer_list<T> list) {
   reset();
   auto itr = std::begin(list);
   if (itr == std::end(list)) return;
@@ -532,14 +532,14 @@ inline void Vec3<T>::set(std::initializer_list<T> list) {
 }
 
 template <class T>
-inline void Vec3<T>::reset() {
+inline void Vec<T, 3>::reset() {
   *this = Vec();
 }
 
 #pragma mark Element access
 
 template <class T>
-inline T& Vec3<T>::at(int index) {
+inline T& Vec<T, 3>::at(int index) {
   switch (index) {
     case 0: return x;
     case 1: return y;
@@ -552,7 +552,7 @@ inline T& Vec3<T>::at(int index) {
 }
 
 template <class T>
-inline const T& Vec3<T>::at(int index) const {
+inline const T& Vec<T, 3>::at(int index) const {
   switch (index) {
     case 0: return x;
     case 1: return y;
@@ -565,12 +565,12 @@ inline const T& Vec3<T>::at(int index) const {
 }
 
 template <class T>
-inline T& Vec3<T>::at(Axis axis) {
+inline T& Vec<T, 3>::at(Axis axis) {
   return at(static_cast<int>(axis));
 }
 
 template <class T>
-inline const T& Vec3<T>::at(Axis axis) const {
+inline const T& Vec<T, 3>::at(Axis axis) const {
   return at(static_cast<int>(axis));
 }
 
@@ -578,45 +578,45 @@ inline const T& Vec3<T>::at(Axis axis) const {
 
 template <class T>
 template <class U>
-inline bool Vec3<T>::operator==(const Vec3<U>& other) const {
+inline bool Vec<T, 3>::operator==(const Vec3<U>& other) const {
   return x == other.x && y == other.y && z == other.z;
 }
 
 template <class T>
 template <class U>
-inline bool Vec3<T>::operator!=(const Vec3<U>& other) const {
+inline bool Vec<T, 3>::operator!=(const Vec3<U>& other) const {
   return !operator==(other);
 }
 
 template <class T>
 template <class U>
-inline bool Vec3<T>::operator<(const Vec3<U>& other) const {
+inline bool Vec<T, 3>::operator<(const Vec3<U>& other) const {
   return x < other.x || (x == other.x &&
         (y < other.y || (y == other.y && z < other.z)));
 }
 
 template <class T>
 template <class U>
-inline bool Vec3<T>::operator>(const Vec3<U>& other) const {
+inline bool Vec<T, 3>::operator>(const Vec3<U>& other) const {
   return x > other.x || (x == other.x &&
         (y > other.y || (y == other.y && z > other.z)));
 }
 
 template <class T>
 template <class U>
-inline bool Vec3<T>::operator<=(const Vec3<U>& other) const {
+inline bool Vec<T, 3>::operator<=(const Vec3<U>& other) const {
   return operator<(other) || operator==(other);
 }
 
 template <class T>
 template <class U>
-inline bool Vec3<T>::operator>=(const Vec3<U>& other) const {
+inline bool Vec<T, 3>::operator>=(const Vec3<U>& other) const {
   return operator>(other) || operator==(other);
 }
 
 template <class T>
 template <class V, class U>
-inline bool Vec3<T>::equals(const Vec3<U>& other, V tolerance) const {
+inline bool Vec<T, 3>::equals(const Vec3<U>& other, V tolerance) const {
   return (std::abs(x - other.x) <= tolerance &&
           std::abs(y - other.y) <= tolerance &&
           std::abs(z - other.z) <= tolerance);
@@ -625,7 +625,7 @@ inline bool Vec3<T>::equals(const Vec3<U>& other, V tolerance) const {
 #pragma mark Arithmetic
 
 template <class T>
-inline Vec3<T>& Vec3<T>::operator+=(const Vec& other) {
+inline Vec3<T>& Vec<T, 3>::operator+=(const Vec& other) {
   x += other.x;
   y += other.y;
   z += other.z;
@@ -633,7 +633,7 @@ inline Vec3<T>& Vec3<T>::operator+=(const Vec& other) {
 }
 
 template <class T>
-inline Vec3<T>& Vec3<T>::operator-=(const Vec& other) {
+inline Vec3<T>& Vec<T, 3>::operator-=(const Vec& other) {
   x -= other.x;
   y -= other.y;
   z -= other.z;
@@ -641,7 +641,7 @@ inline Vec3<T>& Vec3<T>::operator-=(const Vec& other) {
 }
 
 template <class T>
-inline Vec3<T>& Vec3<T>::operator*=(const Vec& other) {
+inline Vec3<T>& Vec<T, 3>::operator*=(const Vec& other) {
   x *= other.x;
   y *= other.y;
   z *= other.z;
@@ -649,7 +649,7 @@ inline Vec3<T>& Vec3<T>::operator*=(const Vec& other) {
 }
 
 template <class T>
-inline Vec3<T>& Vec3<T>::operator/=(const Vec& other) {
+inline Vec3<T>& Vec<T, 3>::operator/=(const Vec& other) {
   x /= other.x;
   y /= other.y;
   z /= other.z;
@@ -657,14 +657,14 @@ inline Vec3<T>& Vec3<T>::operator/=(const Vec& other) {
 }
 
 template <class T>
-inline Vec3<Promote<T>> Vec3<T>::operator-() const {
+inline Vec3<Promote<T>> Vec<T, 3>::operator-() const {
   using V = Promote<T>;
   return Vec3<V>(-static_cast<V>(x), -static_cast<V>(y), -static_cast<V>(z));
 }
 
 template <class T>
 template <class U>
-inline Vec3<Promote<T, U>> Vec3<T>::operator+(const Vec3<U>& other) const {
+inline Vec3<Promote<T, U>> Vec<T, 3>::operator+(const Vec3<U>& other) const {
   using V = Promote<T, U>;
   return Vec3<V>(static_cast<V>(x) + other.x,
                  static_cast<V>(y) + other.y,
@@ -673,7 +673,7 @@ inline Vec3<Promote<T, U>> Vec3<T>::operator+(const Vec3<U>& other) const {
 
 template <class T>
 template <class U>
-inline Vec3<Promote<T, U>> Vec3<T>::operator-(const Vec3<U>& other) const {
+inline Vec3<Promote<T, U>> Vec<T, 3>::operator-(const Vec3<U>& other) const {
   using V = Promote<T, U>;
   return Vec3<V>(static_cast<V>(x) - other.x,
                  static_cast<V>(y) - other.y,
@@ -682,7 +682,7 @@ inline Vec3<Promote<T, U>> Vec3<T>::operator-(const Vec3<U>& other) const {
 
 template <class T>
 template <class U>
-inline Vec3<Promote<T, U>> Vec3<T>::operator*(const Vec3<U>& other) const {
+inline Vec3<Promote<T, U>> Vec<T, 3>::operator*(const Vec3<U>& other) const {
   using V = Promote<T, U>;
   return Vec3<V>(static_cast<V>(x) * other.x,
                  static_cast<V>(y) * other.y,
@@ -691,7 +691,7 @@ inline Vec3<Promote<T, U>> Vec3<T>::operator*(const Vec3<U>& other) const {
 
 template <class T>
 template <class U>
-inline Vec3<Promote<T, U>> Vec3<T>::operator/(const Vec3<U>& other) const {
+inline Vec3<Promote<T, U>> Vec<T, 3>::operator/(const Vec3<U>& other) const {
   using V = Promote<T, U>;
   return Vec3<V>(static_cast<V>(x) / other.x,
                  static_cast<V>(y) / other.y,
@@ -701,7 +701,7 @@ inline Vec3<Promote<T, U>> Vec3<T>::operator/(const Vec3<U>& other) const {
 #pragma mark Scalar arithmetic
 
 template <class T>
-inline Vec3<T>& Vec3<T>::operator+=(T scalar) {
+inline Vec3<T>& Vec<T, 3>::operator+=(T scalar) {
   x += scalar;
   y += scalar;
   z += scalar;
@@ -709,7 +709,7 @@ inline Vec3<T>& Vec3<T>::operator+=(T scalar) {
 }
 
 template <class T>
-inline Vec3<T>& Vec3<T>::operator-=(T scalar) {
+inline Vec3<T>& Vec<T, 3>::operator-=(T scalar) {
   x -= scalar;
   y -= scalar;
   z -= scalar;
@@ -717,7 +717,7 @@ inline Vec3<T>& Vec3<T>::operator-=(T scalar) {
 }
 
 template <class T>
-inline Vec3<T>& Vec3<T>::operator*=(T scalar) {
+inline Vec3<T>& Vec<T, 3>::operator*=(T scalar) {
   x *= scalar;
   y *= scalar;
   z *= scalar;
@@ -725,7 +725,7 @@ inline Vec3<T>& Vec3<T>::operator*=(T scalar) {
 }
 
 template <class T>
-inline Vec3<T>& Vec3<T>::operator/=(T scalar) {
+inline Vec3<T>& Vec<T, 3>::operator/=(T scalar) {
   x /= scalar;
   y /= scalar;
   z /= scalar;
@@ -734,7 +734,7 @@ inline Vec3<T>& Vec3<T>::operator/=(T scalar) {
 
 template <class T>
 template <class U, EnableIfScalar<U> *>
-inline Vec3<Promote<T, U>> Vec3<T>::operator+(U scalar) const {
+inline Vec3<Promote<T, U>> Vec<T, 3>::operator+(U scalar) const {
   using V = Promote<T, U>;
   return Vec3<V>(static_cast<V>(x) + scalar,
                  static_cast<V>(y) + scalar,
@@ -743,7 +743,7 @@ inline Vec3<Promote<T, U>> Vec3<T>::operator+(U scalar) const {
 
 template <class T>
 template <class U, EnableIfScalar<U> *>
-inline Vec3<Promote<T, U>> Vec3<T>::operator-(U scalar) const {
+inline Vec3<Promote<T, U>> Vec<T, 3>::operator-(U scalar) const {
   using V = Promote<T, U>;
   return Vec3<V>(static_cast<V>(x) - scalar,
                  static_cast<V>(y) - scalar,
@@ -752,7 +752,7 @@ inline Vec3<Promote<T, U>> Vec3<T>::operator-(U scalar) const {
 
 template <class T>
 template <class U, EnableIfScalar<U> *>
-inline Vec3<Promote<T, U>> Vec3<T>::operator*(U scalar) const {
+inline Vec3<Promote<T, U>> Vec<T, 3>::operator*(U scalar) const {
   using V = Promote<T, U>;
   return Vec3<V>(static_cast<V>(x) * scalar,
                  static_cast<V>(y) * scalar,
@@ -761,7 +761,7 @@ inline Vec3<Promote<T, U>> Vec3<T>::operator*(U scalar) const {
 
 template <class T>
 template <class U, EnableIfScalar<U> *>
-inline Vec3<Promote<T, U>> Vec3<T>::operator/(U scalar) const {
+inline Vec3<Promote<T, U>> Vec<T, 3>::operator/(U scalar) const {
   using V = Promote<T, U>;
   return Vec3<V>(static_cast<V>(x) / scalar,
                  static_cast<V>(y) / scalar,
@@ -803,41 +803,41 @@ inline Vec3<Promote<T, U>> operator/(T lhs, const Vec3<U>& rhs) {
 #pragma mark Angle
 
 template <class T>
-inline Promote<T> Vec3<T>::headingXY() const {
+inline Promote<T> Vec<T, 3>::headingXY() const {
   return std::atan2(y, x);
 }
 
 template <class T>
-inline Promote<T> Vec3<T>::headingYZ() const {
+inline Promote<T> Vec<T, 3>::headingYZ() const {
   return std::atan2(z, y);
 }
 
 template <class T>
-inline Promote<T> Vec3<T>::headingZX() const {
+inline Promote<T> Vec<T, 3>::headingZX() const {
   return std::atan2(x, z);
 }
 
 template <class T>
 template <class U>
-inline Promote<T, U> Vec3<T>::angle(const Vec3<U>& other) const {
+inline Promote<T, U> Vec<T, 3>::angle(const Vec3<U>& other) const {
   return std::acos(normalized().dot(other.normalized()));
 }
 
 #pragma mark Magnitude
 
 template <class T>
-inline Promote<T> Vec3<T>::magnitude() const {
+inline Promote<T> Vec<T, 3>::magnitude() const {
   return std::sqrt(magnitudeSquared());
 }
 
 template <class T>
-inline Promote<T> Vec3<T>::magnitudeSquared() const {
+inline Promote<T> Vec<T, 3>::magnitudeSquared() const {
   return static_cast<Promote<T>>(x) * x + y * y + z * z;
 }
 
 template <class T>
 template <class U>
-inline Vec3<T>& Vec3<T>::limit(U limit) {
+inline Vec3<T>& Vec<T, 3>::limit(U limit) {
   if (magnitudeSquared() > static_cast<Promote<T>>(limit) * limit) {
     normalize();
     *this *= limit;
@@ -847,14 +847,14 @@ inline Vec3<T>& Vec3<T>::limit(U limit) {
 
 template <class T>
 template <class U>
-inline Vec3<Promote<T, U>> Vec3<T>::limited(U limit) const {
+inline Vec3<Promote<T, U>> Vec<T, 3>::limited(U limit) const {
   return Vec3<Promote<T, U>>(*this).limit(limit);
 }
 
 #pragma mark Normalization
 
 template <class T>
-inline Vec3<T>& Vec3<T>::normalize() {
+inline Vec3<T>& Vec<T, 3>::normalize() {
   const auto denominator = magnitude();
   if (denominator) {
     *this /= denominator;
@@ -863,14 +863,14 @@ inline Vec3<T>& Vec3<T>::normalize() {
 }
 
 template <class T>
-inline Vec3<Promote<T>> Vec3<T>::normalized() const {
+inline Vec3<Promote<T>> Vec<T, 3>::normalized() const {
   return Vec3<Promote<T>>(*this).normalize();
 }
 
 #pragma mark Inversion
 
 template <class T>
-inline Vec3<T>& Vec3<T>::invert() {
+inline Vec3<T>& Vec<T, 3>::invert() {
   x *= -1;
   y *= -1;
   z *= -1;
@@ -878,7 +878,7 @@ inline Vec3<T>& Vec3<T>::invert() {
 }
 
 template <class T>
-inline Vec3<Promote<T>> Vec3<T>::inverted() const {
+inline Vec3<Promote<T>> Vec<T, 3>::inverted() const {
   return Vec3<Promote<T>>(*this).invert();
 }
 
@@ -886,13 +886,13 @@ inline Vec3<Promote<T>> Vec3<T>::inverted() const {
 
 template <class T>
 template <class U>
-inline Promote<T, U> Vec3<T>::distance(const Vec3<U>& other) const {
+inline Promote<T, U> Vec<T, 3>::distance(const Vec3<U>& other) const {
   return (*this - other).magnitude();
 }
 
 template <class T>
 template <class U>
-inline Promote<T, U> Vec3<T>::distanceSquared(const Vec3<U>& other) const {
+inline Promote<T, U> Vec<T, 3>::distanceSquared(const Vec3<U>& other) const {
   return (*this - other).magnitudeSquared();
 }
 
@@ -900,13 +900,13 @@ inline Promote<T, U> Vec3<T>::distanceSquared(const Vec3<U>& other) const {
 
 template <class T>
 template <class U>
-inline Promote<T, U> Vec3<T>::dot(const Vec3<U>& other) const {
+inline Promote<T, U> Vec<T, 3>::dot(const Vec3<U>& other) const {
   return static_cast<Promote<T, U>>(x) * other.x + y * other.y + z * other.z;
 }
 
 template <class T>
 template <class U>
-inline Vec3<Promote<T, U>> Vec3<T>::cross(const Vec3<U>& other) const {
+inline Vec3<Promote<T, U>> Vec<T, 3>::cross(const Vec3<U>& other) const {
   using V = Promote<T, U>;
   return Vec3<V>(static_cast<V>(y) * other.z - z * other.y,
                  static_cast<V>(z) * other.x - x * other.z,
@@ -917,7 +917,8 @@ inline Vec3<Promote<T, U>> Vec3<T>::cross(const Vec3<U>& other) const {
 
 template <class T>
 template <class V, class U>
-inline Vec3<Promote<T, U>> Vec3<T>::lerp(const Vec3<U>& other, V factor) const {
+inline Vec3<Promote<T, U>> Vec<T, 3>::lerp(const Vec3<U>& other,
+                                           V factor) const {
   return Vec3<Promote<T, U>>(x + (other.x - x) * factor,
                              y + (other.y - y) * factor,
                              z + (other.z - z) * factor);
@@ -927,13 +928,13 @@ inline Vec3<Promote<T, U>> Vec3<T>::lerp(const Vec3<U>& other, V factor) const {
 
 template <class T>
 template <class U>
-inline Vec3<T>& Vec3<T>::jitter(const Vec3<U>& vector) {
+inline Vec3<T>& Vec<T, 3>::jitter(const Vec3<U>& vector) {
   return jitter(vector, &Random<>::shared());
 }
 
 template <class T>
 template <class Random, class U>
-inline Vec3<T>& Vec3<T>::jitter(const Vec3<U>& vector, Random *random) {
+inline Vec3<T>& Vec<T, 3>::jitter(const Vec3<U>& vector, Random *random) {
   if (vector.empty()) {
     return *this;
   }
@@ -946,14 +947,14 @@ inline Vec3<T>& Vec3<T>::jitter(const Vec3<U>& vector, Random *random) {
 
 template <class T>
 template <class U>
-inline Vec3<Promote<T, U>> Vec3<T>::jittered(const Vec3<U>& vector) const {
+inline Vec3<Promote<T, U>> Vec<T, 3>::jittered(const Vec3<U>& vector) const {
   return Vec3<Promote<T, U>>(*this).jitter(vector);
 }
 
 template <class T>
 template <class Random, class U>
-inline Vec3<Promote<T, U>> Vec3<T>::jittered(const Vec3<U>& vector,
-                                             Random *random) const {
+inline Vec3<Promote<T, U>> Vec<T, 3>::jittered(const Vec3<U>& vector,
+                                               Random *random) const {
   return Vec3<Promote<T, U>>(*this).jitter(vector, random);
 }
 

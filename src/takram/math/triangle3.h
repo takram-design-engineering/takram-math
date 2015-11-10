@@ -143,31 +143,31 @@ using Triangle3d = Triangle3<double>;
 #pragma mark -
 
 template <class T>
-inline Triangle3<T>::Triangle() : a(), b(), c() {}
+inline Triangle<T, 3>::Triangle() : a(), b(), c() {}
 
 template <class T>
-inline Triangle3<T>::Triangle(T x1, T y1, T z1,
-                              T x2, T y2, T z2,
-                              T x3, T y3, T z3)
+inline Triangle<T, 3>::Triangle(T x1, T y1, T z1,
+                                T x2, T y2, T z2,
+                                T x3, T y3, T z3)
     : a(x1, y1, z1),
       b(x2, y2, z2),
       c(x3, y3, z3) {}
 
 template <class T>
-inline Triangle3<T>::Triangle(const Vec3<T>& a,
-                              const Vec3<T>& b,
-                              const Vec3<T>& c)
+inline Triangle<T, 3>::Triangle(const Vec3<T>& a,
+                                const Vec3<T>& b,
+                                const Vec3<T>& c)
     : a(a),
       b(b),
       c(c) {}
 
 template <class T>
-inline Triangle3<T>::Triangle(std::initializer_list<T> list) : a(), b(), c() {
+inline Triangle<T, 3>::Triangle(std::initializer_list<T> list) : a(), b(), c() {
   set(list);
 }
 
 template <class T>
-inline Triangle3<T>::Triangle(std::initializer_list<Vec3<T>> list)
+inline Triangle<T, 3>::Triangle(std::initializer_list<Vec3<T>> list)
     : a(),
       b(),
       c() {
@@ -178,7 +178,7 @@ inline Triangle3<T>::Triangle(std::initializer_list<Vec3<T>> list)
 
 template <class T>
 template <class U>
-inline Triangle3<T>::Triangle(const Triangle3<U>& other)
+inline Triangle<T, 3>::Triangle(const Triangle3<U>& other)
     : a(other.a),
       b(other.b),
       c(other.c) {}
@@ -187,7 +187,7 @@ inline Triangle3<T>::Triangle(const Triangle3<U>& other)
 
 template <class T>
 template <class U>
-inline Triangle3<T>::Triangle(const Triangle2<U>& other)
+inline Triangle<T, 3>::Triangle(const Triangle2<U>& other)
     : a(other.a),
       b(other.b),
       c(other.c) {}
@@ -195,25 +195,25 @@ inline Triangle3<T>::Triangle(const Triangle2<U>& other)
 #pragma mark Mutators
 
 template <class T>
-inline void Triangle3<T>::set(T x1, T y1, T z1,
-                              T x2, T y2, T z2,
-                              T x3, T y3, T z3) {
+inline void Triangle<T, 3>::set(T x1, T y1, T z1,
+                                T x2, T y2, T z2,
+                                T x3, T y3, T z3) {
   a.x = x1; a.y = y1; a.z = z1;
   b.x = x2; b.y = y2; b.z = z2;
   c.x = x3; c.y = y3; c.z = z3;
 }
 
 template <class T>
-inline void Triangle3<T>::set(const Vec3<T>& a,
-                              const Vec3<T>& b,
-                              const Vec3<T>& c) {
+inline void Triangle<T, 3>::set(const Vec3<T>& a,
+                                const Vec3<T>& b,
+                                const Vec3<T>& c) {
   this->a = a;
   this->b = b;
   this->c = c;
 }
 
 template <class T>
-inline void Triangle3<T>::set(std::initializer_list<T> list) {
+inline void Triangle<T, 3>::set(std::initializer_list<T> list) {
   auto itr = std::begin(list);
   if (itr == std::end(list)) return;
   a.x = *itr;
@@ -236,7 +236,7 @@ inline void Triangle3<T>::set(std::initializer_list<T> list) {
 }
 
 template <class T>
-inline void Triangle3<T>::set(std::initializer_list<Vec3<T>> list) {
+inline void Triangle<T, 3>::set(std::initializer_list<Vec3<T>> list) {
   auto itr = std::begin(list);
   if (itr == std::end(list)) return;
   a = decltype(a)(*itr);
@@ -247,14 +247,14 @@ inline void Triangle3<T>::set(std::initializer_list<Vec3<T>> list) {
 }
 
 template <class T>
-inline void Triangle3<T>::reset() {
+inline void Triangle<T, 3>::reset() {
   *this = Triangle();
 }
 
 #pragma mark Element access
 
 template <class T>
-inline Vec3<T>& Triangle3<T>::at(int index) {
+inline Vec3<T>& Triangle<T, 3>::at(int index) {
   switch (index) {
     case 0: return a;
     case 1: return b;
@@ -267,7 +267,7 @@ inline Vec3<T>& Triangle3<T>::at(int index) {
 }
 
 template <class T>
-inline const Vec3<T>& Triangle3<T>::at(int index) const {
+inline const Vec3<T>& Triangle<T, 3>::at(int index) const {
   switch (index) {
     case 0: return a;
     case 1: return b;
@@ -283,19 +283,20 @@ inline const Vec3<T>& Triangle3<T>::at(int index) const {
 
 template <class T>
 template <class U>
-inline bool Triangle3<T>::operator==(const Triangle3<U>& other) const {
+inline bool Triangle<T, 3>::operator==(const Triangle3<U>& other) const {
   return a == other.a && b == other.b && c == other.c;
 }
 
 template <class T>
 template <class U>
-inline bool Triangle3<T>::operator!=(const Triangle3<U>& other) const {
+inline bool Triangle<T, 3>::operator!=(const Triangle3<U>& other) const {
   return !operator==(other);
 }
 
 template <class T>
 template <class V, class U>
-inline bool Triangle3<T>::equals(const Triangle3<U>& other, V tolerance) const {
+inline bool Triangle<T, 3>::equals(const Triangle3<U>& other,
+                                   V tolerance) const {
   return (a.equals(other.a, tolerance) &&
           b.equals(other.b, tolerance) &&
           c.equals(other.c, tolerance));
@@ -304,19 +305,19 @@ inline bool Triangle3<T>::equals(const Triangle3<U>& other, V tolerance) const {
 #pragma mark Attributes
 
 template <class T>
-inline Promote<T> Triangle3<T>::area() const {
+inline Promote<T> Triangle<T, 3>::area() const {
   return (b - a).cross(c - a).magnitude() / 2;
 }
 
 template <class T>
-inline Promote<T> Triangle3<T>::perimeter() const {
+inline Promote<T> Triangle<T, 3>::perimeter() const {
   return std::sqrt(a.distanceSquared(b) +
                    b.distanceSquared(c) +
                    c.distanceSquared(a));
 }
 
 template <class T>
-inline Vec3<Promote<T>> Triangle3<T>::centroid() const {
+inline Vec3<Promote<T>> Triangle<T, 3>::centroid() const {
   return (a + b + c) / 3;
 }
 

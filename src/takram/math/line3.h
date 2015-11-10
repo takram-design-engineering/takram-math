@@ -147,23 +147,23 @@ using Line3d = Line3<double>;
 #pragma mark -
 
 template <class T>
-inline Line3<T>::Line() : a(), b() {}
+inline Line<T, 3>::Line() : a(), b() {}
 
 template <class T>
-inline Line3<T>::Line(T x1, T y1, T z1, T x2, T y2, T z2)
+inline Line<T, 3>::Line(T x1, T y1, T z1, T x2, T y2, T z2)
     : a(x1, y1, z1),
       b(x2, y2, z2) {}
 
 template <class T>
-inline Line3<T>::Line(const Vec3<T>& a, const Vec3<T>& b) : a(a), b(b) {}
+inline Line<T, 3>::Line(const Vec3<T>& a, const Vec3<T>& b) : a(a), b(b) {}
 
 template <class T>
-inline Line3<T>::Line(std::initializer_list<T> list) : a(), b() {
+inline Line<T, 3>::Line(std::initializer_list<T> list) : a(), b() {
   set(list);
 }
 
 template <class T>
-inline Line3<T>::Line(std::initializer_list<Vec3<T>> list) : a(), b() {
+inline Line<T, 3>::Line(std::initializer_list<Vec3<T>> list) : a(), b() {
   set(list);
 }
 
@@ -171,30 +171,30 @@ inline Line3<T>::Line(std::initializer_list<Vec3<T>> list) : a(), b() {
 
 template <class T>
 template <class U>
-inline Line3<T>::Line(const Line3<U>& other) : a(other.a), b(other.b) {}
+inline Line<T, 3>::Line(const Line3<U>& other) : a(other.a), b(other.b) {}
 
 #pragma mark Explicit conversion
 
 template <class T>
 template <class U>
-inline Line3<T>::Line(const Line2<U>& other) : a(other.a), b(other.b) {}
+inline Line<T, 3>::Line(const Line2<U>& other) : a(other.a), b(other.b) {}
 
 #pragma mark Mutators
 
 template <class T>
-inline void Line3<T>::set(T x1, T y1, T z1, T x2, T y2, T z2) {
+inline void Line<T, 3>::set(T x1, T y1, T z1, T x2, T y2, T z2) {
   a.x = x1; a.y = y1; a.z = z1;
   b.x = x2; b.y = y2; b.z = z2;
 }
 
 template <class T>
-inline void Line3<T>::set(const Vec3<T>& a, const Vec3<T>& b) {
+inline void Line<T, 3>::set(const Vec3<T>& a, const Vec3<T>& b) {
   this->a = a;
   this->b = b;
 }
 
 template <class T>
-inline void Line3<T>::set(std::initializer_list<T> list) {
+inline void Line<T, 3>::set(std::initializer_list<T> list) {
   auto itr = std::begin(list);
   if (itr == std::end(list)) return;
   a.x = *itr;
@@ -211,7 +211,7 @@ inline void Line3<T>::set(std::initializer_list<T> list) {
 }
 
 template <class T>
-inline void Line3<T>::set(std::initializer_list<Vec3<T>> list) {
+inline void Line<T, 3>::set(std::initializer_list<Vec3<T>> list) {
   auto itr = std::begin(list);
   if (itr == std::end(list)) return;
   a = decltype(a)(*itr);
@@ -220,14 +220,14 @@ inline void Line3<T>::set(std::initializer_list<Vec3<T>> list) {
 }
 
 template <class T>
-inline void Line3<T>::reset() {
+inline void Line<T, 3>::reset() {
   *this = Line();
 }
 
 #pragma mark Element access
 
 template <class T>
-inline Vec3<T>& Line3<T>::at(int index) {
+inline Vec3<T>& Line<T, 3>::at(int index) {
   switch (index) {
     case 0: return a;
     case 1: return b;
@@ -239,7 +239,7 @@ inline Vec3<T>& Line3<T>::at(int index) {
 }
 
 template <class T>
-inline const Vec3<T>& Line3<T>::at(int index) const {
+inline const Vec3<T>& Line<T, 3>::at(int index) const {
   switch (index) {
     case 0: return a;
     case 1: return b;
@@ -254,48 +254,48 @@ inline const Vec3<T>& Line3<T>::at(int index) const {
 
 template <class T>
 template <class U>
-inline bool Line3<T>::operator==(const Line3<U>& other) const {
+inline bool Line<T, 3>::operator==(const Line3<U>& other) const {
   return a == other.a && b == other.b;
 }
 
 template <class T>
 template <class U>
-inline bool Line3<T>::operator!=(const Line3<U>& other) const {
+inline bool Line<T, 3>::operator!=(const Line3<U>& other) const {
   return !operator==(other);
 }
 
 template <class T>
 template <class V, class U>
-inline bool Line3<T>::equals(const Line3<U>& other, V tolerance) const {
+inline bool Line<T, 3>::equals(const Line3<U>& other, V tolerance) const {
   return a.equals(other.a, tolerance) && b.equals(other.b, tolerance);
 }
 
 #pragma mark Attributes
 
 template <class T>
-inline Vec3<Promote<T>> Line3<T>::direction() const {
+inline Vec3<Promote<T>> Line<T, 3>::direction() const {
   return (b - a).normalize();
 }
 
 template <class T>
-inline Vec3<Promote<T>> Line3<T>::normal() const {
+inline Vec3<Promote<T>> Line<T, 3>::normal() const {
   return b.cross(a);
 }
 
 template <class T>
-inline Vec3<Promote<T>> Line3<T>::mid() const {
+inline Vec3<Promote<T>> Line<T, 3>::mid() const {
   return (a + b) / 2;
 }
 
 #pragma mark Length
 
 template <class T>
-inline Promote<T> Line3<T>::length() const {
+inline Promote<T> Line<T, 3>::length() const {
   return a.distance(b);
 }
 
 template <class T>
-inline Promote<T> Line3<T>::lengthSquared() const {
+inline Promote<T> Line<T, 3>::lengthSquared() const {
   return a.distanceSquared(b);
 }
 
@@ -303,7 +303,7 @@ inline Promote<T> Line3<T>::lengthSquared() const {
 
 template <class T>
 template <class U>
-inline Vec3<T> Line3<T>::project(const Vec3<U>& point) const {
+inline Vec3<T> Line<T, 3>::project(const Vec3<U>& point) const {
   const auto ab = b - a;
   const auto magnitude = ab.magnitudeSquared();
   if (!magnitude) {

@@ -33,15 +33,15 @@
 namespace takram {
 namespace math {
 
-template <class T, class Iterator>
-unsigned int solveLinear(T a, T b, Iterator result);
-template <class T, class Iterator>
-unsigned int solveQuadratic(T a, T b, T c, Iterator result);
+template <class A, class B, class Iterator>
+unsigned int solveLinear(A a, B b, Iterator result);
+template <class A, class B, class C, class Iterator>
+unsigned int solveQuadratic(A a, B b, C c, Iterator result);
 
 #pragma mark -
 
-template <class T, class Iterator>
-inline unsigned int solveLinear(T a, T b, Iterator result) {
+template <class A, class B, class Iterator>
+inline unsigned int solveLinear(A a, B b, Iterator result) {
   if (!a) {
     return 0;
   }
@@ -49,8 +49,8 @@ inline unsigned int solveLinear(T a, T b, Iterator result) {
   return 1;
 }
 
-template <class T, class Iterator>
-inline unsigned int solveQuadratic(T a, T b, T c, Iterator result) {
+template <class A, class B, class C, class Iterator>
+inline unsigned int solveQuadratic(A a, B b, C c, Iterator result) {
   if (!a) {
     return solveLinear(b, c, result);
   }

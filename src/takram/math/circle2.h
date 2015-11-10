@@ -108,48 +108,48 @@ using Circle2d = Circle2<double>;
 #pragma mark -
 
 template <class T>
-inline Circle2<T>::Circle() : center(), radius() {}
+inline Circle<T, 2>::Circle() : center(), radius() {}
 
 template <class T>
-inline Circle2<T>::Circle(const Vec2<T>& center, T radius)
+inline Circle<T, 2>::Circle(const Vec2<T>& center, T radius)
     : center(center),
       radius(radius) {}
 
 template <class T>
-inline Circle2<T>::Circle(const Vec2<T>& a, const Vec2<T>& b) {
+inline Circle<T, 2>::Circle(const Vec2<T>& a, const Vec2<T>& b) {
   set(a, b);
 }
 
 template <class T>
-inline Circle2<T>::Circle(const Vec2<T>& a,
-                          const Vec2<T>& b,
-                          const Vec2<T>& c) {
+inline Circle<T, 2>::Circle(const Vec2<T>& a,
+                            const Vec2<T>& b,
+                            const Vec2<T>& c) {
   set(a, b, c);
 }
 
 #pragma mark Mutators
 
 template <class T>
-inline void Circle2<T>::set(const Vec2<T>& center, T radius) {
+inline void Circle<T, 2>::set(const Vec2<T>& center, T radius) {
   this->center = center;
   this->radius = radius;
 }
 
 template <class T>
-inline void Circle2<T>::set(const Vec2<T>& a, const Vec2<T>& b) {
+inline void Circle<T, 2>::set(const Vec2<T>& a, const Vec2<T>& b) {
   center = (a + b) / 2;
   radius = center.distance(a);
 }
 
 template <class T>
-inline void Circle2<T>::set(const Vec2<T>& a,
-                            const Vec2<T>& b,
-                            const Vec2<T>& c) {
+inline void Circle<T, 2>::set(const Vec2<T>& a,
+                              const Vec2<T>& b,
+                              const Vec2<T>& c) {
   // TODO(shotamatsuda):
 }
 
 template <class T>
-inline void Circle2<T>::reset() {
+inline void Circle<T, 2>::reset() {
   *this = Circle();
 }
 
@@ -157,45 +157,45 @@ inline void Circle2<T>::reset() {
 
 template <class T>
 template <class U>
-inline bool Circle2<T>::operator==(const Circle2<U>& other) const {
+inline bool Circle<T, 2>::operator==(const Circle2<U>& other) const {
   return center < other.center || center == other.center;
 }
 
 template <class T>
 template <class U>
-inline bool Circle2<T>::operator!=(const Circle2<U>& other) const {
+inline bool Circle<T, 2>::operator!=(const Circle2<U>& other) const {
   return !operator==(other);
 }
 
 template <class T>
 template <class U>
-inline bool Circle2<T>::operator<(const Circle2<U>& other) const {
+inline bool Circle<T, 2>::operator<(const Circle2<U>& other) const {
   return center < other.center ||
       (center == other.center && radius < other.radius);
 }
 
 template <class T>
 template <class U>
-inline bool Circle2<T>::operator>(const Circle2<U>& other) const {
+inline bool Circle<T, 2>::operator>(const Circle2<U>& other) const {
   return center > other.center ||
       (center == other.center && radius > other.radius);
 }
 
 template <class T>
 template <class U>
-inline bool Circle2<T>::operator<=(const Circle2<U>& other) const {
+inline bool Circle<T, 2>::operator<=(const Circle2<U>& other) const {
   return operator<(other) || operator==(other);
 }
 
 template <class T>
 template <class U>
-inline bool Circle2<T>::operator>=(const Circle2<U>& other) const {
+inline bool Circle<T, 2>::operator>=(const Circle2<U>& other) const {
   return operator>(other) || operator==(other);
 }
 
 template <class T>
 template <class V, class U>
-inline bool Circle2<T>::equals(const Circle2<U>& other, V tolerance) const {
+inline bool Circle<T, 2>::equals(const Circle2<U>& other, V tolerance) const {
   return ((center - radius).equals((other.center - other.radius), tolerance) &&
           (center + radius).equals((other.center + other.radius), tolerance));
 }
@@ -203,24 +203,24 @@ inline bool Circle2<T>::equals(const Circle2<U>& other, V tolerance) const {
 #pragma mark Attributes
 
 template <class T>
-inline Promote<T> Circle2<T>::diameter() const {
+inline Promote<T> Circle<T, 2>::diameter() const {
   return radius + radius;
 }
 
 template <class T>
-inline Promote<T> Circle2<T>::circumference() const {
+inline Promote<T> Circle<T, 2>::circumference() const {
   return radius * tau<T>();
 }
 
 template <class T>
-inline Promote<T> Circle2<T>::area() const {
+inline Promote<T> Circle<T, 2>::area() const {
   return radius * radius * pi<T>();
 }
 
 #pragma mark Canonicalization
 
 template <class T>
-inline Circle2<T>& Circle2<T>::canonicalize() {
+inline Circle2<T>& Circle<T, 2>::canonicalize() {
   if (radius < 0) {
     radius = -radius;
   }
@@ -228,7 +228,7 @@ inline Circle2<T>& Circle2<T>::canonicalize() {
 }
 
 template <class T>
-inline Circle2<Promote<T>> Circle2<T>::canonicalized() const {
+inline Circle2<Promote<T>> Circle<T, 2>::canonicalized() const {
   return Circle2<Promote<T>>(*this).canonicalize();
 }
 
@@ -236,7 +236,7 @@ inline Circle2<Promote<T>> Circle2<T>::canonicalized() const {
 
 template <class T>
 template <class U>
-inline bool Circle2<T>::contains(const Vec2<U>& point) const {
+inline bool Circle<T, 2>::contains(const Vec2<U>& point) const {
   return center.distanceSquared(point) <= radius * radius;
 }
 
