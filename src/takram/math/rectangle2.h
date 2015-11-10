@@ -323,7 +323,7 @@ inline Rect<T, 2>::Rect(const ofRectangle& other)
       size(other.width, other.height) {}
 
 template <class T>
-inline Rect<T>::operator ofRectangle() const {
+inline Rect<T, 2>::operator ofRectangle() const {
   return ofRectangle(x, y, width, height);
 }
 
@@ -338,7 +338,7 @@ inline Rect<T, 2>::Rect(const ci::RectT<U>& other)
       size(other.x2 - other.x1, other.y2 - other.y1) {}
 
 template <class T>
-inline Rect<T>::operator ci::RectT<T>() const {
+inline Rect<T, 2>::operator ci::RectT<T>() const {
   return ci::RectT<T>(x, y, x + width, y + height);
 }
 

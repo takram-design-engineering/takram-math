@@ -80,7 +80,7 @@ class Vec<T, 3> final {
   Vec();
   explicit Vec(T value);
   Vec(T x, T y, T z = T());
-  explicit Vec(const T *values, int size = dimensions);
+  explicit Vec(const T *values, int size = 3);
   template <class... Args>
   Vec(const std::tuple<Args...>& tuple);
   Vec(std::initializer_list<T> list);
@@ -114,8 +114,8 @@ class Vec<T, 3> final {
 
 #if TAKRAM_HAS_OPENCV
   template <class U>
-  explicit Vec(const cv::Vec<U, dimensions>& other);
-  explicit operator cv::Vec<T, dimensions>() const;
+  explicit Vec(const cv::Vec<U, 3>& other);
+  explicit operator cv::Vec<T, 3>() const;
 #endif  // TAKRAM_HAS_OPENCV
 
   // Copy semantics
@@ -408,12 +408,11 @@ inline Vec<T, 3>::Vec(const Vec4<U>& other)
 
 template <class T>
 template <class U>
-inline Vec<T, 3>::Vec(const cv::Vec<U, dimensions>& other)
-    : Vec(other.val, dimensions) {}
+inline Vec<T, 3>::Vec(const cv::Vec<U, 3>& other) : Vec(other.val, 3) {}
 
 template <class T>
-inline Vec<T, 3>::operator cv::Vec<T, dimensions>() const {
-  return cv::Vec<T, dimensions>(x, y, z);
+inline Vec<T, 3>::operator cv::Vec<T, 3>() const {
+  return cv::Vec<T, 3>(x, y, z);
 }
 
 #endif  // TAKRAM_HAS_OPENCV

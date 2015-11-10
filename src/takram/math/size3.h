@@ -72,7 +72,7 @@ class Size<T, 3> final {
   Size();
   explicit Size(T value);
   Size(T width, T height, T depth = T());
-  explicit Size(const T *values, int size = dimensions);
+  explicit Size(const T *values, int size = 3);
   template <class... Args>
   Size(const std::tuple<Args...>& tuple);
   Size(std::initializer_list<T> list);
@@ -119,7 +119,7 @@ class Size<T, 3> final {
   // Mutators
   void set(T value);
   void set(T width, T height, T depth = T());
-  void set(const T *values, int size = dimensions);
+  void set(const T *values, int size = 3);
   template <class... Args>
   void set(const std::tuple<Args...>& tuple);
   void set(std::initializer_list<T> list);

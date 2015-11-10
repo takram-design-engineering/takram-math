@@ -76,7 +76,7 @@ class Vec<T, 4> final {
   Vec();
   explicit Vec(T value);
   Vec(T x, T y, T z = T(), T w = T());
-  explicit Vec(const T *values, int size = dimensions);
+  explicit Vec(const T *values, int size = 4);
   template <class... Args>
   Vec(const std::tuple<Args...>& tuple);
   Vec(std::initializer_list<T> list);
@@ -104,8 +104,8 @@ class Vec<T, 4> final {
 
 #if TAKRAM_HAS_OPENCV
   template <class U>
-  explicit Vec(const cv::Vec<U, dimensions>& other);
-  explicit operator cv::Vec<T, dimensions>() const;
+  explicit Vec(const cv::Vec<U, 4>& other);
+  explicit operator cv::Vec<T, 4>() const;
 #endif  // TAKRAM_HAS_OPENCV
 
   // Copy semantics
@@ -131,7 +131,7 @@ class Vec<T, 4> final {
   // Mutators
   void set(T value);
   void set(T x, T y, T z = T(), T w = T());
-  void set(const T *values, int size = dimensions);
+  void set(const T *values, int size = 4);
   template <class... Args>
   void set(const std::tuple<Args...>& tuple);
   void set(std::initializer_list<T> list);
@@ -384,12 +384,11 @@ inline Vec<T, 4>::Vec(const Vec3<U>& other)
 
 template <class T>
 template <class U>
-inline Vec<T, 4>::Vec(const cv::Vec<U, dimensions>& other)
-    : Vec(other.val, dimensions) {}
+inline Vec<T, 4>::Vec(const cv::Vec<U, 4>& other) : Vec(other.val, 4) {}
 
 template <class T>
-inline Vec<T, 4>::operator cv::Vec<T, dimensions>() const {
-  return cv::Vec<T, dimensions>(x, y, z, w);
+inline Vec<T, 4>::operator cv::Vec<T, 4>() const {
+  return cv::Vec<T, 4>(x, y, z, w);
 }
 
 #endif  // TAKRAM_HAS_OPENCV
