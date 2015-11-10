@@ -41,8 +41,6 @@ template <class T>
 class LineTest : public ::testing::Test {};
 
 using Types = ::testing::Types<
-  std::int8_t,
-  std::uint8_t,
   std::int16_t,
   std::uint16_t,
   std::int32_t,
