@@ -103,7 +103,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>%(AdditionalDependencies);mathd.lib;gtestd.lib;gtest_maind.lib</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies);math.lib;gtest.lib;gtest_main.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories);$(OutDir)</AdditionalLibraryDirectories>
       <SubSystem>Console</SubSystem>
     </Link>
@@ -119,7 +119,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>%(AdditionalDependencies);mathd.lib;gtestd.lib;gtest_maind.lib</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies);math.lib;gtest.lib;gtest_main.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories);$(OutDir)</AdditionalLibraryDirectories>
       <SubSystem>Console</SubSystem>
     </Link>
