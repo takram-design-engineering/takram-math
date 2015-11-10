@@ -6,22 +6,22 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\test\line_test.cc">
+    <ClCompile Include="..\test\line_test.cc">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\test\random_test.cc">
+    <ClCompile Include="..\test\random_test.cc">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\test\size_test.cc">
+    <ClCompile Include="..\test\size_test.cc">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\test\test.cc">
+    <ClCompile Include="..\test\test.cc">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\test\triangle_test.cc">
+    <ClCompile Include="..\test\triangle_test.cc">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\test\vector_test.cc">
+    <ClCompile Include="..\test\vector_test.cc">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
