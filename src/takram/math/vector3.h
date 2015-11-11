@@ -117,7 +117,8 @@ class Vec<T, 3> final {
 #if TAKRAM_HAS_OPENCV
   template <class U>
   explicit Vec(const cv::Vec<U, 3>& other);
-  explicit operator cv::Vec<T, 3>() const;
+  template <class U>
+  explicit operator cv::Vec<U, 3>() const;
 #endif  // TAKRAM_HAS_OPENCV
 
   // Copy semantics
@@ -415,8 +416,9 @@ template <class U>
 inline Vec<T, 3>::Vec(const cv::Vec<U, 3>& other) : Vec(other.val, 3) {}
 
 template <class T>
-inline Vec<T, 3>::operator cv::Vec<T, 3>() const {
-  return cv::Vec<T, 3>(x, y, z);
+template <class U>
+inline Vec<T, 3>::operator cv::Vec<U, 3>() const {
+  return cv::Vec<U, 3>(x, y, z);
 }
 
 #endif  // TAKRAM_HAS_OPENCV
