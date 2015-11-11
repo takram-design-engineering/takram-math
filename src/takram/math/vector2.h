@@ -96,7 +96,8 @@ class Vec<T, 2> final {
 #if TAKRAM_HAS_OPENCV
   template <class U>
   Vec(const cv::Point_<U>& other);
-  operator cv::Point_<T>() const;
+  template <class U>
+  operator cv::Point_<U>() const;
 #endif  // TAKRAM_HAS_OPENCV
 
 #if TAKRAM_HAS_OPENFRAMEWORKS
@@ -107,7 +108,8 @@ class Vec<T, 2> final {
 #if TAKRAM_HAS_CINDER
   template <class U>
   Vec(const ci::Vec2<U>& other);
-  operator ci::Vec2<T>() const;
+  template <class U>
+  operator ci::Vec2<U>() const;
 #endif  // TAKRAM_HAS_CINDER
 
 #if TAKRAM_HAS_COREGRAPHICS
@@ -349,8 +351,9 @@ template <class U>
 inline Vec<T, 2>::Vec(const cv::Point_<U>& other) : x(other.x), y(other.y) {}
 
 template <class T>
-inline Vec<T, 2>::operator cv::Point_<T>() const {
-  return cv::Point_<T>(x, y);
+template <class U>
+inline Vec<T, 2>::operator cv::Point_<U>() const {
+  return cv::Point_<U>(x, y);
 }
 
 #endif  // TAKRAM_HAS_OPENCV
@@ -374,8 +377,9 @@ template <class U>
 inline Vec<T, 2>::Vec(const ci::Vec2<U>& other) : x(other.x), y(other.y) {}
 
 template <class T>
-inline Vec<T, 2>::operator ci::Vec2<T>() const {
-  return ci::Vec2<T>(x, y);
+template <class U>
+inline Vec<T, 2>::operator ci::Vec2<U>() const {
+  return ci::Vec2<U>(x, y);
 }
 
 #endif  // TAKRAM_HAS_CINDER

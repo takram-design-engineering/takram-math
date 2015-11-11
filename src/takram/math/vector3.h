@@ -92,7 +92,8 @@ class Vec<T, 3> final {
 #if TAKRAM_HAS_OPENCV
   template <class U>
   Vec(const cv::Point3_<U>& other);
-  operator cv::Point3_<T>() const;
+  template <class U>
+  operator cv::Point3_<U>() const;
 #endif  // TAKRAM_HAS_OPENCV
 
 #if TAKRAM_HAS_OPENFRAMEWORKS
@@ -103,7 +104,8 @@ class Vec<T, 3> final {
 #if TAKRAM_HAS_CINDER
   template <class U>
   Vec(const ci::Vec3<U>& other);
-  operator ci::Vec3<T>() const;
+  template <class U>
+  operator ci::Vec3<U>() const;
 #endif  // TAKRAM_HAS_CINDER
 
   // Explicit conversion
@@ -351,8 +353,9 @@ inline Vec<T, 3>::Vec(const cv::Point3_<U>& other)
       z(other.z) {}
 
 template <class T>
-inline Vec<T, 3>::operator cv::Point3_<T>() const {
-  return cv::Point3_<T>(x, y, z);
+template <class U>
+inline Vec<T, 3>::operator cv::Point3_<U>() const {
+  return cv::Point3_<U>(x, y, z);
 }
 
 #endif  // TAKRAM_HAS_OPENCV
@@ -382,8 +385,9 @@ inline Vec<T, 3>::Vec(const ci::Vec3<U>& other)
       z(other.z) {}
 
 template <class T>
-inline Vec<T, 3>::operator ci::Vec3<T>() const {
-  return ci::Vec3<T>(x, y, z);
+template <class U>
+inline Vec<T, 3>::operator ci::Vec3<U>() const {
+  return ci::Vec3<U>(x, y, z);
 }
 
 #endif  // TAKRAM_HAS_CINDER

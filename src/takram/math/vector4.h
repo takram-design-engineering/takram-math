@@ -93,7 +93,8 @@ class Vec<T, 4> final {
 #if TAKRAM_HAS_CINDER
   template <class U>
   Vec(const ci::Vec4<U>& other);
-  operator ci::Vec4<T>() const;
+  template <class U>
+  operator ci::Vec4<U>() const;
 #endif  // TAKRAM_HAS_CINDER
 
   // Explicit conversion
@@ -105,7 +106,8 @@ class Vec<T, 4> final {
 #if TAKRAM_HAS_OPENCV
   template <class U>
   explicit Vec(const cv::Vec<U, 4>& other);
-  explicit operator cv::Vec<T, 4>() const;
+  template <class U>
+  explicit operator cv::Vec<U, 4>() const;
 #endif  // TAKRAM_HAS_OPENCV
 
   // Copy semantics
@@ -356,8 +358,9 @@ inline Vec<T, 4>::Vec(const ci::Vec4<U>& other)
       w(other.w) {}
 
 template <class T>
-inline Vec<T, 4>::operator ci::Vec4<T>() const {
-  return ci::Vec4<T>(x, y, z, w);
+template <class U>
+inline Vec<T, 4>::operator ci::Vec4<U>() const {
+  return ci::Vec4<U>(x, y, z, w);
 }
 
 #endif  // TAKRAM_HAS_CINDER
@@ -387,8 +390,9 @@ template <class U>
 inline Vec<T, 4>::Vec(const cv::Vec<U, 4>& other) : Vec(other.val, 4) {}
 
 template <class T>
-inline Vec<T, 4>::operator cv::Vec<T, 4>() const {
-  return cv::Vec<T, 4>(x, y, z, w);
+template <class U>
+inline Vec<T, 4>::operator cv::Vec<U, 4>() const {
+  return cv::Vec<U, 4>(x, y, z, w);
 }
 
 #endif  // TAKRAM_HAS_OPENCV
