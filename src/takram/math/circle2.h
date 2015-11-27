@@ -28,6 +28,9 @@
 #ifndef TAKRAM_MATH_CIRCLE2_H_
 #define TAKRAM_MATH_CIRCLE2_H_
 
+#include <cstddef>
+#include <functional>
+
 #include "takram/math/constants.h"
 #include "takram/math/promotion.h"
 #include "takram/math/vector.h"
@@ -248,5 +251,13 @@ using math::Circle2f;
 using math::Circle2d;
 
 }  // namespace takram
+
+template <class T>
+struct std::hash<takram::math::Circle2<T>> {
+  std::size_t operator()(const takram::math::Circle2<T>& value) const {
+    return ((std::hash<takram::math::Vec2<T>>()(value.center) << 0) ^
+            (std::hash<T>()(value.radius) << 1));
+  }
+};
 
 #endif  // TAKRAM_MATH_CIRCLE2_H_

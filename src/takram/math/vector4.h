@@ -30,6 +30,8 @@
 
 #include <cassert>
 #include <cmath>
+#include <cstddef>
+#include <functional>
 #include <initializer_list>
 #include <iterator>
 #include <limits>
@@ -997,5 +999,16 @@ using math::Vector4f;
 using math::Vector4d;
 
 }  // namespace takram
+
+template <class T>
+struct std::hash<takram::math::Vec4<T>> {
+  std::size_t operator()(const takram::math::Vec4<T>& value) const {
+    std::hash<T> hash;
+    return ((hash(value.x) << 0) ^
+            (hash(value.y) << 1) ^
+            (hash(value.z) << 2) ^
+            (hash(value.w) << 3));
+  }
+};
 
 #endif  // TAKRAM_MATH_VECTOR4_H_

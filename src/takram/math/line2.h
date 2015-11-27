@@ -29,6 +29,8 @@
 #define TAKRAM_MATH_LINE2_H_
 
 #include <cassert>
+#include <cstddef>
+#include <functional>
 #include <initializer_list>
 #include <iterator>
 #include <ostream>
@@ -363,5 +365,13 @@ using math::Line2f;
 using math::Line2d;
 
 }  // namespace takram
+
+template <class T>
+struct std::hash<takram::math::Line2<T>> {
+  std::size_t operator()(const takram::math::Line2<T>& value) const {
+    std::hash<takram::math::Vec2<T>> hash;
+    return (hash(value.a) << 0) ^ (hash(value.b) << 1);
+  }
+};
 
 #endif  // TAKRAM_MATH_LINE2_H_

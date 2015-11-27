@@ -29,6 +29,8 @@
 #define TAKRAM_MATH_SIDE_H_
 
 #include <cassert>
+#include <cstddef>
+#include <functional>
 #include <ostream>
 
 namespace takram {
@@ -57,5 +59,12 @@ inline std::ostream& operator<<(std::ostream& os, Side side) {
 using math::Side;
 
 }  // namespace takram
+
+template <>
+struct std::hash<takram::math::Side> {
+  std::size_t operator()(const takram::math::Side& value) const {
+    return static_cast<std::underlying_type<takram::math::Side>::type>(value);
+  }
+};
 
 #endif  // TAKRAM_MATH_SIDE_H_

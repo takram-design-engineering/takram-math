@@ -30,6 +30,8 @@
 
 #include <cassert>
 #include <cmath>
+#include <cstddef>
+#include <functional>
 #include <initializer_list>
 #include <iterator>
 #include <limits>
@@ -985,5 +987,13 @@ using math::Vector3f;
 using math::Vector3d;
 
 }  // namespace takram
+
+template <class T>
+struct std::hash<takram::math::Vec3<T>> {
+  std::size_t operator()(const takram::math::Vec3<T>& value) const {
+    std::hash<T> hash;
+    return (hash(value.x) << 0) ^ (hash(value.y) << 1) ^ (hash(value.z) << 2);
+  }
+};
 
 #endif  // TAKRAM_MATH_VECTOR3_H_

@@ -29,6 +29,8 @@
 #define TAKRAM_MATH_SIZE3_H_
 
 #include <cmath>
+#include <cstddef>
+#include <functional>
 #include <initializer_list>
 #include <iterator>
 #include <ostream>
@@ -708,5 +710,13 @@ using math::Size3f;
 using math::Size3d;
 
 }  // namespace takram
+
+template <class T>
+struct std::hash<takram::math::Size3<T>> {
+  std::size_t operator()(const takram::math::Size3<T>& value) const {
+    std::hash<T> hash;
+    return (hash(value.w) << 0) ^ (hash(value.h) << 1) ^ (hash(value.d) << 2);
+  }
+};
 
 #endif  // TAKRAM_MATH_SIZE3_H_

@@ -29,6 +29,8 @@
 #define TAKRAM_MATH_AXIS_H_
 
 #include <cassert>
+#include <cstddef>
+#include <functional>
 #include <ostream>
 
 namespace takram {
@@ -59,5 +61,12 @@ inline std::ostream& operator<<(std::ostream& os, Axis axis) {
 using math::Axis;
 
 }  // namespace takram
+
+template <>
+struct std::hash<takram::math::Axis> {
+  std::size_t operator()(const takram::math::Axis& value) const {
+    return static_cast<std::underlying_type<takram::math::Axis>::type>(value);
+  }
+};
 
 #endif  // TAKRAM_MATH_AXIS_H_

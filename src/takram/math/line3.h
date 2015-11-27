@@ -29,6 +29,8 @@
 #define TAKRAM_MATH_LINE3_H_
 
 #include <cassert>
+#include <cstddef>
+#include <functional>
 #include <initializer_list>
 #include <iterator>
 #include <ostream>
@@ -334,5 +336,13 @@ using math::Line3f;
 using math::Line3d;
 
 }  // namespace takram
+
+template <class T>
+struct std::hash<takram::math::Line3<T>> {
+  std::size_t operator()(const takram::math::Line3<T>& value) const {
+    std::hash<takram::math::Vec3<T>> hash;
+    return (hash(value.a) << 0) ^ (hash(value.b) << 1);
+  }
+};
 
 #endif  // TAKRAM_MATH_LINE3_H_

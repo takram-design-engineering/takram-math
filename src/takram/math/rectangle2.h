@@ -31,6 +31,8 @@
 #include <algorithm>
 #include <cassert>
 #include <cmath>
+#include <cstddef>
+#include <functional>
 #include <ostream>
 #include <utility>
 
@@ -746,5 +748,13 @@ using math::Rectangle2f;
 using math::Rectangle2d;
 
 }  // namespace takram
+
+template <class T>
+struct std::hash<takram::math::Rectangle2<T>> {
+  std::size_t operator()(const takram::math::Rectangle2<T>& value) const {
+    return ((std::hash<takram::math::Vec2<T>>()(value.origin) << 0) ^
+            (std::hash<takram::math::Size2<T>>()(value.size) << 1));
+  }
+};
 
 #endif  // TAKRAM_MATH_RECTANGLE2_H_

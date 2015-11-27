@@ -30,6 +30,8 @@
 
 #include <cassert>
 #include <cmath>
+#include <cstddef>
+#include <functional>
 #include <initializer_list>
 #include <iterator>
 #include <ostream>
@@ -327,5 +329,13 @@ using math::Triangle2f;
 using math::Triangle2d;
 
 }  // namespace takram
+
+template <class T>
+struct std::hash<takram::math::Triangle2<T>> {
+  std::size_t operator()(const takram::math::Triangle2<T>& value) const {
+    std::hash<takram::math::Vec2<T>> hash;
+    return (hash(value.a) << 0) ^ (hash(value.b) << 1) ^ (hash(value.c) << 1);
+  }
+};
 
 #endif  // TAKRAM_MATH_TRIANGLE2_H_
