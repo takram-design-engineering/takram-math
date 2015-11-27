@@ -66,18 +66,6 @@ class Circle<T, 2> final {
   void reset();
 
   // Comparison
-  template <class U>
-  bool operator==(const Circle2<U>& other) const;
-  template <class U>
-  bool operator!=(const Circle2<U>& other) const;
-  template <class U>
-  bool operator<(const Circle2<U>& other) const;
-  template <class U>
-  bool operator>(const Circle2<U>& other) const;
-  template <class U>
-  bool operator<=(const Circle2<U>& other) const;
-  template <class U>
-  bool operator>=(const Circle2<U>& other) const;
   template <class V, class U = T>
   bool equals(const Circle2<U>& other, V tolerance) const;
 
@@ -158,42 +146,36 @@ inline void Circle<T, 2>::reset() {
 
 #pragma mark Comparison
 
-template <class T>
-template <class U>
-inline bool Circle<T, 2>::operator==(const Circle2<U>& other) const {
-  return center < other.center || center == other.center;
+template <class T, class U>
+inline bool operator==(const Circle2<T>& lhs, const Circle2<U>& rhs) {
+  return lhs.center == rhs.center && lhs.radius == rhs.radius;
 }
 
-template <class T>
-template <class U>
-inline bool Circle<T, 2>::operator!=(const Circle2<U>& other) const {
-  return !operator==(other);
+template <class T, class U>
+inline bool operator!=(const Circle2<T>& lhs, const Circle2<U>& rhs) {
+  return !(lhs == rhs);
 }
 
-template <class T>
-template <class U>
-inline bool Circle<T, 2>::operator<(const Circle2<U>& other) const {
-  return center < other.center ||
-      (center == other.center && radius < other.radius);
+template <class T, class U>
+inline bool operator<(const Circle2<T>& lhs, const Circle2<U>& rhs) {
+  return lhs.center < rhs.center ||
+        (lhs.center == rhs.center && lhs.radius < rhs.radius);
 }
 
-template <class T>
-template <class U>
-inline bool Circle<T, 2>::operator>(const Circle2<U>& other) const {
-  return center > other.center ||
-      (center == other.center && radius > other.radius);
+template <class T, class U>
+inline bool operator>(const Circle2<T>& lhs, const Circle2<U>& rhs) {
+  return lhs.center > rhs.center ||
+        (lhs.center == rhs.center && lhs.radius > rhs.radius);
 }
 
-template <class T>
-template <class U>
-inline bool Circle<T, 2>::operator<=(const Circle2<U>& other) const {
-  return operator<(other) || operator==(other);
+template <class T, class U>
+inline bool operator<=(const Circle2<T>& lhs, const Circle2<U>& rhs) {
+  return lhs < rhs || lhs == rhs;
 }
 
-template <class T>
-template <class U>
-inline bool Circle<T, 2>::operator>=(const Circle2<U>& other) const {
-  return operator>(other) || operator==(other);
+template <class T, class U>
+inline bool operator>=(const Circle2<T>& lhs, const Circle2<U>& rhs) {
+  return lhs > rhs || lhs == rhs;
 }
 
 template <class T>

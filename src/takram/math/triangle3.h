@@ -96,10 +96,6 @@ class Triangle<T, 3> final {
   const Vec3<T>& back() const { return c; }
 
   // Comparison
-  template <class U>
-  bool operator==(const Triangle3<U>& other) const;
-  template <class U>
-  bool operator!=(const Triangle3<U>& other) const;
   template <class V, class U = T>
   bool equals(const Triangle3<U>& other, V tolerance) const;
 
@@ -137,6 +133,12 @@ class Triangle<T, 3> final {
     struct { T x3; T y3; T z3; };
   };
 };
+
+// Comparison
+template <class T, class U>
+bool operator==(const Triangle3<T>& lhs, const Triangle3<U>& rhs);
+template <class T, class U>
+bool operator!=(const Triangle3<T>& lhs, const Triangle3<U>& rhs);
 
 using Triangle3i = Triangle3<int>;
 using Triangle3f = Triangle3<float>;
@@ -283,16 +285,14 @@ inline const Vec3<T>& Triangle<T, 3>::at(int index) const {
 
 #pragma mark Comparison
 
-template <class T>
-template <class U>
-inline bool Triangle<T, 3>::operator==(const Triangle3<U>& other) const {
-  return a == other.a && b == other.b && c == other.c;
+template <class T, class U>
+inline bool operator==(const Triangle3<T>& lhs, const Triangle3<U>& rhs) {
+  return lhs.a == rhs.a && lhs.b == rhs.b && lhs.c == rhs.c;
 }
 
-template <class T>
-template <class U>
-inline bool Triangle<T, 3>::operator!=(const Triangle3<U>& other) const {
-  return !operator==(other);
+template <class T, class U>
+inline bool operator!=(const Triangle3<T>& lhs, const Triangle3<U>& rhs) {
+  return !(lhs == rhs);
 }
 
 template <class T>

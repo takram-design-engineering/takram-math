@@ -167,18 +167,6 @@ class Vec<T, 3> final {
   const T& back() const { return z; }
 
   // Comparison
-  template <class U>
-  bool operator==(const Vec3<U>& other) const;
-  template <class U>
-  bool operator!=(const Vec3<U>& other) const;
-  template <class U>
-  bool operator<(const Vec3<U>& other) const;
-  template <class U>
-  bool operator>(const Vec3<U>& other) const;
-  template <class U>
-  bool operator<=(const Vec3<U>& other) const;
-  template <class U>
-  bool operator>=(const Vec3<U>& other) const;
   template <class V, class U = T>
   bool equals(const Vec3<U>& other, V tolerance) const;
 
@@ -188,28 +176,12 @@ class Vec<T, 3> final {
   Vec& operator*=(const Vec& other);
   Vec& operator/=(const Vec& other);
   Vec3<Promote<T>> operator-() const;
-  template <class U>
-  Vec3<Promote<T, U>> operator+(const Vec3<U>& other) const;
-  template <class U>
-  Vec3<Promote<T, U>> operator-(const Vec3<U>& other) const;
-  template <class U>
-  Vec3<Promote<T, U>> operator*(const Vec3<U>& other) const;
-  template <class U>
-  Vec3<Promote<T, U>> operator/(const Vec3<U>& other) const;
 
   // Scalar arithmetic
   Vec& operator+=(T scalar);
   Vec& operator-=(T scalar);
   Vec& operator*=(T scalar);
   Vec& operator/=(T scalar);
-  template <class U, EnableIfScalar<U> * = nullptr>
-  Vec3<Promote<T, U>> operator+(U scalar) const;
-  template <class U, EnableIfScalar<U> * = nullptr>
-  Vec3<Promote<T, U>> operator-(U scalar) const;
-  template <class U, EnableIfScalar<U> * = nullptr>
-  Vec3<Promote<T, U>> operator*(U scalar) const;
-  template <class U, EnableIfScalar<U> * = nullptr>
-  Vec3<Promote<T, U>> operator/(U scalar) const;
 
   // Attributes
   bool empty() const { return !x && !y && !z; }
@@ -288,7 +260,39 @@ class Vec<T, 3> final {
   T z;
 };
 
+// Comparison
+template <class T, class U>
+bool operator==(const Vec3<T>& lhs, const Vec3<U>& rhs);
+template <class T, class U>
+bool operator!=(const Vec3<T>& lhs, const Vec3<U>& rhs);
+template <class T, class U>
+bool operator<(const Vec3<T>& lhs, const Vec3<U>& rhs);
+template <class T, class U>
+bool operator>(const Vec3<T>& lhs, const Vec3<U>& rhs);
+template <class T, class U>
+bool operator<=(const Vec3<T>& lhs, const Vec3<U>& rhs);
+template <class T, class U>
+bool operator>=(const Vec3<T>& lhs, const Vec3<U>& rhs);
+
+// Arithmetic
+template <class T, class U>
+Vec3<Promote<T, U>> operator+(const Vec3<T>& lhs, const Vec3<U>& rhs);
+template <class T, class U>
+Vec3<Promote<T, U>> operator-(const Vec3<T>& lhs, const Vec3<U>& rhs);
+template <class T, class U>
+Vec3<Promote<T, U>> operator*(const Vec3<T>& lhs, const Vec3<U>& rhs);
+template <class T, class U>
+Vec3<Promote<T, U>> operator/(const Vec3<T>& lhs, const Vec3<U>& rhs);
+
 // Scalar arithmetic
+template <class T, class U, EnableIfScalar<U> * = nullptr>
+Vec3<Promote<T, U>> operator+(const Vec3<T>& lhs, U rhs);
+template <class T, class U, EnableIfScalar<U> * = nullptr>
+Vec3<Promote<T, U>> operator-(const Vec3<T>& lhs, U rhs);
+template <class T, class U, EnableIfScalar<U> * = nullptr>
+Vec3<Promote<T, U>> operator*(const Vec3<T>& lhs, U rhs);
+template <class T, class U, EnableIfScalar<U> * = nullptr>
+Vec3<Promote<T, U>> operator/(const Vec3<T>& lhs, U rhs);
 template <class T, class U, EnableIfScalar<T> * = nullptr>
 Vec3<Promote<T, U>> operator+(T lhs, const Vec3<U>& rhs);
 template <class T, class U, EnableIfScalar<T> * = nullptr>
@@ -583,42 +587,36 @@ inline const T& Vec<T, 3>::at(Axis axis) const {
 
 #pragma mark Comparison
 
-template <class T>
-template <class U>
-inline bool Vec<T, 3>::operator==(const Vec3<U>& other) const {
-  return x == other.x && y == other.y && z == other.z;
+template <class T, class U>
+inline bool operator==(const Vec3<T>& lhs, const Vec3<U>& rhs) {
+  return lhs.x == rhs.x && lhs.y == rhs.y && lhs.z == rhs.z;
 }
 
-template <class T>
-template <class U>
-inline bool Vec<T, 3>::operator!=(const Vec3<U>& other) const {
-  return !operator==(other);
+template <class T, class U>
+inline bool operator!=(const Vec3<T>& lhs, const Vec3<U>& rhs) {
+  return !(lhs == rhs);
 }
 
-template <class T>
-template <class U>
-inline bool Vec<T, 3>::operator<(const Vec3<U>& other) const {
-  return x < other.x || (x == other.x &&
-        (y < other.y || (y == other.y && z < other.z)));
+template <class T, class U>
+inline bool operator<(const Vec3<T>& lhs, const Vec3<U>& rhs) {
+  return lhs.x < rhs.x || (lhs.x == rhs.x &&
+        (lhs.y < rhs.y || (lhs.y == rhs.y && lhs.z < rhs.z)));
 }
 
-template <class T>
-template <class U>
-inline bool Vec<T, 3>::operator>(const Vec3<U>& other) const {
-  return x > other.x || (x == other.x &&
-        (y > other.y || (y == other.y && z > other.z)));
+template <class T, class U>
+inline bool operator>(const Vec3<T>& lhs, const Vec3<U>& rhs) {
+  return lhs.x > rhs.x || (lhs.x == rhs.x &&
+        (lhs.y > rhs.y || (lhs.y == rhs.y && lhs.z > rhs.z)));
 }
 
-template <class T>
-template <class U>
-inline bool Vec<T, 3>::operator<=(const Vec3<U>& other) const {
-  return operator<(other) || operator==(other);
+template <class T, class U>
+inline bool operator<=(const Vec3<T>& lhs, const Vec3<U>& rhs) {
+  return lhs < rhs || lhs == rhs;
 }
 
-template <class T>
-template <class U>
-inline bool Vec<T, 3>::operator>=(const Vec3<U>& other) const {
-  return operator>(other) || operator==(other);
+template <class T, class U>
+inline bool operator>=(const Vec3<T>& lhs, const Vec3<U>& rhs) {
+  return lhs > rhs || lhs == rhs;
 }
 
 template <class T>
@@ -669,40 +667,36 @@ inline Vec3<Promote<T>> Vec<T, 3>::operator-() const {
   return Vec3<V>(-static_cast<V>(x), -static_cast<V>(y), -static_cast<V>(z));
 }
 
-template <class T>
-template <class U>
-inline Vec3<Promote<T, U>> Vec<T, 3>::operator+(const Vec3<U>& other) const {
+template <class T, class U>
+inline Vec3<Promote<T, U>> operator+(const Vec3<T>& lhs, const Vec3<U>& rhs) {
   using V = Promote<T, U>;
-  return Vec3<V>(static_cast<V>(x) + other.x,
-                 static_cast<V>(y) + other.y,
-                 static_cast<V>(z) + other.z);
+  return Vec3<V>(static_cast<V>(lhs.x) + rhs.x,
+                 static_cast<V>(lhs.y) + rhs.y,
+                 static_cast<V>(lhs.z) + rhs.z);
 }
 
-template <class T>
-template <class U>
-inline Vec3<Promote<T, U>> Vec<T, 3>::operator-(const Vec3<U>& other) const {
+template <class T, class U>
+inline Vec3<Promote<T, U>> operator-(const Vec3<T>& lhs, const Vec3<U>& rhs) {
   using V = Promote<T, U>;
-  return Vec3<V>(static_cast<V>(x) - other.x,
-                 static_cast<V>(y) - other.y,
-                 static_cast<V>(z) - other.z);
+  return Vec3<V>(static_cast<V>(lhs.x) - rhs.x,
+                 static_cast<V>(lhs.y) - rhs.y,
+                 static_cast<V>(lhs.z) - rhs.z);
 }
 
-template <class T>
-template <class U>
-inline Vec3<Promote<T, U>> Vec<T, 3>::operator*(const Vec3<U>& other) const {
+template <class T, class U>
+inline Vec3<Promote<T, U>> operator*(const Vec3<T>& lhs, const Vec3<U>& rhs) {
   using V = Promote<T, U>;
-  return Vec3<V>(static_cast<V>(x) * other.x,
-                 static_cast<V>(y) * other.y,
-                 static_cast<V>(z) * other.z);
+  return Vec3<V>(static_cast<V>(lhs.x) * rhs.x,
+                 static_cast<V>(lhs.y) * rhs.y,
+                 static_cast<V>(lhs.z) * rhs.z);
 }
 
-template <class T>
-template <class U>
-inline Vec3<Promote<T, U>> Vec<T, 3>::operator/(const Vec3<U>& other) const {
+template <class T, class U>
+inline Vec3<Promote<T, U>> operator/(const Vec3<T>& lhs, const Vec3<U>& rhs) {
   using V = Promote<T, U>;
-  return Vec3<V>(static_cast<V>(x) / other.x,
-                 static_cast<V>(y) / other.y,
-                 static_cast<V>(z) / other.z);
+  return Vec3<V>(static_cast<Promote<T, U>>(lhs.x) / rhs.x,
+                 static_cast<Promote<T, U>>(lhs.y) / rhs.y,
+                 static_cast<Promote<T, U>>(lhs.z) / rhs.z);
 }
 
 #pragma mark Scalar arithmetic
@@ -739,40 +733,36 @@ inline Vec3<T>& Vec<T, 3>::operator/=(T scalar) {
   return *this;
 }
 
-template <class T>
-template <class U, EnableIfScalar<U> *>
-inline Vec3<Promote<T, U>> Vec<T, 3>::operator+(U scalar) const {
+template <class T, class U, EnableIfScalar<U> *>
+inline Vec3<Promote<T, U>> operator+(const Vec3<T>& lhs, U rhs) {
   using V = Promote<T, U>;
-  return Vec3<V>(static_cast<V>(x) + scalar,
-                 static_cast<V>(y) + scalar,
-                 static_cast<V>(z) + scalar);
+  return Vec3<V>(static_cast<V>(lhs.x) + rhs,
+                 static_cast<V>(lhs.y) + rhs,
+                 static_cast<V>(lhs.z) + rhs);
 }
 
-template <class T>
-template <class U, EnableIfScalar<U> *>
-inline Vec3<Promote<T, U>> Vec<T, 3>::operator-(U scalar) const {
+template <class T, class U, EnableIfScalar<U> *>
+inline Vec3<Promote<T, U>> operator-(const Vec3<T>& lhs, U rhs) {
   using V = Promote<T, U>;
-  return Vec3<V>(static_cast<V>(x) - scalar,
-                 static_cast<V>(y) - scalar,
-                 static_cast<V>(z) - scalar);
+  return Vec3<V>(static_cast<V>(lhs.x) - rhs,
+                 static_cast<V>(lhs.y) - rhs,
+                 static_cast<V>(lhs.z) - rhs);
 }
 
-template <class T>
-template <class U, EnableIfScalar<U> *>
-inline Vec3<Promote<T, U>> Vec<T, 3>::operator*(U scalar) const {
+template <class T, class U, EnableIfScalar<U> *>
+inline Vec3<Promote<T, U>> operator*(const Vec3<T>& lhs, U rhs) {
   using V = Promote<T, U>;
-  return Vec3<V>(static_cast<V>(x) * scalar,
-                 static_cast<V>(y) * scalar,
-                 static_cast<V>(z) * scalar);
+  return Vec3<V>(static_cast<V>(lhs.x) * rhs,
+                 static_cast<V>(lhs.y) * rhs,
+                 static_cast<V>(lhs.z) * rhs);
 }
 
-template <class T>
-template <class U, EnableIfScalar<U> *>
-inline Vec3<Promote<T, U>> Vec<T, 3>::operator/(U scalar) const {
+template <class T, class U, EnableIfScalar<U> *>
+inline Vec3<Promote<T, U>> operator/(const Vec3<T>& lhs, U rhs) {
   using V = Promote<T, U>;
-  return Vec3<V>(static_cast<V>(x) / scalar,
-                 static_cast<V>(y) / scalar,
-                 static_cast<V>(z) / scalar);
+  return Vec3<V>(static_cast<V>(lhs.x) / rhs,
+                 static_cast<V>(lhs.y) / rhs,
+                 static_cast<V>(lhs.z) / rhs);
 }
 
 template <class T, class U, EnableIfScalar<T> *>

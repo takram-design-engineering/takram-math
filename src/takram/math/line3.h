@@ -96,10 +96,6 @@ class Line<T, 3> final {
   const Vec3<T>& back() const { return b; }
 
   // Comparison
-  template <class U>
-  bool operator==(const Line3<U>& other) const;
-  template <class U>
-  bool operator!=(const Line3<U>& other) const;
   template <class V, class U = T>
   bool equals(const Line3<U>& other, V tolerance) const;
 
@@ -141,6 +137,12 @@ class Line<T, 3> final {
     struct { T x2; T y2; T z2; };
   };
 };
+
+// Comparison
+template <class T, class U>
+bool operator==(const Line3<T>& lhs, const Line3<U>& rhs);
+template <class T, class U>
+bool operator!=(const Line3<T>& lhs, const Line3<U>& rhs);
 
 using Line3i = Line3<int>;
 using Line3f = Line3<float>;
@@ -254,16 +256,14 @@ inline const Vec3<T>& Line<T, 3>::at(int index) const {
 
 #pragma mark Comparison
 
-template <class T>
-template <class U>
-inline bool Line<T, 3>::operator==(const Line3<U>& other) const {
-  return a == other.a && b == other.b;
+template <class T, class U>
+inline bool operator==(const Line3<T>& lhs, const Line3<U>& rhs) {
+  return lhs.a == rhs.a && lhs.b == rhs.b;
 }
 
-template <class T>
-template <class U>
-inline bool Line<T, 3>::operator!=(const Line3<U>& other) const {
-  return !operator==(other);
+template <class T, class U>
+inline bool operator!=(const Line3<T>& lhs, const Line3<U>& rhs) {
+  return !(lhs == rhs);
 }
 
 template <class T>

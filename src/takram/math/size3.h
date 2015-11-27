@@ -142,18 +142,6 @@ class Size<T, 3> final {
   const T& back() const { return vector.back(); }
 
   // Comparison
-  template <class U>
-  bool operator==(const Size3<U>& other) const;
-  template <class U>
-  bool operator!=(const Size3<U>& other) const;
-  template <class U>
-  bool operator<(const Size3<U>& other) const;
-  template <class U>
-  bool operator>(const Size3<U>& other) const;
-  template <class U>
-  bool operator<=(const Size3<U>& other) const;
-  template <class U>
-  bool operator>=(const Size3<U>& other) const;
   template <class V, class U = T>
   bool equals(const Size3<U>& other, V tolerance) const;
 
@@ -163,42 +151,18 @@ class Size<T, 3> final {
   Size& operator*=(const Size& other);
   Size& operator/=(const Size& other);
   Size3<Promote<T>> operator-() const;
-  template <class U>
-  Size3<Promote<T, U>> operator+(const Size3<U>& other) const;
-  template <class U>
-  Size3<Promote<T, U>> operator-(const Size3<U>& other) const;
-  template <class U>
-  Size3<Promote<T, U>> operator*(const Size3<U>& other) const;
-  template <class U>
-  Size3<Promote<T, U>> operator/(const Size3<U>& other) const;
 
   // Scalar arithmetic
   Size& operator+=(T scalar);
   Size& operator-=(T scalar);
   Size& operator*=(T scalar);
   Size& operator/=(T scalar);
-  template <class U, EnableIfScalar<U> * = nullptr>
-  Size3<Promote<T, U>> operator+(U scalar) const;
-  template <class U, EnableIfScalar<U> * = nullptr>
-  Size3<Promote<T, U>> operator-(U scalar) const;
-  template <class U, EnableIfScalar<U> * = nullptr>
-  Size3<Promote<T, U>> operator*(U scalar) const;
-  template <class U, EnableIfScalar<U> * = nullptr>
-  Size3<Promote<T, U>> operator/(U scalar) const;
 
   // Vector arithmetic
   Size& operator+=(const Vec3<T>& vector);
   Size& operator-=(const Vec3<T>& vector);
   Size& operator*=(const Vec3<T>& vector);
   Size& operator/=(const Vec3<T>& vector);
-  template <class U>
-  Size3<Promote<T, U>> operator+(const Vec3<U>& vector) const;
-  template <class U>
-  Size3<Promote<T, U>> operator-(const Vec3<U>& vector) const;
-  template <class U>
-  Size3<Promote<T, U>> operator*(const Vec3<U>& vector) const;
-  template <class U>
-  Size3<Promote<T, U>> operator/(const Vec3<U>& vector) const;
 
   // Attributes
   bool empty() const { return !width && !height; }
@@ -236,7 +200,39 @@ class Size<T, 3> final {
   };
 };
 
+// Comparison
+template <class T, class U>
+bool operator==(const Size3<T>& lhs, const Size3<U>& rhs);
+template <class T, class U>
+bool operator!=(const Size3<T>& lhs, const Size3<U>& rhs);
+template <class T, class U>
+bool operator<(const Size3<T>& lhs, const Size3<U>& rhs);
+template <class T, class U>
+bool operator>(const Size3<T>& lhs, const Size3<U>& rhs);
+template <class T, class U>
+bool operator<=(const Size3<T>& lhs, const Size3<U>& rhs);
+template <class T, class U>
+bool operator>=(const Size3<T>& lhs, const Size3<U>& rhs);
+
+// Arithmetic
+template <class T, class U>
+Size3<Promote<T, U>> operator+(const Size3<T>& lhs, const Size3<U>& rhs);
+template <class T, class U>
+Size3<Promote<T, U>> operator-(const Size3<T>& lhs, const Size3<U>& rhs);
+template <class T, class U>
+Size3<Promote<T, U>> operator*(const Size3<T>& lhs, const Size3<U>& rhs);
+template <class T, class U>
+Size3<Promote<T, U>> operator/(const Size3<T>& lhs, const Size3<U>& rhs);
+
 // Scalar arithmetic
+template <class T, class U, EnableIfScalar<U> * = nullptr>
+Size3<Promote<T, U>> operator+(const Size3<T>& lhs, U rhs);
+template <class T, class U, EnableIfScalar<U> * = nullptr>
+Size3<Promote<T, U>> operator-(const Size3<T>& lhs, U rhs);
+template <class T, class U, EnableIfScalar<U> * = nullptr>
+Size3<Promote<T, U>> operator*(const Size3<T>& lhs, U rhs);
+template <class T, class U, EnableIfScalar<U> * = nullptr>
+Size3<Promote<T, U>> operator/(const Size3<T>& lhs, U rhs);
 template <class T, class U, EnableIfScalar<T> * = nullptr>
 Size3<Promote<T, U>> operator+(T lhs, const Size3<U>& rhs);
 template <class T, class U, EnableIfScalar<T> * = nullptr>
@@ -247,6 +243,14 @@ template <class T, class U, EnableIfScalar<T> * = nullptr>
 Size3<Promote<T, U>> operator/(T lhs, const Size3<U>& rhs);
 
 // Vector arithmetic
+template <class T, class U>
+Size3<Promote<T, U>> operator+(const Size3<T>& lhs, const Vec3<U>& rhs);
+template <class T, class U>
+Size3<Promote<T, U>> operator-(const Size3<T>& lhs, const Vec3<U>& rhs);
+template <class T, class U>
+Size3<Promote<T, U>> operator*(const Size3<T>& lhs, const Vec3<U>& rhs);
+template <class T, class U>
+Size3<Promote<T, U>> operator/(const Size3<T>& lhs, const Vec3<U>& rhs);
 template <class T, class U>
 Vec3<Promote<T, U>> operator+(const Vec3<T>& lhs, const Size3<U>& rhs);
 template <class T, class U>
@@ -430,40 +434,34 @@ inline const T& Size<T, 3>::at(Axis axis) const {
 
 #pragma mark Comparison
 
-template <class T>
-template <class U>
-inline bool Size<T, 3>::operator==(const Size3<U>& other) const {
-  return vector == other.vector;
+template <class T, class U>
+inline bool operator==(const Size3<T>& lhs, const Size3<U>& rhs) {
+  return lhs.vector == rhs.vector;
 }
 
-template <class T>
-template <class U>
-inline bool Size<T, 3>::operator!=(const Size3<U>& other) const {
-  return vector != other.vector;
+template <class T, class U>
+inline bool operator!=(const Size3<T>& lhs, const Size3<U>& rhs) {
+  return lhs.vector != rhs.vector;
 }
 
-template <class T>
-template <class U>
-inline bool Size<T, 3>::operator<(const Size3<U>& other) const {
-  return vector < other.vector;
+template <class T, class U>
+inline bool operator<(const Size3<T>& lhs, const Size3<U>& rhs) {
+  return lhs.vector < rhs.vector;
 }
 
-template <class T>
-template <class U>
-inline bool Size<T, 3>::operator>(const Size3<U>& other) const {
-  return vector > other.vector;
+template <class T, class U>
+inline bool operator>(const Size3<T>& lhs, const Size3<U>& rhs) {
+  return lhs.vector > rhs.vector;
 }
 
-template <class T>
-template <class U>
-inline bool Size<T, 3>::operator<=(const Size3<U>& other) const {
-  return vector <= other.vector;
+template <class T, class U>
+inline bool operator<=(const Size3<T>& lhs, const Size3<U>& rhs) {
+  return lhs.vector <= rhs.vector;
 }
 
-template <class T>
-template <class U>
-inline bool Size<T, 3>::operator>=(const Size3<U>& other) const {
-  return vector >= other.vector;
+template <class T, class U>
+inline bool operator>=(const Size3<T>& lhs, const Size3<U>& rhs) {
+  return lhs.vector >= rhs.vector;
 }
 
 template <class T>
@@ -503,28 +501,28 @@ inline Size3<Promote<T>> Size<T, 3>::operator-() const {
   return Size3<Promote<T>>(-vector);
 }
 
-template <class T>
-template <class U>
-inline Size3<Promote<T, U>> Size<T, 3>::operator+(const Size3<U>& other) const {
-  return Size3<Promote<T, U>>(vector + other.vector);
+template <class T, class U>
+inline Size3<Promote<T, U>> operator+(const Size3<T>& lhs,
+                                      const Size3<U>& rhs) {
+  return Size3<Promote<T, U>>(lhs.vector + rhs.vector);
 }
 
-template <class T>
-template <class U>
-inline Size3<Promote<T, U>> Size<T, 3>::operator-(const Size3<U>& other) const {
-  return Size3<Promote<T, U>>(vector - other.vector);
+template <class T, class U>
+inline Size3<Promote<T, U>> operator-(const Size3<T>& lhs,
+                                      const Size3<U>& rhs) {
+  return Size3<Promote<T, U>>(lhs.vector - rhs.vector);
 }
 
-template <class T>
-template <class U>
-inline Size3<Promote<T, U>> Size<T, 3>::operator*(const Size3<U>& other) const {
-  return Size3<Promote<T, U>>(vector * other.vector);
+template <class T, class U>
+inline Size3<Promote<T, U>> operator*(const Size3<T>& lhs,
+                                      const Size3<U>& rhs) {
+  return Size3<Promote<T, U>>(lhs.vector * rhs.vector);
 }
 
-template <class T>
-template <class U>
-inline Size3<Promote<T, U>> Size<T, 3>::operator/(const Size3<U>& other) const {
-  return Size3<Promote<T, U>>(vector / other.vector);
+template <class T, class U>
+inline Size3<Promote<T, U>> operator/(const Size3<T>& lhs,
+                                      const Size3<U>& rhs) {
+  return Size3<Promote<T, U>>(lhs.vector / rhs.vector);
 }
 
 #pragma mark Scalar arithmetic
@@ -553,28 +551,24 @@ inline Size3<T>& Size<T, 3>::operator/=(T scalar) {
   return *this;
 }
 
-template <class T>
-template <class U, EnableIfScalar<U> *>
-inline Size3<Promote<T, U>> Size<T, 3>::operator+(U scalar) const {
-  return Size3<Promote<T, U>>(vector + scalar);
+template <class T, class U, EnableIfScalar<U> *>
+inline Size3<Promote<T, U>> operator+(const Size3<T>& lhs, U rhs) {
+  return Size3<Promote<T, U>>(lhs.vector + rhs);
 }
 
-template <class T>
-template <class U, EnableIfScalar<U> *>
-inline Size3<Promote<T, U>> Size<T, 3>::operator-(U scalar) const {
-  return Size3<Promote<T, U>>(vector - scalar);
+template <class T, class U, EnableIfScalar<U> *>
+inline Size3<Promote<T, U>> operator-(const Size3<T>& lhs, U rhs) {
+  return Size3<Promote<T, U>>(lhs.vector - rhs);
 }
 
-template <class T>
-template <class U, EnableIfScalar<U> *>
-inline Size3<Promote<T, U>> Size<T, 3>::operator*(U scalar) const {
-  return Size3<Promote<T, U>>(vector * scalar);
+template <class T, class U, EnableIfScalar<U> *>
+inline Size3<Promote<T, U>> operator*(const Size3<T>& lhs, U rhs) {
+  return Size3<Promote<T, U>>(lhs.vector * rhs);
 }
 
-template <class T>
-template <class U, EnableIfScalar<U> *>
-inline Size3<Promote<T, U>> Size<T, 3>::operator/(U scalar) const {
-  return Size3<Promote<T, U>>(vector / scalar);
+template <class T, class U, EnableIfScalar<U> *>
+inline Size3<Promote<T, U>> operator/(const Size3<T>& lhs, U rhs) {
+  return Size3<Promote<T, U>>(lhs.vector / rhs);
 }
 
 template <class T, class U, EnableIfScalar<T> *>
@@ -623,28 +617,24 @@ inline Size3<T>& Size<T, 3>::operator/=(const Vec3<T>& other) {
   return *this;
 }
 
-template <class T>
-template <class U>
-inline Size3<Promote<T, U>> Size<T, 3>::operator+(const Vec3<U>& other) const {
-  return Size3<Promote<T, U>>(vector + other);
+template <class T, class U>
+inline Size3<Promote<T, U>> operator+(const Size3<T>& lhs, const Vec3<U>& rhs) {
+  return Size3<Promote<T, U>>(lhs.vector + rhs);
 }
 
-template <class T>
-template <class U>
-inline Size3<Promote<T, U>> Size<T, 3>::operator-(const Vec3<U>& other) const {
-  return Size3<Promote<T, U>>(vector - other);
+template <class T, class U>
+inline Size3<Promote<T, U>> operator-(const Size3<T>& lhs, const Vec3<U>& rhs) {
+  return Size3<Promote<T, U>>(lhs.vector - rhs);
 }
 
-template <class T>
-template <class U>
-inline Size3<Promote<T, U>> Size<T, 3>::operator*(const Vec3<U>& other) const {
-  return Size3<Promote<T, U>>(vector * other);
+template <class T, class U>
+inline Size3<Promote<T, U>> operator*(const Size3<T>& lhs, const Vec3<U>& rhs) {
+  return Size3<Promote<T, U>>(lhs.vector * rhs);
 }
 
-template <class T>
-template <class U>
-inline Size3<Promote<T, U>> Size<T, 3>::operator/(const Vec3<U>& other) const {
-  return Size3<Promote<T, U>>(vector / other);
+template <class T, class U>
+inline Size3<Promote<T, U>> operator/(const Size3<T>& lhs, const Vec3<U>& rhs) {
+  return Size3<Promote<T, U>>(lhs.vector / rhs);
 }
 
 template <class T, class U>

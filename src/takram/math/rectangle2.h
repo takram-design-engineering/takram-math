@@ -123,18 +123,6 @@ class Rect<T, 2> final {
   void reset();
 
   // Comparison
-  template <class U>
-  bool operator==(const Rect2<U>& other) const;
-  template <class U>
-  bool operator!=(const Rect2<U>& other) const;
-  template <class U>
-  bool operator<(const Rect2<U>& other) const;
-  template <class U>
-  bool operator>(const Rect2<U>& other) const;
-  template <class U>
-  bool operator<=(const Rect2<U>& other) const;
-  template <class U>
-  bool operator>=(const Rect2<U>& other) const;
   template <class V, class U = T>
   bool equals(const Rect2<U>& other, V tolerance) const;
 
@@ -231,6 +219,20 @@ class Rect<T, 2> final {
     struct { T w; T h; };
   };
 };
+
+// Comparison
+template <class T, class U>
+bool operator==(const Rect2<T>& lhs, const Rect2<U>& rhs);
+template <class T, class U>
+bool operator!=(const Rect2<T>& lhs, const Rect2<U>& rhs);
+template <class T, class U>
+bool operator<(const Rect2<T>& lhs, const Rect2<U>& rhs);
+template <class T, class U>
+bool operator>(const Rect2<T>& lhs, const Rect2<U>& rhs);
+template <class T, class U>
+bool operator<=(const Rect2<T>& lhs, const Rect2<U>& rhs);
+template <class T, class U>
+bool operator>=(const Rect2<T>& lhs, const Rect2<U>& rhs);
 
 using Rect2i = Rect2<int>;
 using Rect2f = Rect2<float>;
@@ -395,40 +397,36 @@ inline void Rect<T, 2>::reset() {
 
 #pragma mark Comparison
 
-template <class T>
-template <class U>
-inline bool Rect<T, 2>::operator==(const Rect2<U>& other) const {
-  return origin == other.origin && size == other.size;
+template <class T, class U>
+inline bool operator==(const Rect2<T>& lhs, const Rect2<U>& rhs) {
+  return lhs.origin == rhs.origin && lhs.size == rhs.size;
 }
 
-template <class T>
-template <class U>
-inline bool Rect<T, 2>::operator!=(const Rect2<U>& other) const {
-  return !operator==(other);
+template <class T, class U>
+inline bool operator!=(const Rect2<T>& lhs, const Rect2<U>& rhs) {
+  return !(lhs == rhs);
 }
 
-template <class T>
-template <class U>
-inline bool Rect<T, 2>::operator<(const Rect2<U>& other) const {
-  return origin < other.origin || (origin == other.origin && size < other.size);
+template <class T, class U>
+inline bool operator<(const Rect2<T>& lhs, const Rect2<U>& rhs) {
+  return lhs.origin < rhs.origin ||
+        (lhs.origin == rhs.origin && lhs.size < rhs.size);
 }
 
-template <class T>
-template <class U>
-inline bool Rect<T, 2>::operator>(const Rect2<U>& other) const {
-  return origin > other.origin || (origin == other.origin && size > other.size);
+template <class T, class U>
+inline bool operator>(const Rect2<T>& lhs, const Rect2<U>& rhs) {
+  return lhs.origin > rhs.origin ||
+        (lhs.origin == rhs.origin && lhs.size > rhs.size);
 }
 
-template <class T>
-template <class U>
-inline bool Rect<T, 2>::operator<=(const Rect2<U>& other) const {
-  return operator<(other) || operator==(other);
+template <class T, class U>
+inline bool operator<=(const Rect2<T>& lhs, const Rect2<U>& rhs) {
+  return lhs < rhs || lhs == rhs;
 }
 
-template <class T>
-template <class U>
-inline bool Rect<T, 2>::operator>=(const Rect2<U>& other) const {
-  return operator>(other) || operator==(other);
+template <class T, class U>
+inline bool operator>=(const Rect2<T>& lhs, const Rect2<U>& rhs) {
+  return lhs > rhs || lhs == rhs;
 }
 
 template <class T>
