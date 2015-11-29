@@ -446,12 +446,12 @@ inline bool operator!=(const Size3<T>& lhs, const Size3<U>& rhs) {
 
 template <class T, class U>
 inline bool operator<(const Size3<T>& lhs, const Size3<U>& rhs) {
-  return lhs.vector < rhs.vector;
+  return operator<(lhs.vector, rhs.vector);
 }
 
 template <class T, class U>
 inline bool operator>(const Size3<T>& lhs, const Size3<U>& rhs) {
-  return lhs.vector > rhs.vector;
+  return operator>(lhs.vector, rhs.vector);
 }
 
 template <class T, class U>
