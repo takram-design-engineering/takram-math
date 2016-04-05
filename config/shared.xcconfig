@@ -24,6 +24,10 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
+// Boost
+BOOST_DIR = /usr/local
+BOOST_HEADER_SEARCH_PATHS = "$(BOOST_DIR)/include"
+
 // OpenCV
 OPENCV_DIR = /usr/local
 OPENCV_HEADER_SEARCH_PATHS = "$(OPENCV_DIR)/include"
