@@ -116,8 +116,8 @@ class Triangle<T, 2> final {
   ConstReverseIterator rend() const { return ConstReverseIterator(end()); }
 
   // Pointer
-  Vec2<T> * ptr() { return &a; }
-  const Vec2<T> * ptr() const { return &a; }
+  Vec2<T> * pointer() { return &a; }
+  const Vec2<T> * pointer() const { return &a; }
 
  public:
   union {

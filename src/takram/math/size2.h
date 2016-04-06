@@ -206,8 +206,8 @@ class Size<T, 2> final {
   ConstReverseIterator rend() const { return std::rend(vector); }
 
   // Pointer
-  T * ptr() { return vector.ptr(); }
-  const T * ptr() const { return vector.ptr(); }
+  T * pointer() { return vector.pointer(); }
+  const T * pointer() const { return vector.pointer(); }
 
  public:
   union {

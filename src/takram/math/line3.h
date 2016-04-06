@@ -124,8 +124,8 @@ class Line<T, 3> final {
   ConstReverseIterator rend() const { return ConstReverseIterator(end()); }
 
   // Pointer
-  Vec3<T> * ptr() { return &a; }
-  const Vec3<T> * ptr() const { return &a; }
+  Vec3<T> * pointer() { return &a; }
+  const Vec3<T> * pointer() const { return &a; }
 
  public:
   union {

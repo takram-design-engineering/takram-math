@@ -251,8 +251,8 @@ class Vec<T, 3> final {
   ConstReverseIterator rend() const { return ConstReverseIterator(end()); }
 
   // Pointer
-  T * ptr() { return &x; }
-  const T * ptr() const { return &x; }
+  T * pointer() { return &x; }
+  const T * pointer() const { return &x; }
 
  public:
   T x;
