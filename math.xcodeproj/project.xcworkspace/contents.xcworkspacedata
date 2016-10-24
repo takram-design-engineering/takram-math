@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:/Users/sgss/Github/math/math.xcodeproj">
+      location = "self:math.xcodeproj">
    </FileRef>
 </Workspace>
